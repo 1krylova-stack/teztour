@@ -1,0 +1,132 @@
+.flexslider {
+	position: relative;
+	max-width: 980px;
+	/*height: 300px;*/
+	overflow: hidden;
+	margin: 20px auto 0 auto;
+	z-index: 0;
+}
+.flexslider .flex-viewport {
+	
+}
+.flexslider ul.slides {
+	width: 1200%;
+	height: 300px;
+	overflow: hidden;
+}
+.flexslider ul.slides li {
+	position: relative;
+	float: left;
+	display: block;
+	width: 980px;
+	height: 300px;
+}
+.flexslider ul.slides li a {
+	
+}
+.flexslider ul.slides li label {
+	position: absolute;
+	left: 0px;
+	bottom: 50px;
+	display: block;
+	width: 500px;
+	line-height: 30px;
+	padding: 20px 30px;
+	color: #FFBC00;
+	text-align: left;
+	font-size: 20px;
+	text-transform: uppercase;
+	background: url(../images/overlay.png);
+	/*opacity: 0.8;*/
+}
+.flexslider ul.slides li label span {
+	display: block;
+	margin-left: 100px;
+	color: #fff;
+	font-size: 18px;
+}
+.flexslider ul.slides li a img {
+	border: 0;
+	width: 980px;
+	min-height: 300px;
+}
+
+.flexslider ul.flex-direction-nav {
+	list-style: none;
+	width: 100%;
+	margin: 0 auto;
+	padding: 0;
+}
+.flexslider ul.flex-direction-nav li {
+
+}
+.flexslider ul.flex-direction-nav li a {
+	position: absolute;
+	top: 50%;
+	display: block;
+	width: 27px;
+	height: 85px;
+	margin-top: -42px;
+	text-indent: -5000px;
+	opacity: 0;
+}
+.flexslider:hover ul.flex-direction-nav li a {
+	opacity: 1;
+}
+.flexslider ul.flex-direction-nav li a.flex-prev {
+	left: 5%;
+	background: url(../images/flex-prev.png) no-repeat left center;
+}
+.flexslider ul.flex-direction-nav li a.flex-next {
+	right: 5%;
+	background: url(../images/flex-next.png) no-repeat right center;
+}
+
+
+.tooroperators {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 45px;
+	overflow: hidden;
+}
+.tooroperators ul.slides {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 500%;
+	height: 45px;
+	overflow: hidden;
+}
+.tooroperators ul.slides li {
+	float: left;
+	width: 100px;
+    height: 45px;
+	margin: 0 10px 0 0;
+}
+.tooroperators ul.slides li a {
+	display: block;
+	width: 100px;
+	height: 45px;
+	margin: 0;
+	padding: 0;
+}
+.tooroperators ul.slides li a img {
+	width: 100px;
+	height: 45px;
+	border: none;
+}
+.tooroperators ul.flex-direction-nav {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.tooroperators ul.flex-direction-nav li {
+	
+}
+.tooroperators ul.flex-direction-nav li a {
+	
+}
+.tooroperators ul.flex-direction-nav li a {
+	
+}

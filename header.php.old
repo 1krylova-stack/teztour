@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+<meta charset="<?php bloginfo( 'charset' ); ?>" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><?php
+	/*
+	 * Print the <title> tag based on what is being viewed.
+	 */
+	global $page, $paged;
+
+	wp_title( '|', true, 'right' );
+
+	// Add the blog name.
+	bloginfo( 'name' );
+
+	// Add the blog description for the home/front page.
+	$site_description = get_bloginfo( 'description', 'display' );
+	if ( $site_description && ( is_home() || is_front_page() ) )
+		echo " | $site_description";
+
+	// Add a page number if necessary:
+	if ( $paged >= 2 || $page >= 2 )
+		echo ' | ' . sprintf( __( 'Page %s', 'twentyten' ), max( $paged, $page ) );
+
+	?></title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
+<link href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+<?php wp_head(); ?>
+
+<!-- Vkontacte -->
+<script async type="text/javascript" src="//vk.com/js/api/openapi.js?115"></script>
+<!-- // Vkontacte -->
+
+<!-- lightbox --> 
+<script type='text/javascript' src='<?php bloginfo('stylesheet_directory'); ?>/js/lightbox.js'></script>
+<link rel='stylesheet' href='<?php bloginfo('stylesheet_directory'); ?>/css/lightbox.css' type='text/css' media='screen' />
+<!-- // lightbox --> 
+
+
+<!-- FlexSlider -->
+<link rel='stylesheet' href='<?php bloginfo('stylesheet_directory'); ?>/css/flexslider.css' type='text/css' media='screen' />
+<script src='<?php bloginfo('stylesheet_directory'); ?>/js/flexslider.js'></script>
+<!-- // FlexSlider -->
+
+<!--[if lt IE 8]>
+	<div style=' clear: both; text-align:center; position: relative;'>
+		<a href='http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode'><img src='http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg' border='0'  alt='' /></a>
+	</div>
+<![endif]-->
+<!--[if lt IE 9]>
+	<script type='text/javascript' src='<?php echo get_template_directory_uri(); ?>/js/html5.js'></script>
+	<link rel='stylesheet' href='<?php echo get_template_directory_uri(); ?>/css/ie.css' type='text/css' media='screen'>
+<![endif]-->
+
+</head>
+<body<?php echo ($_SERVER['REQUEST_URI']=="/" ? " class='home'" : ""); ?>>
+<div class="main_body">	
+	<header>
+		<div class="main">
+			
+			<div class="logo">
+				<a href="/"></a>
+			</div>
+
+			<div class="ordercall_button">
+				<a href="#" id="go">Заказать звонок</a>
+				<p>Туры в рассрочку — переплата 0%</p>
+			</div>
+
+                    <div class="head-contackt">
+                        <div class="adress">
+				Санкт-Петербург,<br /> <span>Московский пр. 216, офис 9</span>
+			</div>
+
+			<div class="phones">
+				<a href="tel:8126436564"><span>(812)</span> 64-365-64</a>
+				<label>многоканальный телефон</label>
+			</div>
+                    </div>
+			
+
+<!--			<div class="get_sidebar_header">
+				<?php // dynamic_sidebar( 'header-widget-area' ); ?>
+			</div>-->
+
+			<nav>
+				<?php wp_nav_menu( ); ?>
+                            <button class="nav-tgl menu-toggle" type="button" aria-label="toggle menu">
+                            <span aria-hidden="true"></span>
+                        </button>
+			</nav>
+</div>
+</div>
+	</header>
+<!--<script async type='text/javascript'>
+$(document).ready(function() { // вся мaгия пoсле зaгрузки стрaницы
+	$('a#go').click( function(event){ // лoвим клик пo ссылки с id="go"
+		event.preventDefault(); // выключaем стaндaртную рoль элементa
+		$('#overlay').fadeIn(400, // снaчaлa плaвнo пoкaзывaем темную пoдлoжку
+		 	function(){ // пoсле выпoлнения предъидущей aнимaции
+				$('#modal_form') 
+					.css('display', 'block') // убирaем у мoдaльнoгo oкнa display: none;
+					.animate({opacity: 1, top: '50%'}, 200); // плaвнo прибaвляем прoзрaчнoсть oднoвременнo сo съезжaнием вниз
+		});
+	});
+	/* Зaкрытие мoдaльнoгo oкнa, тут делaем тo же сaмoе нo в oбрaтнoм пoрядке */
+	$('#modal_close, #overlay').click( function(){ // лoвим клик пo крестику или пoдлoжке
+		$('#modal_form')
+			.animate({opacity: 0, top: '45%'}, 200,  // плaвнo меняем прoзрaчнoсть нa 0 и oднoвременнo двигaем oкнo вверх
+				function(){ // пoсле aнимaции
+					$(this).css('display', 'none'); // делaем ему display: none;
+					$('#overlay').fadeOut(400); // скрывaем пoдлoжку
+				}
+			);
+	});
+});
+</script>-->
+<div id="modal_form">
+      <span id="modal_close">X</span> 
+<h3>Заказать звонок</h3>
+<?php echo do_shortcode('[contact-form-7 id="604" title="Заказать звонок"]'); ?>
+     
+</div>
+<div id="overlay"></div>	
+	<?php if ($_SERVER['REQUEST_URI']=="/") { ?>
+	<div class="head_slider">
+				<script type='text/javascript'>
+					<!--
+					jQuery.noConflict();
+					jQuery(window).load(function() {
+						jQuery('.flexslider').flexslider({
+							animation: 'slide',
+							slideshowSpeed: 4000,
+							animationSpeed: 500,
+							itemWidth: 980,
+							pauseOnHover: true,
+							controlNav: false,
+							directionNav: true,
+						});
+					});
+					//-->
+				</script>
+				<div class="flexslider">
+					<ul class="slides">
+					
+						<li><a href="/goryashhie-tury/goryashhie-tury-v-thailand"><img src="/wp-content/uploads/slider/slide1.jpg" alt="" /><label>Горящие туры в Тайланд<br /><span> более 50 000 предложений<span></label></a></li>
+						<li><a href="/goryashhie-tury/goryashhie-tury-vo-vietnam"><img src="/wp-content/uploads/slider/slide2.jpg" alt="" /><label>Горящие туры во Вьетнам<br /><span> самое выгодное предложение<span></label></a></li>
+						<li><a href="/goryashhie-tury/goryashhie-tury-v-dominikanu"><img src="/wp-content/uploads/slider/slide3.jpg" alt="" /><label>Горящие туры в Доминикану<br /><span> отдыхай со вкусом<span></label></a></li>
+					</ul>
+				</div>
+	</div>
+	<?php } ?>
+
+
+	<section>
+		<div class="main">
+
+		<?php // if (!is_home()) { ?>
+<!--			<script async type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+			<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,gplus,yaru,twitter,odnoklassniki,"></div>
+                        -->
+		<?php // } ?>
