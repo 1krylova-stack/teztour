@@ -172,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
           injectAnswersToCF7();
           relaxNativeValidation();
           initPhoneMask();
+		  initDateFill();
         } else {
           label = 'Готово';
           percent = Math.round((current / Q_COUNT) * 100);
@@ -326,6 +327,26 @@ document.addEventListener("DOMContentLoaded", function () {
         maskInitialized = true;
       }
 
+		function initDateFill(){
+        const form = cf7Wrap && cf7Wrap.querySelector('form');
+        if (!form) return;
+        const dateInput = form.querySelector('input[name="quiz__date"]');
+        const isoInput = form.querySelector('input[name="quiz__date_iso"]');
+        const ruInput = form.querySelector('input[name="quiz__date_ru"]');
+        if (!dateInput || !isoInput || !ruInput) return;
+        const pad = n => String(n).padStart(2,'0');
+        const update = () => {
+          const val = dateInput.value;
+          if (!val){ isoInput.value=''; ruInput.value=''; return; }
+          const d = new Date(val);
+          if (isNaN(d.getTime())){ isoInput.value=''; ruInput.value=''; return; }
+          isoInput.value = d.toISOString().split('T')[0];
+          ruInput.value = pad(d.getDate()) + '.' + pad(d.getMonth()+1) + '.' + d.getFullYear();
+        };
+        dateInput.addEventListener('change', update);
+        update();
+      }
+		
       document.addEventListener('wpcf7mailsent', function (event) {
         const form = cf7Wrap ? cf7Wrap.querySelector('form') : null;
         if(form && event.target === form){
