@@ -76,17 +76,17 @@ $mp_items = [
       <div class="mp-order">
         <div class="mp-order-form">
           <div class="mp-modal-header">
-            <h3>Проверить наличие тура</h3>
-            <div class="mp-modal-sub" id="mpSelectedDateInfo" style="display:none"></div>
-          </div>
+              <h3>Проверить наличие тура</h3>
+              <div class="mp-modal-sub" id="mpSelectedDateInfo" aria-live="polite" style="display:none"></div>
+            </div>
           <?php echo do_shortcode('[contact-form-7 id="c157561" title="Проверить наличие тура"]'); ?>
         </div>
-        <aside class="mp-order-aside">
-          <figure class="mp-order-img">
-            <img src="https://tours.turotdel.com/wp-content/webp-express/webp-images/uploads/2024/09/hjbqrmhiq1o-2-300x300.jpg.webp" alt="">
-          </figure>
-          <div class="mp-order-bubble">Мы проверим актуальные цены на выбранную дату и предложим аналоги, если тур уже раскупили.</div>
-          <div class="mp-order-note">
+       <aside class="mp-order-aside">
+            <figure class="mp-order-img">
+              <img src="https://tours.turotdel.com/wp-content/webp-express/webp-images/uploads/2024/09/hjbqrmhiq1o-2-300x300.jpg.webp" alt="Девушка из поддержки">
+            </figure>
+            <div class="mp-order-bubble">Мы проверим актуальные цены на выбранную дату и предложим аналоги, если тур уже раскупили.</div>
+            <div class="mp-order-note">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
               <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
@@ -336,8 +336,23 @@ $mp_items = [
       if (root && iso) {
         const names = ['date','Дата','Дата вылета','flight_date','selected_date','mp_date'];
         let input = null; names.some(n => (input = root.querySelector(`[name="${n}"]`)));
-        if (!input) { input=document.createElement('input'); input.type='hidden'; input.name='selected_date'; root.appendChild(input); }
+        if (!input) {
+          input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'selected_date';
+          root.appendChild(input);
+        }
         input.value = iso;
+		if (selectedText) {
+          let labelInput = root.querySelector('[name="selected_date_label"]');
+          if (!labelInput) {
+            labelInput = document.createElement('input');
+            labelInput.type = 'hidden';
+            labelInput.name = 'selected_date_label';
+            root.appendChild(labelInput);
+          }
+          labelInput.value = selectedText;
+        }
       }
     }catch(e){}
   }
