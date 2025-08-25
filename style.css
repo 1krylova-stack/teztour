@@ -3117,3 +3117,8 @@ html.is-locked, body.is-locked {
 .tezquiz-modal .quiz-final__input input[type="text"],
 .tezquiz-modal .wpcf7-form-control{ width:100%; max-width:100%; }
 
+.quiz-final__cf7 form{ width:100%; }
+.quiz-final__cf7 .wpcf7-form-control-wrap{ display:block; max-width:100%; }
+.quiz-final__cf7 .quiz-final__input input[type="tel"],
+.quiz-final__cf7 .quiz-final__input input[type="text"],
+.quiz-final__cf7 .wpcf7-form-control{ width:100%; max-width:100%; }
