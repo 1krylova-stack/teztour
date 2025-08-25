@@ -5,16 +5,20 @@
 if (!defined('ABSPATH')) { exit; }
 
 $mp_items = [
-  ['title'=>'Турция','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'34 362 ₽','image'=>''],
-  ['title'=>'Сиде','subtitle'=>'Турция из Санкт-Петербурга','nights'=>'6 ночей','price'=>'37 585 ₽','image'=>''],
-  ['title'=>'Хургада','subtitle'=>'Египет из Санкт-Петербурга','nights'=>'10 ночей','price'=>'59 600 ₽','image'=>''],
-  ['title'=>'ОАЭ','subtitle'=>'из Санкт-Петербурга','nights'=>'7 ночей','price'=>'52 497 ₽','image'=>''],
+  ['title'=>'Турция','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 34 362 ₽','image'=>''],
+  ['title'=>'Египет','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 37 585 ₽','image'=>''],
+  ['title'=>'Тайланд','subtitle'=>'из Санкт-Петербурга','nights'=>'10 ночей','price'=>'от 59 600 ₽','image'=>''],
+  ['title'=>'ОАЭ','subtitle'=>'из Санкт-Петербурга','nights'=>'7 ночей','price'=>'от 52 497 ₽','image'=>''],
+  ['title'=>'Турция','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 34 362 ₽','image'=>''],
+  ['title'=>'Египет','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 37 585 ₽','image'=>''],
+  ['title'=>'Тайланд','subtitle'=>'из Санкт-Петербурга','nights'=>'10 ночей','price'=>'от 59 600 ₽','image'=>''],
+  ['title'=>'ОАЭ','subtitle'=>'из Санкт-Петербурга','nights'=>'7 ночей','price'=>'от 52 497 ₽','image'=>''],
 ];
 ?>
 
 <section class="mp-minprices" aria-label="Минимальные цены">
   <div class="mp-container">
-    <h2 class="mp-title">Минимальные цены</h2>
+    <h2 class="mp-title">Горячие предложения и минимальные цены на 2025 год</h2>
 
     <div class="mp-grid">
       <?php foreach ($mp_items as $i => $it): ?>
@@ -57,7 +61,7 @@ $mp_items = [
           <div class="mp-hover" role="menu" aria-label="Выбор даты вылета">
             <div class="mp-hover-title">Выберите дату вылета</div>
             <ul class="mp-hover-list" data-nights="<?php echo esc_attr($it['nights']); ?>"></ul>
-            <div class="mp-hover-note">Нажмите на дату, чтобы оформить заявку</div>
+            <div class="mp-hover-note">Нажмите, чтобы проверить наличие туров</div>
           </div>
         </article>
       <?php endforeach; ?>
@@ -69,12 +73,27 @@ $mp_items = [
     <div class="mp-modal-backdrop" data-mp-close></div>
     <div class="mp-modal-dialog" role="document">
       <button class="mp-modal-close" type="button" aria-label="Закрыть" data-mp-close>&times;</button>
-      <div class="mp-modal-header">
-        <h3>Заказать тур</h3>
-        <div class="mp-modal-sub" id="mpSelectedDateInfo" style="display:none"></div>
-      </div>
-      <div class="mp-modal-body">
-        <?php echo do_shortcode('[contact-form-7 id="336f3ef" title="Заказать тур"]'); ?>
+      <div class="mp-order">
+        <div class="mp-order-form">
+          <div class="mp-modal-header">
+            <h3>Проверить наличие тура</h3>
+            <div class="mp-modal-sub" id="mpSelectedDateInfo" style="display:none"></div>
+          </div>
+          <?php echo do_shortcode('[contact-form-7 id="c157561" title="Проверить наличие тура"]'); ?>
+        </div>
+        <aside class="mp-order-aside">
+          <figure class="mp-order-img">
+            <img src="https://tours.turotdel.com/wp-content/webp-express/webp-images/uploads/2024/09/hjbqrmhiq1o-2-300x300.jpg.webp" alt="">
+          </figure>
+          <div class="mp-order-bubble">Мы проверим актуальные цены на выбранную дату и предложим аналоги, если тур уже раскупили.</div>
+          <div class="mp-order-note">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span>Отправим подборку ТОП-5 аналогичных туров под ваш бюджет</span>
+          </div>
+        </aside>
       </div>
     </div>
   </div>
@@ -100,9 +119,7 @@ $mp_items = [
 .mp-card{
   position:relative;border-radius:var(--r);overflow:hidden;background:#fff;
   border:1px solid var(--border);box-shadow:var(--shadow);
-  transition:transform .2s ease, box-shadow .2s ease;
 }
-.mp-card:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.14)}
 
 /* медиаблок выше, чтобы влез ховер */
 .mp-card-media{position:relative;padding-top:60%}
@@ -129,8 +146,8 @@ $mp_items = [
 
 /* ===== Ховер-слой (даты) ===== */
 .mp-hover{
-  position:absolute; left:6px; right:6px; bottom:8px;
-  background:#fff;border:1px solid var(--border);border-radius:12px;
+  position:absolute; left:0; right:0; bottom:0;
+  background:#fff;border:1px solid var(--border);border-radius:0;
   transform:translateY(100%); opacity:0; pointer-events:none;
   transition:transform .18s ease, opacity .18s ease;
   box-shadow:0 12px 26px rgba(0,0,0,.14);
@@ -151,19 +168,26 @@ $mp_items = [
   overflow-y:auto;
   overflow-x:hidden;
   border:1px solid #e6ebf2;
-  border-radius:10px;
+  border-radius:0px;
   box-sizing:border-box;
 }
 .mp-hover-list > li{
   list-style:none !important;
   list-style-type:none !important;
-  padding-left:12px;              /* явный паддинг вместо маркера */
+  display:flex; align-items:center;
+  padding:8px 10px;
+  border-bottom:1px solid #e6ebf2;
+  cursor:pointer;
+  transition:background .15s ease;
 }
+.mp-hover-list > li:hover{background:#f3f4f6}
+.mp-hover-list > li:last-child{border-bottom:none}
+.mp-hover-list > li:last-child{border-bottom:none}
 .mp-hover-list > li::marker{content:none !important}
 .mp-hover-list > li::before{content:none !important}
 .mp-h-col-date{font-weight:600;white-space:nowrap}
-.mp-h-col-nights{color:#6b7280;white-space:nowrap}
-.mp-h-col-cta{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-weight:800;color:#111827;white-space:nowrap;cursor:pointer}
+.mp-h-col-nights{color:#6b7280;white-space:nowrap;border-left:1px solid #e6ebf2;padding-left:10px;margin-left:10px}
+.mp-h-col-cta{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-weight:800;color:#111827;white-space:nowrap;border-left:1px solid #e6ebf2;padding-left:10px;margin-left:10px}
 .mp-h-col-cta svg{width:14px;height:14px;stroke:currentColor}
 
 .mp-hover-note{font-size:12px;color:#6b7280;margin-top:8px}
@@ -177,6 +201,30 @@ $mp_items = [
 .mp-modal-close{position:absolute;right:12px;top:12px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:10px;font-size:22px;line-height:1;height:36px;width:36px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .mp-modal-header h3{margin:0 0 6px;font-size:20px}
 .mp-modal-sub{font-size:13px;color:#374151;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:10px;padding:8px 10px}
+	
+
+/* Попап формы проверки тура */
+.mp-order{display:flex;}
+.mp-order-form{flex:1;padding:24px;display:flex;flex-direction:column;gap:14px;background:#fff;}
+.mp-order-aside{width:260px;background:#f3f4f6;display:flex;flex-direction:column;align-items:center;text-align:center;padding:24px;gap:20px;}
+.mp-order-img img{width:120px;height:120px;border-radius:50%;object-fit:cover;}
+.mp-order-bubble{font-size:14px;line-height:1.4;background:#fff;border-radius:10px;padding:12px;position:relative;}
+.mp-order-bubble:after{content:'';position:absolute;left:20px;top:100%;border-width:8px 8px 0;border-style:solid;border-color:#fff transparent transparent;}
+.mp-order-note{margin-top:auto;font-size:12px;color:#6b7280;display:flex;align-items:flex-start;gap:6px;text-align:left;}
+.mp-order-note svg{flex-shrink:0;}
+.mp-order-form .wpcf7 form{display:flex;flex-direction:column;gap:12px;}
+.mp-order-form .wpcf7 input[type="text"],
+.mp-order-form .wpcf7 input[type="tel"]{width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;box-sizing:border-box;}
+.mp-order-form .wpcf7 input[type="submit"]{background:#2e6cff;border:0;color:#fff;border-radius:10px;padding:12px;font-weight:600;cursor:pointer;}
+.mp-order-form .wpcf7 .wpcf7-checkbox{font-size:12px;color:#6b7280;line-height:1.35;}
+.mp-order-form .wpcf7 .wpcf7-checkbox input{margin-right:6px;}
+.mp-order-form .wpcf7 .wpcf7-checkbox a{text-decoration:underline;color:inherit;}
+@media (max-width:640px){
+  .mp-order{flex-direction:column;}
+  .mp-order-aside{width:auto;}
+  .mp-order-note{justify-content:center;text-align:center;}
+}	
+	
 </style>
 
 
