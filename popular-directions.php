@@ -5,14 +5,14 @@
 if (!defined('ABSPATH')) { exit; }
 
 $mp_items = [
-  ['title'=>'Турция','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 34 362 ₽','image'=>''],
-  ['title'=>'Египет','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 37 585 ₽','image'=>''],
-  ['title'=>'Тайланд','subtitle'=>'из Санкт-Петербурга','nights'=>'10 ночей','price'=>'от 59 600 ₽','image'=>''],
-  ['title'=>'ОАЭ','subtitle'=>'из Санкт-Петербурга','nights'=>'7 ночей','price'=>'от 52 497 ₽','image'=>''],
-  ['title'=>'Турция','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 34 362 ₽','image'=>''],
-  ['title'=>'Египет','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 37 585 ₽','image'=>''],
-  ['title'=>'Тайланд','subtitle'=>'из Санкт-Петербурга','nights'=>'10 ночей','price'=>'от 59 600 ₽','image'=>''],
-  ['title'=>'ОАЭ','subtitle'=>'из Санкт-Петербурга','nights'=>'7 ночей','price'=>'от 52 497 ₽','image'=>''],
+  ['title'=>'Турция','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 34 362 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/turkish.jpg'],
+  ['title'=>'Египет','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 37 585 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/egipet.jpg'],
+  ['title'=>'Тайланд','subtitle'=>'из Санкт-Петербурга','nights'=>'10 ночей','price'=>'от 59 600 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/tailand-2.jpg'],
+  ['title'=>'ОАЭ','subtitle'=>'из Санкт-Петербурга','nights'=>'7 ночей','price'=>'от 52 497 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/dubai.jpg'],
+  ['title'=>'Тунис','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 34 362 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/Тунис-1-1.jpg'],
+  ['title'=>'Шри-Ланка','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 37 585 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/Шри-Ланка-1.jpg'],
+  ['title'=>'Мальдивы','subtitle'=>'из Санкт-Петербурга','nights'=>'10 ночей','price'=>'от 59 600 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/Мальдивы-1-1.jpg'],
+  ['title'=>'Китай','subtitle'=>'из Санкт-Петербурга','nights'=>'7 ночей','price'=>'от 52 497 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/Китай-1-1.jpg'],
 ];
 ?>
 
@@ -51,7 +51,7 @@ $mp_items = [
             <div class="mp-price">
               <?php
                 $price = esc_html($it['price']);
-                $price = preg_replace('~\s?руб\.?|₽~iu', '<span class="mp-rub">руб</span>', $price);
+                $price = preg_replace('~(?:\s?руб\.?|₽)~iu', '<span class="mp-rub">руб</span>', $price);
                 echo $price;
               ?>
             </div>
@@ -69,34 +69,44 @@ $mp_items = [
   </div>
 
   <!-- Попап Contact Form 7 -->
-  <div class="mp-modal" id="mpOrderModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Заказать тур">
-    <div class="mp-modal-backdrop" data-mp-close></div>
-    <div class="mp-modal-dialog" role="document">
-      <button class="mp-modal-close" type="button" aria-label="Закрыть" data-mp-close>&times;</button>
-      <div class="mp-order">
-        <div class="mp-order-form">
-          <div class="mp-modal-header">
-              <h3>Проверить наличие тура</h3>
-              <div class="mp-modal-sub" id="mpSelectedDateInfo" aria-live="polite" style="display:none"></div>
-            </div>
-          <?php echo do_shortcode('[contact-form-7 id="c157561" title="Проверить наличие тура"]'); ?>
+  <!-- Попап Contact Form 7 -->
+<div class="mp-modal" id="mpOrderModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Заказать тур">
+  <div class="mp-modal-backdrop" data-mp-close></div>
+  <div class="mp-modal-dialog" role="document">
+    <button class="mp-modal-close" type="button" aria-label="Закрыть" data-mp-close>&times;</button>
+    <div class="mp-order">
+
+      <!-- левая часть (форма) -->
+      <div class="mp-order-form">
+        <div class="mp-modal-header">
+          <h3>Проверить наличие тура и актуальную стоиость</h3><br>
+			<h4>Мы проверим актуальные цены на выбранную дату и предложим аналоги, <br>если тур уже раскупили.</h4><br>
+          <div class="mp-modal-sub" id="mpSelectedDateInfo" aria-live="polite" hidden></div>
         </div>
-       <aside class="mp-order-aside">
-            <figure class="mp-order-img">
-              <img src="https://tours.turotdel.com/wp-content/webp-express/webp-images/uploads/2024/09/hjbqrmhiq1o-2-300x300.jpg.webp" alt="Девушка из поддержки">
-            </figure>
-            <div class="mp-order-bubble">Мы проверим актуальные цены на выбранную дату и предложим аналоги, если тур уже раскупили.</div>
-            <div class="mp-order-note">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-            </svg>
-            <span>Отправим подборку ТОП-5 аналогичных туров под ваш бюджет</span>
-          </div>
-        </aside>
+        <?php echo do_shortcode('[contact-form-7 id="c157561" title="Проверить наличие тура"]'); ?>
       </div>
+
+      <!-- правая часть (консультант) -->
+      <aside class="mp-order-aside">
+        <figure class="mp-order-img">
+          <img src="https://tours.turotdel.com/wp-content/webp-express/webp-images/uploads/2024/09/hjbqrmhiq1o-2-300x300.jpg.webp" alt="Девушка из поддержки">
+        </figure>
+        <div class="mp-order-bubble">
+          Мы проверим актуальные цены на выбранную дату и предложим аналоги, если тур уже раскупили.
+        </div>
+        <div class="mp-order-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span>Отправим подборку ТОП‑5 аналогичных туров под ваш бюджет</span>
+        </div>
+      </aside>
+
     </div>
   </div>
+</div>
+
 </section>
 
 <style>
@@ -182,7 +192,6 @@ $mp_items = [
 }
 .mp-hover-list > li:hover{background:#f3f4f6}
 .mp-hover-list > li:last-child{border-bottom:none}
-.mp-hover-list > li:last-child{border-bottom:none}
 .mp-hover-list > li::marker{content:none !important}
 .mp-hover-list > li::before{content:none !important}
 .mp-h-col-date{font-weight:600;white-space:nowrap}
@@ -201,12 +210,11 @@ $mp_items = [
 .mp-modal-close{position:absolute;right:12px;top:12px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:10px;font-size:22px;line-height:1;height:36px;width:36px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .mp-modal-header h3{margin:0 0 6px;font-size:20px}
 .mp-modal-sub{font-size:13px;color:#374151;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:10px;padding:8px 10px}
-	
 
 /* Попап формы проверки тура */
 .mp-order{display:flex;}
-.mp-order-form{flex:1;padding:24px;display:flex;flex-direction:column;gap:14px;background:#fff;}
-.mp-order-aside{width:260px;background:#f3f4f6;display:flex;flex-direction:column;align-items:center;text-align:center;padding:24px;gap:20px;}
+.mp-order-form{flex:1;min-width:0;padding:24px;display:flex;flex-direction:column;gap:14px;background:#fff;}
+.mp-order-aside{flex:0 0 260px;background:#f3f4f6;display:flex;flex-direction:column;align-items:center;text-align:center;padding:24px;gap:20px;}
 .mp-order-img img{width:120px;height:120px;border-radius:50%;object-fit:cover;}
 .mp-order-bubble{font-size:14px;line-height:1.4;background:#fff;border-radius:10px;padding:12px;position:relative;}
 .mp-order-bubble:after{content:'';position:absolute;left:20px;top:100%;border-width:8px 8px 0;border-style:solid;border-color:#fff transparent transparent;}
@@ -221,12 +229,10 @@ $mp_items = [
 .mp-order-form .wpcf7 .wpcf7-checkbox a{text-decoration:underline;color:inherit;}
 @media (max-width:640px){
   .mp-order{flex-direction:column;}
-  .mp-order-aside{width:auto;}
+  .mp-order-aside{flex:0 0 auto;width:auto;}
   .mp-order-note{justify-content:center;text-align:center;}
-}	
-	
+}
 </style>
-
 
 <script>
 (function(){
@@ -324,8 +330,13 @@ $mp_items = [
 
   function openModal(selectedText, iso){
     if (dateInfo) {
-      if (selectedText) { dateInfo.style.display=''; dateInfo.textContent=`Вы выбрали дату вылета: ${selectedText}`; }
-      else { dateInfo.style.display='none'; dateInfo.textContent=''; }
+      if (selectedText) {
+        dateInfo.hidden = false;
+        dateInfo.textContent = `Дата вылета: ${selectedText}`;
+      } else {
+        dateInfo.hidden = true;
+        dateInfo.textContent = '';
+      }
     }
     modal.setAttribute('aria-hidden','false');
     document.documentElement.style.overflow='hidden';
@@ -335,7 +346,7 @@ $mp_items = [
       const root = modal.querySelector('.wpcf7 form');
       if (root && iso) {
         const names = ['date','Дата','Дата вылета','flight_date','selected_date','mp_date'];
-        let input = null; names.some(n => (input = root.querySelector(`[name="${n}"]`)));
+        let input = null; names.some(n => (input = root.querySelector(`[name=\"${n}\"]`)));
         if (!input) {
           input = document.createElement('input');
           input.type = 'hidden';
@@ -343,8 +354,8 @@ $mp_items = [
           root.appendChild(input);
         }
         input.value = iso;
-		if (selectedText) {
-          let labelInput = root.querySelector('[name="selected_date_label"]');
+        if (selectedText) {
+          let labelInput = root.querySelector('[name=\"selected_date_label\"]');
           if (!labelInput) {
             labelInput = document.createElement('input');
             labelInput.type = 'hidden';
@@ -377,4 +388,3 @@ $mp_items = [
   });
 })();
 </script>
-
