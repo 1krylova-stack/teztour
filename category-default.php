@@ -10,6 +10,8 @@
 
             <?php include get_template_directory() . '/components/sletat-widget.php'; ?>
 <div class="clear"></div>
+				
+		
 			
 <!-- БЛОК ПРЕИМУЩЕСТВ "TEZ" -->
 <section class="tez-advantages" aria-label="Наши преимущества">
@@ -189,6 +191,11 @@
 				</div>
 				<?php } ?>
 		</div>
+		
+<!-- Популярные направления -->
+<?php include get_template_directory() . '/popular-directions.php'; ?>			
+		
+		
 	</article>
 
 
