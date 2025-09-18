@@ -20,7 +20,8 @@ a:hover {
     clear: both;
 }
 
-.wpcf7-text {
+#order_tour .wpcf7-text,
+.teztour-form .wpcf7-text {
     display: inline-block;
     padding: 7px 15px;
     margin: 1px;
@@ -28,10 +29,12 @@ a:hover {
     font-size: 12px;
     color: #000000;
 }
-.wpcf7-text.wpcf7-not-valid {
+#order_tour .wpcf7-text.wpcf7-not-valid,
+.teztour-form .wpcf7-text.wpcf7-not-valid {
     border: 1px solid red;
 }
-.wpcf7-textarea {
+#order_tour .wpcf7-textarea,
+.teztour-form .wpcf7-textarea {
     display: inline-block;
     width: 325px;
     height: 150px;
@@ -41,10 +44,12 @@ a:hover {
     font-size: 12px;
     color: #000000;
 }
-.wpcf7-textarea.wpcf7-not-valid {
+#order_tour .wpcf7-textarea.wpcf7-not-valid,
+.teztour-form .wpcf7-textarea.wpcf7-not-valid {
     border: 1px solid red;
 }
-.wpcf7-submit {
+#order_tour .wpcf7-submit,
+.teztour-form .wpcf7-submit {
     display: inline-block;
     width: 200px;
     border: none;
@@ -65,7 +70,8 @@ a:hover {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#09b700', endColorstr='#09b700',GradientType=0 ); /* IE6-9 */
 
 }
-.wpcf7-submit:hover {
+#order_tour .wpcf7-submit:hover,
+.teztour-form .wpcf7-submit:hover {
     opacity: 0.8;
 }
 
