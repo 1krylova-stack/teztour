@@ -3,7 +3,7 @@
 	</section>
 	<footer>
 		<div class="main">
-			<div class="copyright">
+			<div class="copyright"> 
 				&copy; 2012 - <?php echo date("Y"); ?> ТЕЗ ТУР в СПб<br />Все права защищены<br><br>
 				<a href="https://tez-tourspb.ru/politika-obrabotki-personalnyx-dannyx" target="_blank" rel="nofollow noopener">Политика обработки персональных данных</a>
 			</div>
