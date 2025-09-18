@@ -112,6 +112,9 @@
             <div><a href="https://wa.me/79817010302?text=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%94%D0%B5%D0%BD%D1%8C!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%B4%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D1%82%D1%83%D1%80"><img src="/wp-content/uploads/whatsapp_logo_icon_189219.png" alt=""></a></div>
           </div>
           <a href="#" id="go">Заказать звонок</a>
+		 
+			
+			
         </div>
       </div>
 
@@ -150,4 +153,37 @@
     var a = e.target.closest('.wpcf7-list-item-label a');
     if (a) e.stopPropagation();
   });
+</script>
+
+<!-- Управление попапом заказа звонка -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var btn = document.getElementById('go');
+  var modal = document.getElementById('mpCallModal');
+
+  function openModal(){
+    if(modal) modal.setAttribute('aria-hidden','false');
+    document.documentElement.style.overflow='hidden';
+  }
+  function closeModal(){
+    if(modal) modal.setAttribute('aria-hidden','true');
+    document.documentElement.style.overflow='';
+  }
+
+  if(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      openModal();
+    });
+  }
+
+  if(modal){
+    modal.addEventListener('click', function(e){
+      if(e.target.matches('[data-mp-close], .mp-modal-backdrop')) closeModal();
+    });
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape' && modal && modal.getAttribute('aria-hidden')==='false') closeModal();
+  });
+});
 </script>
