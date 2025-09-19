@@ -3128,3 +3128,102 @@ html.is-locked, body.is-locked {
 .quiz-final__cf7 .quiz-final__input input[type="tel"],
 .quiz-final__cf7 .quiz-final__input input[type="text"],
 .quiz-final__cf7 .wpcf7-form-control{ width:100%; max-width:100%; }
+
+
+/* === TEZ: блок преимуществ (из шаблона category-default.php) === */
+:root{
+  --tez-blue:#2e6cff;
+  --tez-text:#1f2937;
+  --tez-muted:#6b7a90;
+  --tez-card:#ffffff;
+  --tez-border:#eef2f7;
+
+  /* регулируемые параметры */
+  --tez-icon-size:50px;   /* размер иконок */
+  --tez-icon-gap:6px;     /* расстояние между иконкой и текстом */
+}
+
+/* Секция */
+.tez-advantages{
+  padding:24px 0;
+  clear:both;
+  width:100%;
+  display:block;
+}
+
+/* 2 колонки: слева текст, справа — две карточки */
+.tez-adv-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:16px;
+  align-items:stretch;
+  box-sizing:border-box;
+}
+
+/* Левая колонка */
+.tez-adv-text{
+  background:var(--tez-card);
+  border:1px solid var(--tez-border);
+  border-radius:14px;
+  padding:22px 20px;
+  color:var(--tez-text);
+  line-height:1.55;
+  font-size:16px;
+}
+.tez-adv-text p{ margin:0; }
+
+/* Правая колонка: две карточки в ряд */
+.tez-adv-right{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:16px;
+}
+
+/* Карточка преимущества: вертикальная — иконка сверху, текст ниже */
+.tez-adv-item{
+  background:var(--tez-card);
+  border:1px solid var(--tez-border);
+  border-radius:14px;
+  padding:14px 16px;
+  box-sizing:border-box;
+
+  /* надёжная схема: grid с межстрочным отступом */
+  display:grid !important;
+  grid-template-columns:1fr;
+  grid-template-rows:auto auto;
+  align-items:start;
+  row-gap:var(--tez-icon-gap);
+
+  float:none !important; /* если тема даёт float для <article> */
+}
+
+/* Иконка */
+.tez-icon-img{
+  width:var(--tez-icon-size);
+  height:var(--tez-icon-size);
+  object-fit:contain;
+  opacity:.6;              /* приглушаем рядом с поиском */
+  filter:grayscale(20%);
+  display:block;
+  justify-self:start;      /* по левому краю */
+}
+
+/* Текст карточки */
+.tez-adv-copy{ justify-self:start; }
+.tez-adv-caption{
+  font-size:16px;          /* как в левом блоке */
+  line-height:1.55;
+  color:var(--tez-text);
+  margin:0;
+}
+.tez-adv-strong{ font-weight:700; }
+
+/* Адаптив */
+@media (max-width:1100px){
+  .tez-adv-grid{ grid-template-columns:1fr; }
+  .tez-adv-right{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+}
+@media (max-width:640px){
+  .tez-adv-right{ grid-template-columns:1fr; }
+  :root{ --tez-icon-gap:20px; } /* немного компактнее на мобиле */
+}
