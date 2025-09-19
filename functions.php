@@ -465,3 +465,74 @@ add_filter('wpseo_robots', function ($robots) {
     }
     return $robots;
 });
+
+// [tez_advantages] [tez_adv_item]...[/tez_adv_item] [tez_adv_item icon="..."]...[/tez_adv_item] [/tez_advantages]
+add_shortcode('tez_advantages', function($atts, $content = '') {
+    // собираем все вложенные элементы
+    $inner = do_shortcode($content);
+
+    // вытаскиваем все <article>...</article>
+    preg_match_all('~<article\b[^>]*>.*?</article>~si', $inner, $m);
+    $articles = $m[0] ?? [];
+
+    // Левый блок: берём только текст из .tez-adv-copy первой карточки
+   $left_copy = '';
+    if (!empty($articles[0])) {
+        $first = $articles[0];
+        if (preg_match('~<div class="tez-adv-copy">(.*?)</div>~si', $first, $mm)) {
+            $left_copy = $mm[1]; // только содержимое текста
+        } else {
+            // на всякий случай — удалим теги <article> и оставим внутренности
+            $left_copy = preg_replace(['~^<article\b[^>]*>~i','~</article>$~i'], '', $first);
+        }
+    }
+
+    // Правая колонка: все остальные карточки как есть
+    $right = '';
+    if (count($articles) > 1) {
+        $right = implode('', array_slice($articles, 1));
+    }
+
+    ob_start(); ?>
+    <section class="tez-advantages">
+      <div class="tez-adv-grid">
+        <div class="tez-adv-text">
+          <div class="tez-adv-copy">
+            <?php echo $left_copy; ?>
+          </div>
+        </div>
+        <div class="tez-adv-right">
+          <?php echo $right; ?>
+        </div>
+      </div>
+    </section>
+    <?php
+    return ob_get_clean();
+});
+
+// Вложенные элементы: [tez_adv_item icon="url" alt="описание"]Текст[/tez_adv_item]
+add_shortcode('tez_adv_item', function($atts, $content = '') {
+    $a = shortcode_atts([
+        'icon' => '',
+        'alt'  => '',
+        'w'    => '50',
+        'h'    => '50',
+    ], $atts, 'tez_adv_item');
+
+    ob_start(); ?>
+    <article class="tez-adv-item">
+      <?php if ($a['icon']): ?>
+        <img class="tez-icon-img"
+             src="<?php echo esc_url($a['icon']); ?>"
+             alt="<?php echo esc_attr($a['alt']); ?>"
+             width="<?php echo (int)$a['w']; ?>"
+             height="<?php echo (int)$a['h']; ?>"
+             loading="lazy">
+      <?php endif; ?>
+      <div class="tez-adv-copy">
+        <p class="tez-adv-caption"><?php echo wp_kses_post($content); ?></p>
+      </div>
+    </article>
+    <?php
+    return ob_get_clean();
+});
