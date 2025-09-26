@@ -195,6 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
       function setState(){
         steps.forEach((s,i)=>s.classList.toggle('active', i===current));
         finalStep.classList.toggle('active', current===Q_COUNT);
+		modal.classList.toggle('quiz-is-final', current === Q_COUNT);
 
         let percent, label;
         if (current === Q_COUNT) {
