@@ -195,7 +195,9 @@
 
 
 <!-- /БЛОК ПРЕИМУЩЕСТВ -->
-					
+
+<!-- Популярные направления -->
+<?php include get_template_directory() . '/popular-directions.php'; ?>	
 
 <div class="v_block">
   <h1><?php the_field('text_o', 'option'); ?></h1>
@@ -311,7 +313,7 @@
           </div>
         </div>
         <div class="quiz__step" data-consultant="Выберите планируемый бюджет на человека">
-          <div class="quiz__titlecnt"><div class="quiz__title">Выберите планируемый бюджет на человека</div></div>
+          <div class="quiz__titlecnt"><div class="quiz__title">ВЫБЕРИТЕ ПЛАНИРУЕМЫЙ БЮДЖЕТ</div></div>
           <div class="quiz__content">
             <label class="quiz__radio radio"><input type="radio" name="step5" value="До 100 000 руб"><span>До 100 000 руб</span></label>
             <label class="quiz__radio radio"><input type="radio" name="step5" value="100 000 - 200 000 руб"><span>100 000 - 200 000 руб</span></label>
@@ -370,15 +372,15 @@
     <aside class="quiz__sidebar">
       <div class="quiz__consultant">
         <figure class="quiz__img">
-          <img width="300" height="300" src="https://tours.turotdel.com/wp-content/webp-express/webp-images/uploads/2024/09/hjbqrmhiq1o-2-300x300.jpg.webp"
+          <img width="300" height="300" src="https://tez-tourspb.ru/wp-content/uploads/man.jpg"
                class="attachment-medium size-medium" alt="" loading="lazy">
         </figure>
         <div class="quiz__consultantinfo">
-          <span class="quiz__name">Юлия Прусевич</span>
+          <span class="quiz__name">Иванова Екатерина</span><br>
           <span class="quiz__sub">Эксперт по подбору туров</span>
         </div>
       </div>
-      <div class="quiz__message">Чтобы прикинуть длительность перелёта и бюджет — сколько ночей комфортно для вас?</div>
+      <div class="quiz__message">Выберите на сколько дней планируете путешествие</div>
       <div class="quiz__present">
         <figure class="qiuz__presentimg">
           <img width="57" height="56" src="https://tours.turotdel.com/wp-content/webp-express/webp-images/uploads/2023/05/fire.png.webp" class="attachment-medium size-medium" alt="" loading="lazy">
