@@ -1,49 +1,66 @@
-			<div class="clear"></div>
-		</div>
-	</section>
-	<footer>
-		<div class="main">
-			<div class="copyright"> 
-				&copy; 2012 - <?php echo date("Y"); ?> ТЕЗ ТУР в СПб<br />Все права защищены<br><br>
-				<a href="https://tez-tourspb.ru/politika-obrabotki-personalnyx-dannyx" target="_blank" rel="nofollow noopener">Политика обработки персональных данных</a>
-			</div>
+<div class="clear"></div>
+    </div>	
+</section>
 
-			<nav><?php wp_nav_menu( array('menu' => 'Нижнее меню' )); ?></nav>
+<section class="tour-offer-block">
+  <div class="main flex-offer">
+    <div class="offer-photo">
+      <img src="https://tez-tourspb.ru/wp-content/uploads/Manager-footer.jpg" alt="Менеджер по подбору туров" />
+      <p class="manager-name">Екатерина Иванова</p>
+      <p class="manager-sub">Знаю самые классные отели по привлекательным ценам</p>
+    </div>
+    <div class="offer-text">
+      <p class="offer-title">Получите пять вариантов туров</p>
+      <p class="subline">— с проверенными отелями по реальным ценам</p>
+      <p class="note">
+        Уточните несколько параметров <br>и уже через 15 минут подборка будет у вас на
+        <img src="https://tez-tourspb.ru/wp-content/uploads/whatsapp_logo_icon_189219.png" alt="WhatsApp" class="wa-icon"> WhatsApp
+      </p>
+      <div class="t_app">
+        <a href="#" class="open-quiz-btn">Получить подборку туров</a>
+      </div>
+      <p class="microtext">Только актуальные варианты, никакой рекламы</p>
+    </div>
+  </div>
+</section>
 
-			<div class="counters">
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();
-for (var j=0;j<document.scripts.length;j++){if (document.scripts[j].src===r){return;}}
-k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
-ym(31884121,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/31884121" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
-<!-- /Yandex.Metrika counter -->
-			</div>
+<footer>
+  <div class="main">
+    <div class="copyright">
+      &copy; 2012 - <?php echo date("Y"); ?> ТЕЗ ТУР в СПб<br />Все права защищены<br><br>
+      <a href="https://tez-tourspb.ru/politika-obrabotki-personalnyx-dannyx" target="_blank" rel="nofollow noopener">Политика обработки персональных данных</a>
+    </div>
 
-			<div class="socset">
-				<a class="socset_1" href="https://vk.com/saletury" target="_blank" rel="nofollow noopener"></a>
-			</div>
+    <nav><?php wp_nav_menu( array('menu' => 'Нижнее меню' )); ?></nav>
 
-			<div class="sozdatel">
-				Продвижение сайта <a href="https://oscarlab.ru/" target="_blank" rel="nofollow noopener">OscarLab</a>
-			</div>
-		</div>
-	</footer>
+    <div class="counters">
+      <script type="text/javascript">
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();
+      for (var j=0;j<document.scripts.length;j++){if (document.scripts[j].src===r){return;}}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      (window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+      ym(31884121,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+      </script>
+      <noscript><div><img src="https://mc.yandex.ru/watch/31884121" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
+    </div>
+
+    <div class="socset">
+      <a class="socset_1" href="https://vk.me/turberry" target="_blank" rel="nofollow noopener"></a>
+    </div>
+
+    <div class="sozdatel">
+      Продвижение сайта <a href="https://oscarlab.ru/" target="_blank" rel="nofollow noopener">OscarLab</a>
+    </div>
+  </div>
+</footer>
 </div>
 <?php wp_footer(); ?>
 
-
 <script>
-// После загрузки DOM (jQuery уже в футере)
 document.addEventListener('DOMContentLoaded', function(){
   (function($){
-    // Sletat frame width fix
     $('iframe.sletat-frame').css('max-width','inherit');
 
-    // Заказать звонок — открыть
     $('.ordercall_button a').on('click', function(e){
       e.preventDefault();
       $('#ordercall_block .wpcf7-text').removeClass('wpcf7-not-valid');
@@ -51,13 +68,11 @@ document.addEventListener('DOMContentLoaded', function(){
       $('#ordercall_block').fadeIn(250);
       $('#ordercall_block .ordercall_form').animate({opacity:1,right:'50%',top:'50%'},250);
     });
-    // Закрыть модалки
     $('#ordercall_block .ordercall_close, #ordercall_block .ordercall_plashka').on('click', function(){
       $('#ordercall_block').fadeOut(250);
       $('#ordercall_block .ordercall_form').animate({opacity:0,right:'-50%',top:'-50%'},250);
     });
 
-    // Каталог — заявка
     $('.catalog_form .ordertour_button').on('click', function(e){
       e.preventDefault();
       $('#ordertour_block #ot_yourtour').attr('readonly','readonly');
@@ -73,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function(){
       $('#ordertour_block .ordertour_form').animate({opacity:0,right:'-50%',top:'-50%'},250);
     });
 
-    // Mobile menu
     var toggled=false;
     var nav=document.getElementsByClassName('menu-glavnyj-menyu-container')[0];
     var btn=document.getElementsByClassName('nav-tgl')[0];
@@ -88,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
-<!-- Cookie Banner -->
 <div id="cookie-banner">
   Мы используем файлы cookie для улучшения работы сайта.
   Продолжая использовать сайт, вы соглашаетесь с 
@@ -115,9 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
-<!-- End Cookie Banner -->
 
-<!-- Квиз: инициализация -->
 <script>
 (function(){
   let inited = false;
@@ -128,8 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
       const modal = document.getElementById('quiz-modal');
-      const openBtn = document.getElementById('open-quiz');
-      if (!modal || !openBtn) return;
+      if (!modal) return;
 
       const closeEls = modal.querySelectorAll('[data-quiz-close]');
       const steps = Array.from(modal.querySelectorAll('.quiz__step'));
@@ -145,18 +155,22 @@ document.addEventListener("DOMContentLoaded", function () {
       let current = 0;
 
       const bubbles = [
-        'Чтобы прикинуть длительность перелёта и бюджет — сколько ночей комфортно для вас?',
-        'От этого зависят билеты и тип номера — сколько взрослых едет?',
-        'Если с детьми — подберу family-friendly отели. Сколько детей?',
-        'Когда ориентировочно хотите вылететь? Подберу оптимальные даты.',
-        'Сориентируйте по бюджету на человека — предложу лучшие варианты без «лишнего».',
-        'Какое питание предпочитаете? Так быстрее отфильтрую подходящие отели.'
+        'Выберите количество дней для отдыха',
+        'От этого зависят билеты и тип номера',
+        'Если с детьми — подберем family-friendly отели',
+        'Когда ориентировочно хотите вылететь? Выберем оптимальные даты',
+        'Сориентируйте по бюджету на человека — предложим лучшие варианты',
+        'Есть предпочтения по питанию?'
       ];
 
       function openQuiz(e){ if(e) e.preventDefault(); modal.classList.add('is-open'); document.body.style.overflow='hidden'; setState(); }
       function closeQuiz(){ modal.classList.remove('is-open'); document.body.style.overflow=''; }
 
-      openBtn.addEventListener('click', openQuiz);
+      document.addEventListener('click', function(e){
+        const trigger = e.target.closest('#open-quiz, .open-quiz-btn');
+        if (trigger) openQuiz(e);
+      });
+
       closeEls.forEach(el=>el.addEventListener('click', closeQuiz));
       document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modal.classList.contains('is-open')) closeQuiz(); });
 
@@ -172,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
           injectAnswersToCF7();
           relaxNativeValidation();
           initPhoneMask();
-		  initDateFill();
+          initDateFill();
         } else {
           label = 'Готово';
           percent = Math.round((current / Q_COUNT) * 100);
@@ -327,7 +341,7 @@ document.addEventListener("DOMContentLoaded", function () {
         maskInitialized = true;
       }
 
-		function initDateFill(){
+      function initDateFill(){
         const form = cf7Wrap && cf7Wrap.querySelector('form');
         if (!form) return;
         const dateInput = form.querySelector('input[name="quiz__date"]');
@@ -346,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
         dateInput.addEventListener('change', update);
         update();
       }
-		
+
       document.addEventListener('wpcf7mailsent', function (event) {
         const form = cf7Wrap ? cf7Wrap.querySelector('form') : null;
         if(form && event.target === form){
@@ -370,7 +384,6 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(() => { if (!document.body.dataset.quizInit) init(); }, 5000);
 })();
 </script>
-<!-- END Квиз -->
 
 <script>
 (function(){
@@ -388,7 +401,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (u && rx.test(String(u))) { u = location.href; }
     return _open.apply(this, arguments);
   };
-  // подчистим очевидное из DOM
   document.querySelectorAll('[src],[href],[poster]').forEach(function(el){
     ['src','href','poster'].forEach(function(a){
       var v=el.getAttribute(a);
@@ -397,9 +409,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 })();
 </script>
-
-
-
 
 </body>
 </html>
