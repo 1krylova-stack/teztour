@@ -3286,106 +3286,64 @@ section.tour-offer-block .offer-photo .manager-sub { color: #777; }
 
 /* ===== Мобайл-фикс для перекрытия ===== */
 @media (max-width: 767px) {
-  /* Спрятать нижнюю/верхнюю строку прогресса и кнопку "Назад".
-     Я добавил несколько частых селекторов, хватит любого совпадения. */
-  .quiz-progress,
-  .quiz__progress,
-  .quiz-progress-row,
-  .quiz-controls--bottom,
-  .quiz-bottom-bar,
-  .quiz-nav,
-  .quiz-footer-controls {
+ .tezquiz-modal.quiz-is-final .quiz__controller,
+  .tezquiz-modal.quiz-is-final .quiz__progress,
+  .tezquiz-modal.quiz-is-final .quiz__enter,
+  .tezquiz-modal.quiz-is-final .quiz__prev,
+  .tezquiz-modal.quiz-is-final .quiz-progress,
+  .tezquiz-modal.quiz-is-final .quiz-progress-row,
+  .tezquiz-modal.quiz-is-final .quiz-controls--bottom,
+  .tezquiz-modal.quiz-is-final .quiz-bottom-bar,
+  .tezquiz-modal.quiz-is-final .quiz-nav,
+  .tezquiz-modal.quiz-is-final .quiz-footer-controls {
     display: none !important;
   }
 
-  /* Область с CF7 на финальном шаге */
-  .quiz-final__cf7 {
+  .tezquiz-modal.quiz-is-final .quiz-final__cf7 {
     position: relative;
-    z-index: 3;                 /* поверх прочего интерфейса квиза */
-    padding-bottom: 16px;       /* запас под клавиатуру/вьюпорт */
-  }
-
-  /* Сам чекбокс согласия */
-  .quiz-final__cf7 .wpcf7-acceptance,
-  .quiz-final__cf7 .consent-wrap {
-    display: block !important;
-    margin: 12px 0 6px !important;
-    line-height: 1.35;
-  }
-
-  /* Кнопка отправки — чуть отступов, чтобы не упиралась в край */
-  .quiz-final__cf7 .wpcf7-submit,
-  .quiz-final__cf7 button[type="submit"],
-  .quiz-final__cf7 input[type="submit"] {
-    margin-top: 10px;
-    width: 100%;
-  }
-
-  /* Улучшаем попадание по чекбоксу пальцем */
-  .quiz-final__cf7 label,
-  .quiz-final__cf7 .wpcf7-list-item-label {
-    display: inline-block;
-    padding-left: 4px;
-  }
-}
-
-/* == TEZ QUIZ: мобильный фикс перекрытий == */
-@media (max-width: 767px) {
-  /* Прячем всю панель прогресса/Enter/Назад */
-  .tezquiz-modal .quiz__controller,
-  .quiz-progress,
-  .quiz__progress,
-  .quiz-progress-row,
-  .quiz-controls--bottom,
-  .quiz-bottom-bar,
-  .quiz-nav,
-  .quiz-footer-controls {
-    display: none !important;
-  }
-
-  /* Зона формы на финальном шаге поверх всего */
-  .quiz-final__cf7 {
-    position: relative;
-    z-index: 3;
+    z-index: 20;
     padding-bottom: 16px;
   }
 
-  /* Чекбокс согласия — всегда видим и кликабелен */
-  .quiz-final__cf7 .wpcf7-acceptance,
-  .quiz-final__cf7 .consent-wrap {
+  .tezquiz-modal.quiz-is-final .quiz-final__policy {
+    margin-top: 12px;
+  }
+
+  .tezquiz-modal.quiz-is-final .quiz-final__cf7 .wpcf7-acceptance,
+  .tezquiz-modal.quiz-is-final .quiz-final__cf7 .consent-wrap {
     display: block !important;
     margin: 12px 0 6px !important;
     line-height: 1.35;
   }
 
-  /* Попасть пальцем проще */
-  .quiz-final__cf7 label,
-  .quiz-final__cf7 .wpcf7-list-item-label {
+  .tezquiz-modal.quiz-is-final .quiz-final__cf7 .wpcf7-submit,
+  .tezquiz-modal.quiz-is-final .quiz-final__cf7 button[type="submit"],
+  .tezquiz-modal.quiz-is-final .quiz-final__cf7 input[type="submit"] {
+    width: 100%;
+	  margin-top: 10px;
+  }
+
+ .tezquiz-modal.quiz-is-final .quiz-final__cf7 label,
+  .tezquiz-modal.quiz-is-final .quiz-final__cf7 .wpcf7-list-item-label {
     display: inline-block;
     padding-left: 4px;
   }
 
-  /* Кнопка отправки во всю ширину */
-  .quiz-final__cf7 .wpcf7-submit,
-  .quiz-final__cf7 button[type="submit"],
-  .quiz-final__cf7 input[type="submit"] {
-    width: 100%;
-    margin-top: 10px;
-  }
 }
 
 /* === TEZ QUIZ FIX — START === */
 
-.tezquiz-modal .quiz-final__policy .wpcf7-list-item-label{display:inline !important;}
-.tezquiz-modal .quiz-final__policy .custom-checkbox{display:inline-block !important;position:static !important;width:auto;height:auto;}
-.tezquiz-modal .quiz-final__policy input[type="checkbox"]{-webkit-appearance:checkbox;appearance:checkbox;position:static !important;width:16px;height:16px;margin-top:3px;}
+
 .tezquiz-modal .quiz-final__cf7{position:relative;z-index:20;padding-bottom:12px;}
 
 @media (max-width:767px){
-  .tezquiz-modal .quiz-final .quiz__controller,
-  .tezquiz-modal .quiz-final .quiz__progress,
-  .tezquiz-modal .quiz-final .quiz__enter,
-  .tezquiz-modal .quiz-final .quiz__prev{display:none !important;}
+	.tezquiz-modal .quiz-final__policy .wpcf7-list-item-label{display:inline !important;}
+  .tezquiz-modal .quiz-final__policy .custom-checkbox{display:inline-block !important;position:static !important;width:auto;height:auto;}
+  .tezquiz-modal .quiz-final__policy input[type="checkbox"]{-webkit-appearance:checkbox;appearance:checkbox;position:static !important;width:16px;height:16px;margin-top:3px;}
+  .tezquiz-modal.quiz-is-final .quiz-final .quiz__controller,
+  .tezquiz-modal.quiz-is-final .quiz-final .quiz__progress,
+  .tezquiz-modal.quiz-is-final .quiz-final .quiz__enter,
+  .tezquiz-modal.quiz-is-final .quiz-final .quiz__prev{display:none !important;}
 }
 
 /* === TEZ QUIZ FIX — END === */
