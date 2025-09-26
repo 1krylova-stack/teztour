@@ -1,3 +1,10 @@
+<?php
+$quiz_template = locate_template('template-parts/quiz-modal.php', true, false);
+if (empty($quiz_template)) {
+    error_log('[teztour] quiz modal template not found: template-parts/quiz-modal.php');
+}
+?>
+
 <div class="clear"></div>
     </div>	
 </section>
@@ -54,6 +61,7 @@
   </div>
 </footer>
 </div>
+<?php get_template_part('template-parts/quiz-modal'); ?>
 <?php wp_footer(); ?>
 
 <script>
@@ -132,14 +140,24 @@ document.addEventListener("DOMContentLoaded", function () {
 <script>
 (function(){
   let inited = false;
+  let retryTimer = null;
   function init(){
     if (inited) return;
-    inited = true;
-    document.body.dataset.quizInit = '1';
-
     try {
       const modal = document.getElementById('quiz-modal');
-      if (!modal) return;
+      if (!modal) {
+        if (!retryTimer) {
+          retryTimer = setTimeout(()=>{
+            retryTimer = null;
+            init();
+          }, 300);
+        }
+        return;
+      }
+
+      inited = true;
+      document.body.dataset.quizInit = '1';
+
 
       const closeEls = modal.querySelectorAll('[data-quiz-close]');
       const steps = Array.from(modal.querySelectorAll('.quiz__step'));
