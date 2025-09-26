@@ -2023,7 +2023,7 @@ button.nav-tgl.menu-toggle>span {
     }
 }
 
-@media (max-width:420){
+@media (max-width:420px){
     header > .main .logo a {
         width: 150px;
         margin: auto;
@@ -2798,336 +2798,180 @@ section > .main_bg  {
 
 /* стили квиза */
 /* ====== TEZ QUIZ (scoped) ====== */
-
 :root{
-  --qz-accent:#2e6cff;
-  --qz-accent-grad:linear-gradient(90deg,#2e6cff,#6aa8ff);
+  --qz-accent:#2864c7;
+  --qz-accent-grad:linear-gradient(90deg,#2864c7,#6aa8ff);
   --qz-gray:#eef2f7;
   --qz-gray-2:#f7f9fc;
   --qz-text:#2d3648;
   --qz-muted:#6b7a90;
 }
 
-/* 1) Удаляем старый попап (если вдруг остался в теме) */
 #quiz-popup{display:none!important;}
 
-/* 2) Каркас модалки */
-.tezquiz-modal{position:fixed;inset:0;z-index:99999;display:none;}
+.tezquiz-modal{position:fixed;inset:0;z-index:99999;display:none;overscroll-behavior:contain;}
 .tezquiz-modal.is-open{display:block;}
-.tezquiz-modal .tezquiz-backdrop{
-  position:absolute;inset:0;background:rgba(0,0,0,.55);
-  opacity:0;transition:opacity .2s;
-}
+.tezquiz-modal .tezquiz-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:opacity .2s;}
 .tezquiz-modal.is-open .tezquiz-backdrop{opacity:1;}
 
-/* 3) Контейнер попапа */
 .tezquiz-modal .quiz{
-  position:absolute;left:50%;top:50%;
-  transform: translate3d(-50%,-50%,0); /* без scale — меньше артефактов */
-  opacity:0;transition:opacity .2s;
-  box-sizing:border-box;
-  background:#fff;border-radius:16px;
-  box-shadow:0 20px 60px rgba(0,0,0,.25);
-
-  /* Сетка: 1fr + фиксированная правая колонка (без subpixel rounding) */
-  display:grid;
-  grid-template-columns: minmax(0,1fr) 320px;
-  gap:0;
-
-  max-width:980px;width:94vw;max-height:92vh;overflow:hidden;
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.25);
+  display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:0;
+  max-width:980px;width:94vw;max-height:92vh;overflow:hidden;opacity:0;transition:opacity .2s;
 }
 .tezquiz-modal.is-open .quiz{opacity:1;}
 
-/* 4) Кнопка закрытия */
-.tezquiz-modal .mfp-close{
-  position:absolute;right:16px;top:10px;
-  z-index:50; /* поверх всего внутри попапа */
-  background:transparent;border:0;
-  font-size:32px;line-height:1;cursor:pointer;color:#9aa6b2;
-}
+.tezquiz-modal .mfp-close{position:absolute;right:16px;top:10px;z-index:50;background:transparent;border:0;font-size:32px;line-height:1;cursor:pointer;color:#9aa6b2}
 
-/* 5) Левая колонка (контент квиза) */
-.tezquiz-modal .quiz__form{
-  padding:28px 28px 20px;
-  display:flex;flex-direction:column;
-  min-height:420px;min-width:0;
-}
+.tezquiz-modal .quiz__form{padding:28px 28px 20px;display:flex;flex-direction:column;min-height:420px;min-width:0}
+.tezquiz-modal .quiz__sidebar{display:flex;flex-direction:column;gap:16px;min-width:0;background:var(--qz-gray-2);padding:24px;border-left:1px solid #e6ebf2}
+.tezquiz-modal .quiz__consultant{display:flex;gap:12px;align-items:center}
+.tezquiz-modal .quiz__img img{width:64px;height:64px;object-fit:cover;border-radius:50%}
+.tezquiz-modal .quiz__name{font-weight:800;font-size:16px}
+.tezquiz-modal .quiz__sub{font-size:12px;color:var(--qz-muted)}
 
-/* 6) Правая колонка (менеджер) */
-.tezquiz-modal .quiz__sidebar{
-  display:flex!important;flex-direction:column;gap:16px;min-width:0;
-  background:var(--qz-gray-2);
-  padding:24px;border-left:1px solid #e6ebf2;
+.tezquiz-modal .quiz__message{position:relative;background:#fff;border:1px solid #e6ebf2;border-radius:14px;padding:14px 16px;color:var(--qz-text);font-size:14px;line-height:1.4;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.tezquiz-modal .quiz__message::after{content:"";position:absolute;left:12px;top:-8px;width:16px;height:16px;background:#fff;border-left:1px solid #e6ebf2;border-top:1px solid #e6ebf2;transform:rotate(45deg)}
 
-  /* «подтекание» фона до самого края — убирает белую полоску */
-  box-shadow:
-    inset -2px 0 0 var(--qz-gray-2), /* на всякий случай продлеваем фон вправо */
-    inset 0 0 0 1px rgba(0,0,0,0);   /* сохраняем поведение бордера */
-}
-.tezquiz-modal .quiz__consultant{display:flex;gap:12px;align-items:center;}
-.tezquiz-modal .quiz__img img{width:64px;height:64px;object-fit:cover;border-radius:50%;}
-.tezquiz-modal .quiz__name{font-weight:800;font-size:16px;}
-.tezquiz-modal .quiz__sub{font-size:12px;color:var(--qz-muted);}
+.tezquiz-modal .quiz__present{margin-top:auto;padding:12px;background:#eceff4;border:1px dashed #cdd6e3;border-radius:12px;display:flex;align-items:center;gap:10px;opacity:.7}
+.tezquiz-modal .qiuz__presentimg img{width:44px;height:44px;object-fit:cover;border-radius:6px}
+.tezquiz-modal .quiz__present span{font-size:14px;color:#7b889d;font-weight:600}
 
-/* 7) «Облачко» с репликой менеджера */
-.tezquiz-modal .quiz__message{
-  position:relative;background:#fff;border:1px solid #e6ebf2;border-radius:14px;
-  padding:14px 16px;color:var(--qz-text);font-size:14px;line-height:1.4;
-  box-shadow:0 6px 20px rgba(0,0,0,.06);
-}
-.tezquiz-modal .quiz__message::after{
-  content:"";position:absolute;left:12px;top:-8px;width:16px;height:16px;
-  background:#fff;border-left:1px solid #e6ebf2;border-top:1px solid #e6ebf2;transform:rotate(45deg);
-}
+.tezquiz-modal .quiz__steps{position:relative;flex:1;overflow:auto;padding-right:6px}
+.tezquiz-modal .quiz__step,.tezquiz-modal .quiz-final{display:none;animation:quizFade .18s ease}
+.tezquiz-modal .quiz__step.active,.tezquiz-modal .quiz-final.active{display:block}
+@keyframes quizFade{from{opacity:.001;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-/* 8) «Закрытый документ» */
-.tezquiz-modal .quiz__present{
-  margin-top:auto;padding:12px;background:#eceff4;border:1px dashed #cdd6e3;border-radius:12px;
-  display:flex;align-items:center;gap:10px;opacity:.7;
-}
-.tezquiz-modal .qiuz__presentimg img{width:44px;height:44px;object-fit:cover;border-radius:6px;}
-.tezquiz-modal .quiz__present span{font-size:14px;color:#7b889d;font-weight:600;}
+.tezquiz-modal .quiz__titlecnt{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.tezquiz-modal .quiz__title{font-weight:800;font-size:22px;letter-spacing:.2px}
 
-/* 9) Шаги */
-.tezquiz-modal .quiz__steps{position:relative;flex:1;overflow:auto;padding-right:6px;}
-.tezquiz-modal .quiz__step,
-.tezquiz-modal .quiz-final{display:none;animation:quizFade .18s ease;}
-.tezquiz-modal .quiz__step.active,
-.tezquiz-modal .quiz-final.active{display:block;}
-@keyframes quizFade{from{opacity:.001;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.tezquiz-modal .quiz__content{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 4px}
+.tezquiz-modal .quiz__steps,.tezquiz-modal .quiz__step,.tezquiz-modal .quiz__content{overflow:visible}
+.tezquiz-modal .quiz__content .radio{position:relative;z-index:1}
+.tezquiz-modal .quiz__content .radio:hover,.tezquiz-modal .quiz__content .radio.selected{z-index:5}
 
-/* 10) Заголовок-вопрос */
-.tezquiz-modal .quiz__titlecnt{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-.tezquiz-modal .quiz__title{font-weight:800;font-size:22px;letter-spacing:.2px;}
+.tezquiz-modal .radio{padding:16px;border:1px solid #e6ebf2;border-radius:14px;background:#fff;transition:transform .12s,box-shadow .12s,border-color .12s;cursor:pointer;display:flex;align-items:center;gap:10px}
+.tezquiz-modal .radio:hover{transform:translateY(-1px) scale(1.02);box-shadow:0 6px 18px rgba(0,0,0,.05);border-color:#dfe6f1}
+.tezquiz-modal .radio input{display:none}
+.tezquiz-modal .radio span{display:block;font-weight:600;color:var(--qz-text)}
+.tezquiz-modal .quiz__content .radio.selected{border-color:var(--qz-accent);box-shadow:0 0 0 2px rgba(40,100,199,.12) inset}
 
-/* 11) Варианты (карточки) */
-.tezquiz-modal .quiz__content{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 4px;}
-.tezquiz-modal .quiz__steps,
-.tezquiz-modal .quiz__step,
-.tezquiz-modal .quiz__content{overflow:visible;} /* чтобы тень не обрезалась */
+.tezquiz-modal .quiz__controller{margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.tezquiz-modal .quiz__progress{display:flex;align-items:center;gap:10px;flex:1}
+.tezquiz-modal .quiz__result{font-size:14px;color:var(--qz-muted)}
+.tezquiz-modal .quiz__bar{flex:1;height:10px;background:var(--qz-gray);border-radius:999px;overflow:hidden}
+.tezquiz-modal .quiz__bar>span{display:block;height:100%;width:14%;background:var(--qz-accent-grad);transition:width .25s}
+.tezquiz-modal .quiz__bar>span.bar-animated{background:linear-gradient(90deg,var(--qz-accent) 0%,#6aa8ff 50%,var(--qz-accent) 100%);background-size:200% 100%;animation:quizBarShine 1.6s linear infinite}
+@keyframes quizBarShine{0%{background-position:0 0}100%{background-position:200% 0}}
+.tezquiz-modal .quiz__actions{display:flex;align-items:center;gap:10px}
+.tezquiz-modal .quiz__prev{background:#fff;border:1px solid #e6ebf2;border-radius:10px;padding:8px 10px;cursor:pointer;opacity:.6;transition:.15s}
+.tezquiz-modal .quiz__prev:disabled{opacity:.35;cursor:not-allowed}
+.tezquiz-modal .quiz__prev:not(:disabled):hover{transform:translateY(-1px)}
+.tezquiz-modal .quiz__btn .quiz__next{background:var(--qz-accent);border:0;color:#fff;border-radius:10px;padding:10px 16px;font-weight:600;cursor:pointer;transition:.15s}
+.tezquiz-modal .quiz__btn .quiz__next:hover{filter:brightness(.95);transform:translateY(-1px)}
+.tezquiz-modal .quiz__btn .quiz__next[disabled]{opacity:.35;cursor:not-allowed}
+.tezquiz-modal .quiz__enter{display:block;font-size:12px;color:var(--qz-muted);margin-top:4px}
 
-.tezquiz-modal .quiz__content .radio{position:relative;z-index:1;}
-.tezquiz-modal .quiz__content .radio:hover,
-.tezquiz-modal .quiz__content .radio.selected{z-index:5;}
+.tezquiz-modal .quiz-final__title{display:block;font-weight:700;font-size:18px;margin:6px 0 10px}
+.tezquiz-modal .quiz-final__text{margin:0 0 14px}
+.tezquiz-modal .quiz-final__form{display:flex;flex-direction:column;gap:12px}
+.tezquiz-modal .quiz-final__socials{display:flex;gap:8px}
+.tezquiz-modal .quiz-final__soc img{width:36px;height:36px}
 
-.tezquiz-modal .radio{
-  padding:16px;border:1px solid #e6ebf2;border-radius:14px;background:#fff;
-  transition:transform .12s, box-shadow .12s, border-color .12s;cursor:pointer;
-  display:flex;align-items:center;gap:10px;
-}
-.tezquiz-modal .radio:hover{transform:translateY(-1px) scale(1.02);box-shadow:0 6px 18px rgba(0,0,0,.05);border-color:#dfe6f1;}
-.tezquiz-modal .radio input{display:none;}
-.tezquiz-modal .radio span{display:block;font-weight:600;color:var(--qz-text);}
-.tezquiz-modal .quiz__content .radio.selected{border-color:var(--qz-accent);box-shadow:0 0 0 2px rgba(46,108,255,.12) inset;}
-
-/* 12) Контролы и прогресс */
-.tezquiz-modal .quiz__controller{margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;}
-.tezquiz-modal .quiz__progress{display:flex;align-items:center;gap:10px;flex:1;}
-.tezquiz-modal .quiz__result{font-size:14px;color:var(--qz-muted);}
-.tezquiz-modal .quiz__bar{flex:1;height:10px;background:var(--qz-gray);border-radius:999px;overflow:hidden;}
-.tezquiz-modal .quiz__bar>span{display:block;height:100%;width:14%;background:var(--qz-accent-grad);transition:width .25s;}
-.tezquiz-modal .quiz__bar>span.bar-animated{
-  background:linear-gradient(90deg, var(--qz-accent) 0%, #6aa8ff 50%, var(--qz-accent) 100%);
-  background-size:200% 100%;
-  animation:quizBarShine 1.6s linear infinite;
-}
-@keyframes quizBarShine{0%{background-position:0 0;}100%{background-position:200% 0;}}
-.tezquiz-modal .quiz__actions{display:flex;align-items:center;gap:10px;}
-.tezquiz-modal .quiz__prev{background:#fff;border:1px solid #e6ebf2;border-radius:10px;padding:8px 10px;cursor:pointer;opacity:.6;transition:.15s;}
-.tezquiz-modal .quiz__prev:disabled{opacity:.35;cursor:not-allowed;}
-.tezquiz-modal .quiz__prev:not(:disabled):hover{transform:translateY(-1px);}
-.tezquiz-modal .quiz__btn .quiz__next{background:var(--qz-accent);border:0;color:#fff;border-radius:10px;padding:10px 16px;font-weight:600;cursor:pointer;transition:.15s;}
-.tezquiz-modal .quiz__btn .quiz__next:hover{filter:brightness(.95);transform:translateY(-1px);}
-.tezquiz-modal .quiz__btn .quiz__next[disabled]{opacity:.35;cursor:not-allowed;}
-.tezquiz-modal .quiz__enter{display:block;font-size:12px;color:var(--qz-muted);margin-top:4px;}
-
-/* 13) Финальный шаг + CF7 */
-.tezquiz-modal .quiz-final__title{display:block;font-weight:700;font-size:18px;margin:6px 0 10px;}
-.tezquiz-modal .quiz-final__text{margin:0 0 14px;}
-.tezquiz-modal .quiz-final__form{display:flex;flex-direction:column;gap:12px;}
-.tezquiz-modal .quiz-final__socials{display:flex;gap:8px;}
-.tezquiz-modal .quiz-final__soc img{width:36px;height:36px;}
-
-.tezquiz-modal label.quiz-final__input{display:flex;flex-direction:column;gap:2px;}
-.tezquiz-modal label.quiz-final__input > span{margin:0;line-height:1.12;}
-.tezquiz-modal label.quiz-final__input > .wpcf7-form-control-wrap{margin-top:2px !important;display:block;}
+.tezquiz-modal label.quiz-final__input{display:flex;flex-direction:column;gap:2px}
+.tezquiz-modal label.quiz-final__input>span{margin:0;line-height:1.12}
+.tezquiz-modal label.quiz-final__input>.wpcf7-form-control-wrap{margin-top:2px !important;display:block}
 
 .tezquiz-modal .quiz-final__input input[type="tel"],
-.tezquiz-modal .quiz-final__input input[type="text"]{
-  border:1px solid #e6ebf2;border-radius:10px;padding:10px 12px;font-size:16px;margin:0;
-}
+.tezquiz-modal .quiz-final__input input[type="text"]{border:1px solid #e6ebf2;border-radius:10px;padding:10px 12px;font-size:16px;margin:0}
 
-.quiz-final__cf7 input[type="submit"].quiz-final__submit{
-  width:100%;padding:12px 20px;line-height:1.2;border-radius:10px;
-  background:var(--qz-accent);color:#fff;border:0;font-weight:700;cursor:pointer;
-}
+.quiz-final__cf7 input[type="submit"].quiz-final__submit{width:100%;padding:12px 20px;line-height:1.2;border-radius:10px;background:var(--qz-accent);color:#fff;border:0;font-weight:700;cursor:pointer}
 
-.quiz-final__policy{
-  display:flex;align-items:flex-start;gap:8px;
-  font-size:12px;color:var(--qz-muted);margin-top:8px;
-}
-.quiz-final__policy .wpcf7-list-item{margin:0;}
-.quiz-final__policy .wpcf7-list-item-label{display:none;}
-.quiz-final__policy input[type="checkbox"]{margin-top:2px;}
-.quiz-final__policy a{color:inherit;text-decoration:underline;}
+.quiz-final__policy{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--qz-muted);margin-top:8px}
+.quiz-final__policy .wpcf7-list-item{margin:0}
+.quiz-final__policy .wpcf7-list-item-label{display:none}
+.quiz-final__policy input[type="checkbox"]{margin-top:2px}
+.quiz-final__policy a{color:inherit;text-decoration:underline}
 
-/* 14) Адаптив */
-@media (max-width:720px){
-  .tezquiz-modal .quiz{
-    grid-template-columns:1fr;
-    max-height:96vh;
-  }
-  .tezquiz-modal .quiz__sidebar{
-    order:2;border-left:none;border-top:1px solid #e6ebf2;
-    box-shadow: none; /* на мобилке фон и так на всю ширину */
-  }
-  .tezquiz-modal .quiz__content{grid-template-columns:1fr;}
-}
-
-/* 15) Десктопная фиксация ширины правой колонки (доп. надёжность) */
-@media (min-width:980px){
-  .tezquiz-modal .quiz{ grid-template-columns: minmax(0,1fr) 320px; }
-}
-
-/* FIX: закрашиваем фон обеих колонок прямо на контейнере,
-   чтобы справа не появлялась белая полоска */
-@media (min-width: 721px){
-  .tezquiz-modal .quiz{
-    /* левая часть — белая, правая (320px) — серая */
-    background:
-      linear-gradient(to right,
-        #ffffff 0,
-        #ffffff calc(100% - 320px),
-        var(--qz-gray-2) calc(100% - 320px),
-        var(--qz-gray-2) 100%);
-  }
-  /* сам сайдбар оставляем прозрачным (фон уже «лежит» на контейнере) */
-  .tezquiz-modal .quiz__sidebar{
-    background: transparent !important;
-    box-shadow: none !important;   /* убираем трюк с inset-тенью */
-    border-left: 1px solid #e6ebf2; /* граница остаётся */
-  }
-}
-
-/* Мобилка: одна колонка — возвращаем обычный белый фон */
-@media (max-width: 720px){
-  .tezquiz-modal .quiz{
-    background: #fff !important;
-  }
-  .tezquiz-modal .quiz__sidebar{
-    background: var(--qz-gray-2) !important;
-  }
-}
-
-/* На всякий: крестик поверх всего */
-.tezquiz-modal .mfp-close{ z-index: 50; }
-
-
-/* === MOBILE FULLSCREEN FIX FOR QUIZ === */
-:root{ --qz-vh: 1vh; } /* будет переопределено JS-ом */
-
-.tezquiz-modal{ overscroll-behavior: contain; } /* не скроллим фон на iOS */
-
-/* Мобилки — показываем попап на всю высоту экрана, без transform */
-@media (max-width: 720px){
-  .tezquiz-modal .quiz{
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: calc(var(--qz-vh) * 100);
-    max-height: none;
-    transform: none;              /* важно: убираем translate(-50%,-50%) */
-    border-radius: 0;             /* без скругления по краям экрана */
-    grid-template-columns: 1fr;   /* одна колонка */
-    overflow: hidden;             /* скролл только внутри шагов */
-    background: #fff;
-  }
-
-  .tezquiz-modal .mfp-close{
-    top: 10px; right: 12px; z-index: 5;
-  }
-
-  .tezquiz-modal .quiz__form{
-    padding: 16px;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .tezquiz-modal .quiz__steps{
-    flex: 1;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch; /* инерционный скролл на iOS */
-  }
-
-  /* контроллер «прилипает» к низу внутри попапа */
-  .tezquiz-modal .quiz__controller{
-    position: sticky;
-    bottom: 0;
-    background: #fff;
-    padding-top: 10px;
-    margin-top: 10px;
-    box-shadow: 0 -6px 20px rgba(0,0,0,.08);
-  }
-
-  /* правая колонка уходит вниз и тянется на всю ширину */
-  .tezquiz-modal .quiz__sidebar{
-    order: 2;
-    border-left: none;
-    border-top: 1px solid #e6ebf2;
-    padding: 16px;
-  }
-}
-
-/* Фолбэк для iOS Safari */
-@supports (-webkit-touch-callout:none){
-  @media (max-width:720px){
-    .tezquiz-modal .quiz{ height: -webkit-fill-available; }
-  }
-}
-
-/* — глобальный box-sizing внутри модалки, чтобы поля не вылезали */
-.tezquiz-modal *, .tezquiz-modal *::before, .tezquiz-modal *::after { box-sizing: border-box; }
-
-/* — блокируем прокрутку документа, когда открыт квиз */
-html.is-locked, body.is-locked {
-  position: fixed;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-}
-
-/* — сама модалка: не даём прокручивать фон, только её содержимое */
-.tezquiz-modal { position: fixed; inset: 0; overflow: hidden; overscroll-behavior: contain; }
-
-/* — контейнер квиза адекватно влезает по высоте экрана мобилы */
-.tezquiz-modal .quiz{
-  width: min(980px, 96vw);
-  max-height: calc(var(--qz-vh, 1vh) * 100 - 12px);
-  overflow: hidden; /* важное: режем внутренний o/f-x */
-}
-
-/* — левая колонка: вертикальный флекс, скролл только у шага */
-.tezquiz-modal .quiz__form{ display:flex; flex-direction:column; min-height:0; }
-.tezquiz-modal .quiz__steps{ flex:1; min-height:0; overflow:auto; -webkit-overflow-scrolling: touch; }
-
-/* — правая колонка тоже со своим скроллом на маленьких */
-@media (max-width:720px){
-  .tezquiz-modal .quiz__sidebar{ max-height: 40vh; overflow:auto; -webkit-overflow-scrolling: touch; }
-}
-
-/* — поля CF7 и обёртки — в ширину контейнера, без горизонтального выноса */
-.tezquiz-modal .quiz-final__cf7 form{ width:100%; }
-.tezquiz-modal .wpcf7-form-control-wrap{ display:block; max-width:100%; }
+.tezquiz-modal .quiz-final__cf7 form{width:100%}
+.tezquiz-modal .wpcf7-form-control-wrap{display:block;max-width:100%}
 .tezquiz-modal .quiz-final__input input[type="tel"],
 .tezquiz-modal .quiz-final__input input[type="text"],
-.tezquiz-modal .wpcf7-form-control{ width:100%; max-width:100%; }
+.tezquiz-modal .wpcf7-form-control{width:100%;max-width:100%}
 
-.quiz-final__cf7 form{ width:100%; }
-.quiz-final__cf7 .wpcf7-form-control-wrap{ display:block; max-width:100%; }
-.quiz-final__cf7 .quiz-final__input input[type="tel"],
-.quiz-final__cf7 .quiz-final__input input[type="text"],
-.quiz-final__cf7 .wpcf7-form-control{ width:100%; max-width:100%; }
+/* Desktop tweaks */
+@media (min-width:980px){
+  .tezquiz-modal .quiz{grid-template-columns:minmax(0,1fr) 320px}
+}
+
+@media (max-width: 720px) {
+  /* Контейнер */
+  .tezquiz-modal .quiz{
+    position: fixed; inset: 0; width: 100vw; height: 100vh;
+    transform: none; border-radius: 0; grid-template-columns: 1fr;
+    overflow: hidden; background: #fff; max-width: none; box-shadow: none;
+  }
+
+  /* Левая колонка */
+  .tezquiz-modal .quiz__form{
+    display: flex; flex-direction: column; height: 100%;
+    min-height: 0; padding: 12px 14px;
+  }
+  .tezquiz-modal .quiz__steps{
+    flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden;
+  }
+  .tezquiz-modal .quiz__titlecnt{ margin: 0 0 6px; }
+  .tezquiz-modal .quiz__title{ font-size: 20px; line-height: 1.2; margin: 0; }
+  .tezquiz-modal .quiz__message{ font-size: 14px; padding: 8px 10px; margin: 6px 0 8px; }
+
+  /* Варианты */
+  .tezquiz-modal .quiz__content{
+    flex: 1; min-height: 0; display: flex; flex-direction: column;
+    justify-content: space-between; gap: 8px; padding: 0;
+  }
+  .tezquiz-modal .radio{
+    flex: 1; min-height: 0; display: flex; align-items: center; padding: 10px 12px;
+  }
+  .tezquiz-modal .radio span{
+    font-size: 16px; line-height: 1.15; display: -webkit-box;
+    -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+
+  /* Контролы */
+  .tezquiz-modal .quiz__controller{ position: static; margin-top: 10px; padding-top: 8px; box-shadow: none; }
+  .tezquiz-modal .quiz__progress{ height: 6px; }
+  .tezquiz-modal .quiz__btn .quiz__next{ height: 40px; line-height: 40px; padding: 0 16px; font-size: 15px; background:#2864c7; }
+
+  /* Правая колонка — оставляем, но ужимаем */
+  .tezquiz-modal .quiz__sidebar{
+    display: flex; flex-direction: column; gap: 10px; padding: 12px 14px;
+    border-left: none; border-top: 1px solid #e6ebf2; background: #f7f9fc;
+    max-height: none; overflow: visible;
+  }
+  .tezquiz-modal .quiz__img img{ width: 40px; height: 40px; }
+  .tezquiz-modal .quiz__name{ font-size: 15px; }
+  .tezquiz-modal .quiz__sub{ font-size: 12px; }
+  .tezquiz-modal .quiz__message{ margin-top: 6px; }
+
+  /* Скрываем ТОЛЬКО «плашку с огнём» */
+  .tezquiz-modal .quiz__sidebar .quiz__present,
+  .tezquiz-modal .quiz-hot,
+  .tezquiz-modal .quiz__hot,
+  .tezquiz-modal .hot-deal,
+  .tezquiz-modal .hot-tip{
+    display: none;
+  }
+
+  /* Микро-тексты под кнопкой внутри попапа на мобиле не показываем */
+  .tezquiz-modal .microtext{ display: none; }
+
+  /* Крестик ближе к краю */
+  .tezquiz-modal .mfp-close{ top: 10px; right: 12px; }
+}
+
+
+
 
 
 /* === TEZ: блок преимуществ (из шаблона category-default.php) === */
@@ -3227,3 +3071,321 @@ html.is-locked, body.is-locked {
   .tez-adv-right{ grid-template-columns:1fr; }
   :root{ --tez-icon-gap:20px; } /* немного компактнее на мобиле */
 }
+
+
+.tez-cards{display:grid;gap:16px;margin:24px 0 10px}
+.tez-cards--cols-1{grid-template-columns:1fr}
+.tez-cards--cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tez-cards--cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.tez-cards--cols-4{grid-template-columns:repeat(4,minmax(240px,1fr))}
+@media (max-width:1279px){.tez-cards--cols-4{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:1023px){.tez-cards--cols-4,.tez-cards--cols-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:639px){.tez-cards--cols-4,.tez-cards--cols-3,.tez-cards--cols-2{grid-template-columns:1fr}}
+
+.tez-cards .tez-card,.tez-cards .tez-card__link,.tez-cards .tez-card__media{margin:0!important;padding:0!important}
+.tez-cards .tez-card__link{line-height:0!important;display:block!important}
+
+.tez-cards .tez-card{position:relative;overflow:hidden;border:0;background:transparent;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+
+.tez-cards .tez-card__media{position:relative!important;overflow:hidden!important;background:#000!important;height:290px!important}
+@media (max-width:1023px){.tez-cards .tez-card__media{height:260px!important}}
+@media (max-width:639px){.tez-cards .tez-card__media{height:220px!important}}
+
+.tez-cards .tez-card__img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;display:block!important;object-fit:cover!important;object-position:center!important;transform:scale(1);transition:transform .35s ease}
+.tez-cards .tez-card:hover .tez-card__img{transform:scale(1.06)}
+
+.tez-cards .tez-card__icons{position:absolute!important;left:12px;top:12px;z-index:5;display:flex;gap:8px;margin:0!important;padding:0!important;list-style:none}
+.tez-cards .tez-card__icons,.tez-cards .tez-card__icons li{list-style:none!important}
+.tez-cards .tez-card__icons li::marker,.tez-cards .tez-card__icons li::before{content:none!important}
+
+.tez-cards .tez-icon{width:34px;height:34px;border-radius:999px;position:relative;display:grid;place-items:center;background:#fff;border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 8px rgba(0,0,0,.08);overflow:visible}
+.tez-cards .tez-icon__img{height:18px;width:auto;display:block;object-fit:contain}
+
+/* подсказка: снизу и СПРАВА от иконки */
+.tez-cards .tez-icon::after{
+  content:attr(data-tooltip);
+  position:absolute;
+  top:calc(100% + 8px);
+  left:calc(100% + 8px);
+  right:auto;
+  transform:none;
+  white-space:nowrap;
+  max-width:220px;
+  padding:6px 8px;
+  border-radius:8px;
+  background:rgba(255,255,255,.96);
+  color:#111;
+  font-size:12px;
+  line-height:1;
+  border:1px solid rgba(0,0,0,.12);
+  box-shadow:0 8px 18px rgba(0,0,0,.15);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s ease;
+  z-index:100;
+}
+.tez-cards .tez-icon:hover::after,.tez-cards .tez-icon:focus::after{opacity:1}
+
+.tez-cards .tez-card__overlay{position:absolute!important;left:0;right:0;bottom:0;z-index:3;padding:18px 16px 64px;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.35) 45%,rgba(0,0,0,0) 100%);color:#fff;display:flex;flex-direction:column;gap:6px}
+.tez-cards .tez-card__title,.tez-cards .tez-card__title a,.tez-cards .tez-card__title a:link,.tez-cards .tez-card__title a:visited,.tez-cards .tez-card__title a:hover,.tez-cards .tez-card__title a:focus{margin:0;color:#fff!important;font-weight:900!important;font-size:26px;line-height:1.1;letter-spacing:.3px;text-transform:uppercase;text-decoration:none!important;text-shadow:0 1px 6px rgba(0,0,0,.35)}
+.tez-cards .tez-card__desc{margin:0;font-size:15px;line-height:1.45;color:#fff;opacity:.98;text-shadow:0 1px 6px rgba(0,0,0,.25)}
+@media (max-width:1023px){.tez-cards .tez-card__title{font-size:22px}.tez-cards .tez-card__overlay{padding-bottom:58px}}
+@media (max-width:639px){.tez-cards .tez-card__title{font-size:20px}.tez-cards .tez-card__overlay{padding-bottom:52px}}
+
+.tez-cards .tez-card__price{position:absolute!important;right:10px;bottom:12px;z-index:4;display:flex!important;align-items:center;gap:6px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.85);color:#111;border:1px solid rgba(0,0,0,.08);backdrop-filter:blur(8px) saturate(1.2)}
+.tez-cards .tez-card__price-from{font-size:13px;opacity:.8}
+.tez-cards .tez-card__price-value{font-size:14px;font-weight:800}
+.tez-cards .tez-card__price-tail{font-size:13px;opacity:.8}
+
+.tez-cards *,.tez-cards *::before,.tez-cards *::after{box-sizing:border-box}
+.tez-cards figure,.tez-cards p{margin:0!important}
+.tez-cards .tez-card__link:focus{outline:2px solid #2e6cff;outline-offset:2px}
+
+/* TEZ: оффер над футером — без «карточки» */
+section.tour-offer-block { 
+  background:#F5F5F5;
+  padding:40px 0;
+}
+
+section.tour-offer-block > .main {
+  background:transparent;   /* перекрываем section > .main */
+  box-shadow:none;
+  border:0;
+  border-radius:0;
+  gap:40px;                  /* как в макете */
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  /* padding уже берётся от section > .main (0 15px); оставляем как есть */
+}
+
+/* Колонки блока */
+section.tour-offer-block .offer-photo { flex:0 0 260px; text-align:center; }
+section.tour-offer-block .offer-photo img {
+  width:220px; height:220px; border-radius:50%; object-fit:cover; margin-bottom:10px;
+}
+section.tour-offer-block .manager-name { font-weight:600; font-size:16px; margin:0; }
+section.tour-offer-block .manager-sub  { font-size:14px; color:#555; margin:4px 0 0; }
+
+section.tour-offer-block .offer-text   { flex:1 1 400px; }
+section.tour-offer-block .offer-text h2{ font-size:33px; font-weight:700; margin:0 0 8px; color:#000; }
+section.tour-offer-block .subline      { font-size:18px; font-weight:600; margin:0 0 15px; }
+section.tour-offer-block .note         { font-size:14px; color:#333; margin-bottom:20px; }
+section.tour-offer-block .wa-icon      { height:18px; vertical-align:middle; margin:0 4px; }
+section.tour-offer-block .t_app a      {
+  display:inline-block; padding:15px 40px; background:#2864c7; color:#fff;
+  font-size:16px; font-weight:600; border-radius:6px; box-shadow:0 4px 4px rgba(0,0,0,.25);
+  transition:opacity .2s ease;
+}
+section.tour-offer-block .t_app a:hover{ opacity:.9; text-decoration:none; }
+section.tour-offer-block .microtext    { margin-top:12px; font-size:13px; color:#777; }
+
+/* Адаптив */
+@media (max-width:768px){
+  section.tour-offer-block > .main { flex-direction:column; text-align:center; }
+  section.tour-offer-block .offer-photo { margin-bottom:20px; }
+  section.tour-offer-block .offer-text  { text-align:center; }
+}
+
+/* 1) Заголовок: выше + больше воздуха (десктоп) */
+section.tour-offer-block .offer-title{
+  font-size: 36px;        /* было 33px */
+  line-height: 1.25;
+  margin: 0 0 16px;
+}
+
+/* 3) Фото менеджера: 240px, подпись серым */
+section.tour-offer-block .offer-photo{ flex: 0 0 280px; } /* чуть шире колонка */
+section.tour-offer-block .offer-photo img{
+  width: 240px;
+  height: 240px;
+}
+section.tour-offer-block .offer-photo .manager-sub{
+  color: #666;   /* серым */
+}
+
+/* 4) Тонкая линия сверху у блока */
+section.tour-offer-block{
+  border-top: 1px solid #ddd;
+}
+
+/* 5) Мобилка: заголовок компактнее */
+@media (max-width: 600px){
+  section.tour-offer-block .offer-title{
+    font-size: 26px;
+    line-height: 1.25;
+  }
+}
+
+/* Контейнер и сетка */
+section.tour-offer-block { 
+  background:#F5F5F5;
+  padding:40px 0;
+  border-top:1px solid #ddd;              /* п.4 — тонкая линия сверху */
+}
+section.tour-offer-block > .main {
+  display:flex;                            /* ВЕРНУЛИ флекс-сетку */
+  background:transparent;
+  box-shadow:none;
+  border:0;
+  border-radius:0;
+  gap:40px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+/* Заголовок: работает и для <h2>, и для .offer-title */
+section.tour-offer-block .offer-text h2,
+section.tour-offer-block .offer-title{
+  font-size:36px;                          /* п.1 — крупнее */
+  line-height:1.25;
+  margin:0 0 16px;
+  font-weight:700;
+  color:#000;
+}
+
+/* Подзаголовок и тексты */
+section.tour-offer-block .subline      { font-size:18px; font-weight:600; margin:0 0 15px; }
+section.tour-offer-block .note         { font-size:14px; color:#333; margin-bottom:20px; }
+section.tour-offer-block .wa-icon      { height:18px; vertical-align:middle; margin:0 4px; }
+
+/* Фото и подписи */
+section.tour-offer-block .offer-photo      { flex:0 0 280px; text-align:center; }  /* п.3 — шире колонка */
+section.tour-offer-block .offer-photo img  { width:240px; height:240px; border-radius:50%; object-fit:cover; margin-bottom:10px; } /* п.3 — 240px */
+section.tour-offer-block .manager-name     { font-weight:600; font-size:16px; margin:0; }
+section.tour-offer-block .manager-sub      { font-size:14px; color:#666; margin:4px 0 0; }  /* п.3 — серым */
+
+/* Кнопка */
+section.tour-offer-block .t_app a{
+  display:inline-block; padding:15px 40px; background:#2864c7; color:#fff;
+  font-size:16px; font-weight:600; border-radius:6px; box-shadow:0 4px 4px rgba(0,0,0,.25);
+  transition:opacity .2s ease;
+}
+section.tour-offer-block .t_app a:hover{ opacity:.9; text-decoration:none; }
+section.tour-offer-block .microtext{ margin-top:12px; font-size:13px; color:#777; }
+
+/* Адаптив */
+@media (max-width:768px){
+  section.tour-offer-block > .main { flex-direction:column; text-align:center; }
+  section.tour-offer-block .offer-photo { margin-bottom:20px; }
+  section.tour-offer-block .offer-text  { text-align:center; }
+  section.tour-offer-block .offer-text h2,
+  section.tour-offer-block .offer-title{ font-size:26px; } /* п.5 — компактнее на мобилке */
+}
+
+/* 1) Сжать расстояние между заголовком и подзаголовком */
+section.tour-offer-block .offer-text .offer-title { margin-bottom: 8px; }
+section.tour-offer-block .offer-text .subline { margin-top: 0; }
+
+/* 2) Увеличить расстояние от текста до кнопки */
+section.tour-offer-block .offer-text .note { margin-bottom: 28px; }
+
+/* 3) Цвет подписи под фото = как у микро-текста (#777) */
+section.tour-offer-block .offer-photo .manager-sub { color: #777; }
+
+/* ===== Мобайл-фикс для перекрытия ===== */
+@media (max-width: 767px) {
+  /* Спрятать нижнюю/верхнюю строку прогресса и кнопку "Назад".
+     Я добавил несколько частых селекторов, хватит любого совпадения. */
+  .quiz-progress,
+  .quiz__progress,
+  .quiz-progress-row,
+  .quiz-controls--bottom,
+  .quiz-bottom-bar,
+  .quiz-nav,
+  .quiz-footer-controls {
+    display: none !important;
+  }
+
+  /* Область с CF7 на финальном шаге */
+  .quiz-final__cf7 {
+    position: relative;
+    z-index: 3;                 /* поверх прочего интерфейса квиза */
+    padding-bottom: 16px;       /* запас под клавиатуру/вьюпорт */
+  }
+
+  /* Сам чекбокс согласия */
+  .quiz-final__cf7 .wpcf7-acceptance,
+  .quiz-final__cf7 .consent-wrap {
+    display: block !important;
+    margin: 12px 0 6px !important;
+    line-height: 1.35;
+  }
+
+  /* Кнопка отправки — чуть отступов, чтобы не упиралась в край */
+  .quiz-final__cf7 .wpcf7-submit,
+  .quiz-final__cf7 button[type="submit"],
+  .quiz-final__cf7 input[type="submit"] {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  /* Улучшаем попадание по чекбоксу пальцем */
+  .quiz-final__cf7 label,
+  .quiz-final__cf7 .wpcf7-list-item-label {
+    display: inline-block;
+    padding-left: 4px;
+  }
+}
+
+/* == TEZ QUIZ: мобильный фикс перекрытий == */
+@media (max-width: 767px) {
+  /* Прячем всю панель прогресса/Enter/Назад */
+  .tezquiz-modal .quiz__controller,
+  .quiz-progress,
+  .quiz__progress,
+  .quiz-progress-row,
+  .quiz-controls--bottom,
+  .quiz-bottom-bar,
+  .quiz-nav,
+  .quiz-footer-controls {
+    display: none !important;
+  }
+
+  /* Зона формы на финальном шаге поверх всего */
+  .quiz-final__cf7 {
+    position: relative;
+    z-index: 3;
+    padding-bottom: 16px;
+  }
+
+  /* Чекбокс согласия — всегда видим и кликабелен */
+  .quiz-final__cf7 .wpcf7-acceptance,
+  .quiz-final__cf7 .consent-wrap {
+    display: block !important;
+    margin: 12px 0 6px !important;
+    line-height: 1.35;
+  }
+
+  /* Попасть пальцем проще */
+  .quiz-final__cf7 label,
+  .quiz-final__cf7 .wpcf7-list-item-label {
+    display: inline-block;
+    padding-left: 4px;
+  }
+
+  /* Кнопка отправки во всю ширину */
+  .quiz-final__cf7 .wpcf7-submit,
+  .quiz-final__cf7 button[type="submit"],
+  .quiz-final__cf7 input[type="submit"] {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+/* === TEZ QUIZ FIX — START === */
+
+.tezquiz-modal .quiz-final__policy .wpcf7-list-item-label{display:inline !important;}
+.tezquiz-modal .quiz-final__policy .custom-checkbox{display:inline-block !important;position:static !important;width:auto;height:auto;}
+.tezquiz-modal .quiz-final__policy input[type="checkbox"]{-webkit-appearance:checkbox;appearance:checkbox;position:static !important;width:16px;height:16px;margin-top:3px;}
+.tezquiz-modal .quiz-final__cf7{position:relative;z-index:20;padding-bottom:12px;}
+
+@media (max-width:767px){
+  .tezquiz-modal .quiz-final .quiz__controller,
+  .tezquiz-modal .quiz-final .quiz__progress,
+  .tezquiz-modal .quiz-final .quiz__enter,
+  .tezquiz-modal .quiz-final .quiz__prev{display:none !important;}
+}
+
+/* === TEZ QUIZ FIX — END === */
