@@ -24,7 +24,7 @@
         }
         if (!empty($desc_to_show)) : ?>
             <div class="category_description">
-                <?php echo apply_filters('the_content', do_shortcode($desc_to_show)); ?>
+                 <?php echo apply_filters('the_content', do_shortcode($desc_to_show)); ?>
             </div>
         <?php endif; ?>
         <!-- /ОПИСАНИЕ РУБРИКИ -->
