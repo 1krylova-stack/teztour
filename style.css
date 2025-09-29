@@ -3306,7 +3306,7 @@ section.tour-offer-block .offer-photo .manager-sub { color: #777; }
   }
 
   .tezquiz-modal.quiz-is-final .quiz-final__policy {
-    margin-top: 12px;
+    margin-top: 4px;
   }
 
   .tezquiz-modal.quiz-is-final .quiz-final__cf7 .wpcf7-acceptance,
@@ -3320,7 +3320,7 @@ section.tour-offer-block .offer-photo .manager-sub { color: #777; }
   .tezquiz-modal.quiz-is-final .quiz-final__cf7 button[type="submit"],
   .tezquiz-modal.quiz-is-final .quiz-final__cf7 input[type="submit"] {
     width: 100%;
-	  margin-top: 10px;
+	  margin-top: 4px;
   }
 
  .tezquiz-modal.quiz-is-final .quiz-final__cf7 label,
@@ -3338,22 +3338,50 @@ section.tour-offer-block .offer-photo .manager-sub { color: #777; }
 
 @media (max-width:767px){
 .tezquiz-modal .quiz-final__policy{
+    display:flex !important;
     align-items:center;
-    gap:12px;
+    gap:8px;
+    flex-wrap:nowrap;
+    padding-left:0;
+  }
+  .tezquiz-modal .quiz-final__policy > span:last-of-type{
+    flex:1 1 auto;
+    min-width:0;
+  }
+  .tezquiz-modal .quiz-final__policy .wpcf7-form-control-wrap{
+    display:flex;
+    align-items:center;
+    flex:0 0 auto;
+    width:auto;
+    margin:0;
+  }
+  .tezquiz-modal .quiz-final__policy .wpcf7-form-control{
+    display:flex;
+    align-items:center;
+    flex:0 0 auto;
+    width:auto;
+  }
+  .tezquiz-modal .quiz-final__policy .wpcf7-list-item{
+    display:flex;
+    align-items:center;
+    flex:0 0 auto;
+    width:auto;
   }
   .tezquiz-modal .quiz-final__policy .custom-checkbox{
     display:none !important;
   }
   .tezquiz-modal .quiz-final__policy .wpcf7-list-item-label{
     position:relative;
-    display:block !important;
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 20px;
     width:20px;
     height:20px;
     margin-top:0;
     padding-left:0;
-    text-indent:-9999px;
-    white-space:nowrap;
-    overflow:hidden;
+    font-size:0;
+    line-height:0;
   }
   .tezquiz-modal .quiz-final__policy .custom-checkbox + .wpcf7-list-item-label:before{
     width:20px;
