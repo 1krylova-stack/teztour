@@ -536,3 +536,167 @@ add_shortcode('tez_adv_item', function($atts, $content = '') {
     <?php
     return ob_get_clean();
 });
+
+// === [tez_cards_table] v3.1 — чистый HTML (стили в style.css) ===
+add_shortcode('tez_cards_table', function($atts, $content = null){
+    $a = shortcode_atts([
+        'cols'     => '4',       // 1..4 — колонок на десктопе
+        'currency' => '₽',       // валюта по умолчанию
+        'tail'     => '/чел',    // хвост цены
+        'ratio'    => '16/10',   // 16/10 | 16/9 | 3/2 | 4/3
+        'radius'   => '18px',    // 12px | 16px | 18px | 20px ...
+        'gap'      => '16px',    // 12px | 16px | 20px ...
+    ], $atts, 'tez_cards_table');
+
+    $content = trim(do_shortcode($content ?? ''));
+    if (!$content) return '';
+
+    // Разбор таблицы
+    $dom = new DOMDocument();
+    libxml_use_internal_errors(true);
+    $dom->loadHTML('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">'.$content);
+    libxml_clear_errors();
+
+    $tables = $dom->getElementsByTagName('table');
+    if (!$tables || !$tables->length) return '';
+    $rows  = $tables->item(0)->getElementsByTagName('tr');
+    if (!$rows->length) return '';
+
+    // Заголовки (необязательно)
+    $headers = [];
+    $firstRow = $rows->item(0);
+    $th = $firstRow->getElementsByTagName('th');
+    $startIndex = 0;
+    if ($th->length) {
+        foreach ($th as $i => $cell) $headers[$i] = mb_strtolower(trim($cell->textContent));
+        $startIndex = 1;
+    }
+    $getVal = function($cells, $nameOrIndex) use ($headers){
+        if (is_string($nameOrIndex) && $headers) {
+            $needle = mb_strtolower($nameOrIndex);
+            foreach ($headers as $idx => $hdr) if ($hdr === $needle) return isset($cells[$idx]) ? trim($cells[$idx]) : '';
+            return '';
+        }
+        $i = (int)$nameOrIndex;
+        return isset($cells[$i]) ? trim($cells[$i]) : '';
+    };
+
+    $items = [];
+    for ($r = $startIndex; $r < $rows->length; $r++) {
+        $tr = $rows->item($r);
+        if (!$tr) continue;
+        $tds = $tr->getElementsByTagName('td');
+        if (!$tds->length) continue;
+
+        $cells = [];
+        foreach ($tds as $td) $cells[] = trim($td->textContent);
+
+        $hasHeaders = !empty($headers);
+        // Порядок без заголовков: image | title | price | link | icons? | desc?
+        $img   = $getVal($cells, $hasHeaders ? 'image' : 0);
+        $title = $getVal($cells, $hasHeaders ? 'title' : 1);
+        $price = $getVal($cells, $hasHeaders ? 'price' : 2);
+        $link  = $getVal($cells, $hasHeaders ? 'link'  : 3);
+        $icons = $getVal($cells, $hasHeaders ? 'icons' : 4);
+        $desc  = $getVal($cells, $hasHeaders ? 'desc'  : (isset($cells[5]) ? 5 : (isset($cells[4]) && $icons==='' ? 4 : 6)));
+
+        if (!$img || !$title || !$price || !$link) continue;
+
+        // Иконки: "url|label, url2|label2"
+        $icon_items = [];
+        if ($icons !== '') {
+            foreach (explode(',', $icons) as $raw) {
+                $raw = trim($raw);
+                if ($raw==='') continue;
+                $parts = explode('|', $raw, 2);
+                $url   = trim($parts[0]);
+                $label = isset($parts[1]) ? trim($parts[1]) : '';
+                if ($url) $icon_items[] = ['url'=>$url, 'label'=>$label];
+            }
+        }
+
+        // Нормализуем цену: оставляем цифры
+        $price_clean = preg_replace('~[^\d]~u', '', $price);
+        if ($price_clean === '') continue;
+
+        $items[] = [
+            'img'   => $img,
+            'title' => $title,
+            'desc'  => $desc,
+            'price' => (float)$price_clean,
+            'icons' => $icon_items,
+            'link'  => $link,
+        ];
+    }
+    if (!$items) return '';
+
+    // Классы-модификаторы вместо инлайновых стилей
+    $cols = max(1, min(4, (int)$a['cols']));
+    $wrap_classes = ['tez-cards', 'tez-cards--cols-'.$cols];
+
+    // ratio
+    $ratio_map = ['16/10'=>'16-10','16/9'=>'16-9','3/2'=>'3-2','4/3'=>'4-3'];
+    $ratio_key = $ratio_map[$a['ratio']] ?? '16-10';
+    $wrap_classes[] = 'tez-ratio-'.$ratio_key;
+
+    // radius (берём число)
+    if (preg_match('~(\d+)~', $a['radius'], $m)) $wrap_classes[] = 'tez-radius-'.$m[1];
+
+    // gap (число)
+    if (preg_match('~(\d+)~', $a['gap'], $m)) $wrap_classes[] = 'tez-gap-'.$m[1];
+
+    ob_start();
+    echo '<div class="'.esc_attr(implode(' ', $wrap_classes)).'">';
+    foreach ($items as $it) {
+        $img   = esc_url($it['img']);
+        $title = esc_html($it['title']);
+        $desc  = esc_html($it['desc']);
+        $price = number_format((float)$it['price'], 0, ',', ' ');
+        $link  = esc_url($it['link']);
+
+        echo '<article class="tez-card">';
+        $open = $link ? '<a class="tez-card__link" href="'.$link.'">' : '<div class="tez-card__link">';
+        $close= $link ? '</a>' : '</div>';
+        echo $open;
+
+        echo '<div class="tez-card__media">';
+        if ($img) echo '<img class="tez-card__img" src="'.$img.'" alt="'.$title.'" loading="lazy" decoding="async">';
+
+        if (!empty($it['icons'])) {
+            echo '<ul class="tez-card__icons">';
+            foreach ($it['icons'] as $icon) {
+                $u = esc_url($icon['url']);
+                $l = esc_attr($icon['label'] ?: '');
+                $attr = $l ? ' data-tooltip="'.$l.'" aria-label="'.$l.'"' : '';
+                echo '<li class="tez-icon"'.$attr.'><img class="tez-icon__img" src="'.$u.'" alt=""></li>';
+            }
+            echo '</ul>';
+        }
+
+        // Цена — справа внизу
+        echo '<div class="tez-card__price" aria-label="Цена от"><span class="tez-card__price-from">от</span><span class="tez-card__price-value">'.$price.' '.esc_html($a['currency']).'</span><span class="tez-card__price-tail">'.esc_html($a['tail']).'</span></div>';
+
+        // Текст на изображении — слева внизу: Город -> Описание
+        echo '<div class="tez-card__overlay">';
+        if ($title) echo '<h3 class="tez-card__title">'.$title.'</h3>';
+        if ($desc)  echo '<p class="tez-card__desc">'.$desc.'</p>';
+        echo '</div>';
+
+        echo '</div>'; // media
+        echo $close;
+        echo '</article>';
+    }
+    echo '</div>';
+
+    return ob_get_clean();
+});
+
+// === Шорткод блока "Что входит в тур" ===
+function alt3_tour_included_shortcode( $atts = [] ) {
+    ob_start();
+    // подключаем шаблон из template-parts/tour-included.php
+    get_template_part( 'template-parts/tour-included' );
+    return ob_get_clean();
+}
+add_shortcode( 'tour_included', 'alt3_tour_included_shortcode' );
+
