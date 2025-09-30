@@ -198,19 +198,23 @@ if( $date_main_post > $databaseDate) { ?>
 
 
 
-			<?php if ($polnaya_opisaniye_rubrik) { ?>
-			<div class="category_description">
-				<?php echo $polnaya_opisaniye_rubrik; ?>
-			</div>
-			<?php
-			} else if ( category_description() ) { ?>
-			<div class="category_description">
-				<?php echo category_description(); ?>
-			</div>
-			<?php } ?>
-
-
+			  <?php
+                        $default_category_description = category_description();
+                        if ( $polnaya_opisaniye_rubrik || $default_category_description || shortcode_exists( 'tour_included' ) ) {
+                        ?>
+                        <div class="category_description">
+                                <?php
+                                if ( shortcode_exists( 'tour_included' ) ) {
+                                        echo do_shortcode( '[tour_included]' );
+                                }
+                                if ( $polnaya_opisaniye_rubrik ) {
+                                        echo $polnaya_opisaniye_rubrik;
+                                } elseif ( $default_category_description ) {
+                                        echo $default_category_description;
+                                }
+                                ?>
+                        </div>
+                        <?php } ?>
 		</div>
 	</article>
 <?php get_footer(); ?>
-
