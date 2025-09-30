@@ -100,6 +100,17 @@
 						</div>
 						<div class="clear"></div>
 						<?php the_content(); ?>
+
+                                                <?php
+                                               
+                                                        // === Блок "Что входит в тур" ===
+                                                        if ( shortcode_exists( 'tour_included' ) ) {
+                                                                echo do_shortcode( '[tour_included]' );
+                                                        } else {
+                                                                get_template_part( 'template-parts/tour-included' );
+                                                        }
+                                                }
+                                                ?>
 					</div>
 					<?php
 						$category = get_the_category();
@@ -112,5 +123,7 @@
 
 			<?php endwhile; ?>
 		</div>
+		
+		
 	</article>
 <?php get_footer(); ?>
