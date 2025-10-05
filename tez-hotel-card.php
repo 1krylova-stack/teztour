@@ -104,6 +104,7 @@ class ZU_Tez_Hotel_Card_OneFile {
       <script>
       (function(w,d){
         function loadCSS(href){
+			 if (d.querySelector('link[href="'+href+'"]')) return;
           var l=d.createElement('link'); l.rel='stylesheet'; l.href=href; d.head.appendChild(l);
         }
         function loadJS(src, cb){
@@ -153,13 +154,17 @@ class ZU_Tez_Hotel_Card_OneFile {
         }
 
         domReady(function(){
+			var owlCss = 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css';
+          var owlTheme = 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css';
+          loadCSS(owlCss);
+          loadCSS(owlTheme);
           // Если Owl уже подключён — инициализируем сразу
           if (w.jQuery && typeof jQuery.fn.owlCarousel === 'function') {
             initAll();
             return;
           }
           // Иначе подгружаем Owl из CDN и потом инициализируем
-          loadCSS('https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css');
+         
           loadJS('https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', function(){
             setTimeout(initAll, 50);
           });
@@ -223,9 +228,34 @@ class ZU_Tez_Hotel_Card_OneFile {
     $uid = 'tez-hotel-' . wp_rand(1000, 999999);
 
     // Fancybox: v2 — class="fancybox" + href="#id"; v3 — data-fancybox data-src
-    $btn_attrs = ($a['fancybox']==='v3')
-      ? ' data-fancybox data-src="#popup-'.$uid.'" href="javascript:;"'
-      : ' href="#popup-'.$uid.'" class="fancybox"';
+    $btn_attrs = [
+      'class' => ['tez-btn'],
+    ];
+
+    if ($a['fancybox'] === 'v3') {
+      $btn_attrs['href'] = 'javascript:;';
+      $btn_attrs['data-fancybox'] = '';
+      $btn_attrs['data-src'] = '#popup-' . $uid;
+    } else {
+      $btn_attrs['class'][] = 'fancybox';
+      $btn_attrs['href'] = '#popup-' . $uid;
+    }
+
+    $btn_attr_parts = [];
+    foreach ($btn_attrs as $attr => $value) {
+      if ($attr === 'class' && is_array($value)) {
+        $value = implode(' ', array_unique(array_filter($value)));
+      }
+
+      if ($value === '') {
+        $btn_attr_parts[] = esc_attr($attr);
+      } else {
+        $btn_attr_parts[] = sprintf('%s="%s"', esc_attr($attr), esc_attr($value));
+      }
+    }
+
+    $btn_attr_string = $btn_attr_parts ? ' ' . implode(' ', $btn_attr_parts) : '';
+
 
     ob_start(); ?>
     <section class="hotel-card" id="<?php echo esc_attr($uid); ?>">
@@ -265,7 +295,7 @@ class ZU_Tez_Hotel_Card_OneFile {
           </div>
           <?php endif; ?>
 
-          <a<?php echo $btn_attrs; ?> class="tez-btn" role="button" aria-haspopup="dialog">
+          <a<?php echo $btn_attr_string; ?> role="button" aria-haspopup="dialog">
             <?php echo esc_html($data['btnText']); ?>
           </a>
 
