@@ -700,3 +700,6 @@ function alt3_tour_included_shortcode( $atts = [] ) {
 }
 add_shortcode( 'tour_included', 'alt3_tour_included_shortcode' );
 
+
+// Блок карточки с отелями в рубриках
+require_once get_template_directory() . '/template-parts/tez-hotel-card.php';
