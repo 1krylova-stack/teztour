@@ -9,6 +9,16 @@
         <h1><?php printf(__('%s','twentyten'), single_cat_title('', false)); ?></h1>
 
         <?php include get_template_directory() . '/components/sletat-widget.php'; ?>
+		
+		<?php
+        // === Блок "Что входит в тур" ===
+        if ( shortcode_exists('tour_included') ) {
+            echo do_shortcode('[tour_included]');
+        } else {
+            get_template_part('template-parts/tour-included');
+        }
+        ?>
+		
         <div class="clear"></div>
 
         <?php
@@ -24,7 +34,7 @@
         }
         if (!empty($desc_to_show)) : ?>
             <div class="category_description">
-                 <?php echo apply_filters('the_content', do_shortcode($desc_to_show)); ?>
+                <?php echo apply_filters('the_content', do_shortcode($desc_to_show)); ?>
             </div>
         <?php endif; ?>
         <!-- /ОПИСАНИЕ РУБРИКИ -->
