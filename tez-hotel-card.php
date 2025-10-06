@@ -1,49 +1,8 @@
 <?php
 /**
- * TEZ Hotel Card — один файл в теме (shortcode + CSS/JS)
+ * TEZ Hotel Card — один файл в теме (shortcode + CSS/JS + надёжная инициализация Owl)
  * Путь: /wp-content/themes/zudefault/template-parts/tez-hotel-card.php
- *
- * Использование в контенте:
- * [tez_hotel_card form_id="da991d3" fancybox="auto"]
- * <table>
- *   <tbody>
- *     <!-- Порядок без заголовков: images | title | stars | price | price_sub | bullets | link | btn_text -->
- *     <tr>
- *       <td>
- * https://tez-tourspb.ru/wp-content/uploads/Centara-Mirage-11.jpeg
- * https://tez-tourspb.ru/wp-content/uploads/Centara-Mirage-10.jpeg
- * https://tez-tourspb.ru/wp-content/uploads/Centara-Mirage-9.jpeg
- * https://tez-tourspb.ru/wp-content/uploads/Centara-Mirage-8.jpeg
- * https://tez-tourspb.ru/wp-content/uploads/Centara-Mirage-7.jpeg
- * https://tez-tourspb.ru/wp-content/uploads/Centara-Mirage-6.jpeg
- * https://tez-tourspb.ru/wp-content/uploads/Centara-Mirage-5.jpeg
- * https://tez-tourspb.ru/wp-content/uploads/Centara-Mirage-4.jpeg
- * https://tez-tourspb.ru/wp-content/uploads/Centara-Mirage-3.jpeg
- * https://tez-tourspb.ru/wp-content/uploads/Centara-Mirage-2.jpeg
- * https://tez-tourspb.ru/wp-content/uploads/Centara-Mirage-1.jpeg
- *       </td>
- *       <td>Centara Mirage Beach Resort Dubai</td>
- *       <td>4★</td>
- *       <td>от 70 000 руб.</td>
- *       <td>Чтобы узнать актуальную стоимость нажмите «Подобрать тур»</td>
- *       <td>
- * 🎢 Огромный аквапарк с горками, ленивой рекой и бассейнами для всех возрастов.
- * 👧 Детские клубы, игровые площадки и даже спа для детей.
- * 🍽 Питание “Всё включено”: рестораны с кухнями мира, снэки у бассейна и на пляже.
- * 🏖 Просторные семейные номера с двухъярусными кроватями и видом на море.
- * 📍 Удобное расположение: рядом частный пляж и всего 20 минут до главных достопримечательностей Дубая.
- *       </td>
- *       <td>#</td>
- *       <td>Подобрать тур</td>
- *     </tr>
- *   </tbody>
- * </table>
- * [/tez_hotel_card]
- *
- * Требования: в шаблоне перед </body> должен быть wp_footer();
- * Зависимости: jQuery; OwlCarousel (автодогружается из CDN при отсутствии); Fancybox v2/v3 уже есть на сайте.
  */
-
 if (!defined('ABSPATH')) exit;
 
 class ZU_Tez_Hotel_Card_OneFile {
@@ -53,7 +12,6 @@ class ZU_Tez_Hotel_Card_OneFile {
     add_shortcode('tez_hotel_card', [$this, 'shortcode']);
   }
 
-  /** Выводим CSS/JS один раз в футере (и автодогрузка Owl при необходимости) */
   private function print_assets_once() {
     if (self::$printed_assets) return;
     self::$printed_assets = true;
@@ -81,7 +39,6 @@ class ZU_Tez_Hotel_Card_OneFile {
       .hotel-card__intro{color:var(--tez-muted);margin:0 0 14px}
       .hotel-card__bullets{margin:0 18px 16px 0;padding-left:0;list-style:none}
       .hotel-card__bullets li{margin:8px 0;color:#111827}
-
       .hotel-card__price{margin:10px 0 14px;font-size:18px}
       .hotel-card__sub{font-size:14px;color:var(--tez-muted);margin-top:6px}
       .hotel-card__note{margin-top:10px;font-size:13px;color:var(--tez-muted)}
@@ -97,77 +54,104 @@ class ZU_Tez_Hotel_Card_OneFile {
       .tez-btn:active{transform:translateY(0);opacity:.95}
       .tez-btn:focus{outline:2px solid rgba(40,99,199,.35);outline-offset:2px}
 
-      /* Owl контейнеры со скруглением */
+      /* скругление контейнеров */
       .hotel-slider .owl-stage-outer,.hotel-thumbs .owl-stage-outer{border-radius:12px}
       </style>
 
       <script>
       (function(w,d){
+        var LOG_PREFIX='[TEZ hotel]';
+        function log(){ try{ console.log.apply(console,[LOG_PREFIX].concat([].slice.call(arguments))); }catch(e){} }
         function loadCSS(href){
-			 if (d.querySelector('link[href="'+href+'"]')) return;
+          if (d.querySelector('link[href="'+href+'"]')) return;
           var l=d.createElement('link'); l.rel='stylesheet'; l.href=href; d.head.appendChild(l);
         }
         function loadJS(src, cb){
-          var s=d.createElement('script'); s.src=src; s.async=true; s.onload=cb||function(){}; d.head.appendChild(s);
+          var s=d.createElement('script'); s.src=src; s.async=true; s.onload=cb||function(){}; s.onerror=function(){ cb && cb('e'); }; d.head.appendChild(s);
         }
-        function domReady(fn){
-          if (d.readyState !== 'loading') fn(); else d.addEventListener('DOMContentLoaded', fn);
-        }
+        function onReady(fn){ if (d.readyState!=='loading') fn(); else d.addEventListener('DOMContentLoaded', fn); }
 
         function initAll(){
-          if (!w.jQuery) { console.warn('jQuery недоступен.'); return; }
-          var $ = w.jQuery;
+          if (!w.jQuery){ log('jQuery not found'); return; }
+          var $=w.jQuery;
 
-          function initHotelCarousel(key){
-            var $main = $('.hotel-slider[data-hotel="'+key+'"]');
-            var $thumbs= $('.hotel-thumbs[data-hotel="'+key+'"]');
-            if(!$main.length) return;
+          $('.hotel-slider[data-hotel]').each(function(){
+            var $main=$(this);
+            if ($main.data('owl-inited')) return;
 
-            $main.owlCarousel({
-              items:1, loop:true, dots:false, nav:true, autoplay:false, smartSpeed:420, navText:['‹','›']
-            }).on('changed.owl.carousel', function(e){
-              var count=e.item.count;
-              var idx=(e.item.index - e.relatedTarget._clones.length/2) % count;
-              if(idx<0) idx=count+idx;
-              $thumbs.find('.owl-item').removeClass('is-active');
-              $thumbs.find('.owl-item').eq(idx).addClass('is-active');
-            });
+            var key=$main.data('hotel');
+            var $thumbs=$main.closest('.hotel-card__media').find('.hotel-thumbs[data-hotel="'+key+'"]');
 
-            if ($thumbs.length){
-              $thumbs.owlCarousel({
-                items:5, margin:10, dots:false, nav:false, smartSpeed:300,
-                responsive:{0:{items:4},480:{items:5},768:{items:6}}
-              });
-              $thumbs.on('click','.owl-item',function(){
-                var i=$(this).index();
-                $main.trigger('to.owl.carousel',[i,300,true]);
+            // отмечаем чтобы не инициализировать повторно
+            $main.data('owl-inited',true);
+
+            try{
+              $main.owlCarousel({
+                items:1,loop:true,dots:false,nav:true,autoplay:false,smartSpeed:420,navText:['‹','›']
+              }).on('changed.owl.carousel',function(e){
+                if(!$thumbs.length) return;
+                var count=e.item.count;
+                var idx=(e.item.index - e.relatedTarget._clones.length/2)%count;
+                if(idx<0) idx=count+idx;
                 $thumbs.find('.owl-item').removeClass('is-active');
-                $(this).addClass('is-active');
+                $thumbs.find('.owl-item').eq(idx).addClass('is-active');
               });
-              $thumbs.find('.owl-item').eq(0).addClass('is-active');
-            }
-          }
+              log('main inited', key);
+            }catch(err){ log('main init error', err); }
 
-          if (w.TEZ_HOTEL_IDS && w.TEZ_HOTEL_IDS.length){
-            w.TEZ_HOTEL_IDS.forEach(initHotelCarousel);
-          }
+            if ($thumbs.length && !$thumbs.data('owl-inited')){
+              try{
+                $thumbs.owlCarousel({
+                  items:5,margin:10,dots:false,nav:false,smartSpeed:300,
+                  responsive:{0:{items:4},480:{items:5},768:{items:6}}
+                });
+                $thumbs.on('click','.owl-item',function(){
+                  var i=$(this).index();
+                  $main.trigger('to.owl.carousel',[i,300,true]);
+                  $thumbs.find('.owl-item').removeClass('is-active');
+                  $(this).addClass('is-active');
+                });
+                $thumbs.find('.owl-item').eq(0).addClass('is-active');
+                $thumbs.data('owl-inited',true);
+                log('thumbs inited', key);
+              }catch(err){ log('thumbs init error', err); }
+            }
+          });
         }
 
-        domReady(function(){
-			var owlCss = 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css';
-          var owlTheme = 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css';
-          loadCSS(owlCss);
-          loadCSS(owlTheme);
-          // Если Owl уже подключён — инициализируем сразу
-          if (w.jQuery && typeof jQuery.fn.owlCarousel === 'function') {
-            initAll();
-            return;
+        function ensureOwlThenInit(){
+          // если уже есть — стартуем
+          if (w.jQuery && typeof jQuery.fn.owlCarousel==='function'){ log('Owl present, init'); initAll(); return; }
+
+          // 1) cdnjs
+          var css1='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css';
+          var css1t='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css';
+          var js1='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js';
+
+          // 2) jsDelivr — запасной
+          var css2='https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css';
+          var css2t='https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.theme.default.min.css';
+          var js2='https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js';
+
+          function trySecond(){
+            log('cdnjs failed, trying jsDelivr…');
+            loadCSS(css2); loadCSS(css2t);
+            loadJS(js2, function(){ setTimeout(function(){ initAll(); }, 80); });
           }
-          // Иначе подгружаем Owl из CDN и потом инициализируем
-         
-          loadJS('https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', function(){
-            setTimeout(initAll, 50);
+
+          log('loading Owl from cdnjs…');
+          loadCSS(css1); loadCSS(css1t);
+          loadJS(js1, function(err){
+            if (err==='e' || !(w.jQuery && typeof jQuery.fn.owlCarousel==='function')) return trySecond();
+            setTimeout(function(){ initAll(); }, 80);
           });
+        }
+
+        onReady(function(){
+          // на всякий случай повторим на window.load и через 1с
+          ensureOwlThenInit();
+          w.addEventListener('load', ensureOwlThenInit);
+          setTimeout(ensureOwlThenInit, 1000);
         });
       })(window, document);
       </script>
@@ -175,9 +159,8 @@ class ZU_Tez_Hotel_Card_OneFile {
     }, 99);
   }
 
-  /** Парсим мини-таблицу */
   private function parse_table($content) {
-    $content = (string) $content;
+    $content = (string)$content;
     if (!preg_match('~<table.*?>(.*?)</table>~is', $content, $m)) return null;
     $table_html = $m[1];
     if (!preg_match('~<tr.*?>(.*?)</tr>~is', $table_html, $r)) return null;
@@ -192,7 +175,6 @@ class ZU_Tez_Hotel_Card_OneFile {
     $stars    = wp_strip_all_tags($cells[2]);
     $price    = wp_strip_all_tags($cells[3]);
     $priceSub = wp_strip_all_tags($cells[4]);
-    // Разрешаем переносы строк/эмодзи в bullets (сохраняем <br> если вдруг будет)
     $bullets  = trim(strip_tags($cells[5], '<br>'));
     $link     = esc_url_raw(trim(strip_tags($cells[6])));
     $btnText  = wp_strip_all_tags($cells[7]);
@@ -212,7 +194,6 @@ class ZU_Tez_Hotel_Card_OneFile {
     ];
   }
 
-  /** Рендер шорткода */
   public function shortcode($atts, $content = null) {
     $a = shortcode_atts([
       'form_id'  => 'da991d3',
@@ -222,40 +203,14 @@ class ZU_Tez_Hotel_Card_OneFile {
     $data = $this->parse_table($content);
     if (!$data || empty($data['images'])) return '';
 
-    // Выводим CSS/JS один раз
     $this->print_assets_once();
 
     $uid = 'tez-hotel-' . wp_rand(1000, 999999);
 
-    // Fancybox: v2 — class="fancybox" + href="#id"; v3 — data-fancybox data-src
-    $btn_attrs = [
-      'class' => ['tez-btn'],
-    ];
-
-    if ($a['fancybox'] === 'v3') {
-      $btn_attrs['href'] = 'javascript:;';
-      $btn_attrs['data-fancybox'] = '';
-      $btn_attrs['data-src'] = '#popup-' . $uid;
-    } else {
-      $btn_attrs['class'][] = 'fancybox';
-      $btn_attrs['href'] = '#popup-' . $uid;
-    }
-
-    $btn_attr_parts = [];
-    foreach ($btn_attrs as $attr => $value) {
-      if ($attr === 'class' && is_array($value)) {
-        $value = implode(' ', array_unique(array_filter($value)));
-      }
-
-      if ($value === '') {
-        $btn_attr_parts[] = esc_attr($attr);
-      } else {
-        $btn_attr_parts[] = sprintf('%s="%s"', esc_attr($attr), esc_attr($value));
-      }
-    }
-
-    $btn_attr_string = $btn_attr_parts ? ' ' . implode(' ', $btn_attr_parts) : '';
-
+    // кнопка (fancybox v2/v3)
+    $btn_attrs = ($a['fancybox']==='v3')
+      ? ' data-fancybox data-src="#popup-'.$uid.'" href="javascript:;"'
+      : ' href="#popup-'.$uid.'" class="fancybox"';
 
     ob_start(); ?>
     <section class="hotel-card" id="<?php echo esc_attr($uid); ?>">
@@ -295,10 +250,7 @@ class ZU_Tez_Hotel_Card_OneFile {
           </div>
           <?php endif; ?>
 
-          <a<?php echo $btn_attr_string; ?> role="button" aria-haspopup="dialog">
-            <?php echo esc_html($data['btnText']); ?>
-          </a>
-
+          <a<?php echo $btn_attrs; ?> class="tez-btn" role="button" aria-haspopup="dialog"><?php echo esc_html($data['btnText']); ?></a>
           <div class="hotel-card__note">* Фото являются примерами. Актуальные варианты — по запросу менеджера.</div>
         </div>
 
@@ -308,18 +260,12 @@ class ZU_Tez_Hotel_Card_OneFile {
     <div id="popup-<?php echo esc_attr($uid); ?>" style="display:none;max-width:720px;">
       <?php echo do_shortcode('[contact-form-7 id="'.esc_attr($a['form_id']).'" title="Подобрать тур"]'); ?>
     </div>
-
-    <script>
-      window.TEZ_HOTEL_IDS = (window.TEZ_HOTEL_IDS || []);
-      window.TEZ_HOTEL_IDS.push('<?php echo esc_js($uid); ?>');
-    </script>
     <?php
     return ob_get_clean();
   }
 }
-
 new ZU_Tez_Hotel_Card_OneFile();
 
-// Подключение файла из темы:
-// добавьте в functions.php вашей темы:
-// require_once get_template_directory() . '/template-parts/tez-hotel-card.php';
+/* В functions.php темы добавьте:
+require_once get_template_directory() . '/template-parts/tez-hotel-card.php';
+*/
