@@ -1,27 +1,31 @@
 /* ===== БАЗА ХЕДЕРА ===== */
 header.tt-header{position:relative;z-index:100;display:block;width:100%;}
-.tt-container{max-width:1200px;width:100%;margin:0 auto;padding:0 16px;box-sizing:border-box;}
+.tt-container{width:100%;margin:0;padding:0 clamp(16px,3vw,48px);box-sizing:border-box;}
 
 /* ===== ВЕРХНЯЯ ПОЛОСА ===== */
-.tt-topbar{background:#f4f7fb;border-bottom:1px solid #e9eef4;}
-.tt-topbar__inner{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:36px;font-size:14px;color:#5a6577;}
-.tt-topbar__addr{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.tt-topbar__right{display:flex;align-items:center;gap:10px;}
+.tt-topbar{background:#ffffff;border-bottom:1px solid #e9eef4;}
+.tt-topbar__inner{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:36px;font-size:14px;color:#5a6577;flex-wrap:wrap;row-gap:6px;}
+.tt-topbar__addr{flex:1 1 300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tt-topbar__right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .tt-topbar__icon img{width:18px;height:18px;display:block;}
 .tt-topbar__tel{color:#1c1f27;text-decoration:none;}
 .tt-topbar__tel:hover{text-decoration:underline;}
 
 /* ===== НИЖНЯЯ ПОЛОСА ===== */
-.tt-header__bar{background:#fff;border-bottom:1px solid #e9eef4;}
-.tt-header__inner{display:flex;align-items:center;gap:16px;min-height:60px;}
-.tt-header__logo img{display:block;height:30px;width:auto;}
-.tt-header__cta{margin-left:auto;}
+.tt-header__bar{background:#f8f8f8;border-bottom:1px solid #e9eef4;}
+.tt-header__inner{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;flex-wrap:wrap;}
+.tt-header__logo a{display:inline-flex;align-items:center;}
+.tt-header__logo img,.tt-header__logo svg{display:block;height:40px;width:auto;}
+.tt-header__cta{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+.tt-cta__phone{display:flex;flex-direction:column;align-items:flex-end;line-height:1.1;}
+.tt-cta__phone .tt-topbar__tel{font-size:18px;font-weight:700;}
 .tt-cta__btn{background:#2863c7;color:#fff;border:0;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer;}
 .tt-cta__btn:hover{filter:brightness(1.07);}
 
 /* ===== НАВИГАЦИЯ ===== */
-.tt-nav{position:relative;flex:1;}
-.tt-nav__list{display:flex;gap:24px;list-style:none;margin:0;padding:0;align-items:center;justify-content:center;}
+.tt-header__logo{flex:0 0 auto;display:flex;align-items:center;}
+.tt-nav{position:relative;flex:1 1 auto;}
+.tt-nav__list{display:flex;gap:24px;list-style:none;margin:0;padding:0;align-items:center;justify-content:center;flex-wrap:wrap;}
 .tt-nav__list>li{position:relative;}
 .tt-nav__list>li>a{display:inline-flex;align-items:center;gap:8px;padding:8px 0;text-decoration:none;color:#1c1f27;font-weight:700;}
 .tt-nav__list>li>a:hover{color:#2863c7;}
@@ -73,37 +77,11 @@ header.tt-header{position:relative;z-index:100;display:block;width:100%;}
   .tt-nav.is-open{display:block;}
   .tt-nav__list{flex-direction:column;align-items:flex-start;gap:0;justify-content:flex-start;padding:8px 0;}
   .tt-nav__list>li>a{padding:12px 16px;width:100%;}
-  .tt-header__cta{margin-left:0;}
+  .tt-header__cta{margin-left:0;align-items:flex-start;width:100%;}
   .tt-countries{position:static;top:auto;}
   .tt-countries__panel{border-radius:0;border-left:0;border-right:0;}
   .tt-countries__grid{grid-template-columns:1fr;}
 }
 
-/* =======================================================================
-   ТОЛЬКО ДЛЯ ШАБЛОНА page-contakt.php
-   (WP добавляет к <body> класс page-template-page-contakt-php)
-   ======================================================================= */
-body[class*="page-template-page-contakt"] header.tt-header{
-  position:relative;z-index:1000;width:100vw;left:50%;right:50%;
-  margin-left:-50vw;margin-right:-50vw;
-}
-/* Верхняя полоса — белая, нижняя — серая */
-body[class*="page-template-page-contakt"] .tt-topbar{
-  background:#ffffff;border-bottom:1px solid #e9eef4;
-}
-body[class*="page-template-page-contakt"] .tt-header__bar{
-  background:#f4f7fb;border-bottom:1px solid #e1e7f0;
-}
-/* Внутренний контейнер (если у темы другая ширина — поменяйте 1200px) */
-body[class*="page-template-page-contakt"] .tt-topbar__inner.tt-container,
-body[class*="page-template-page-contakt"] .tt-header__inner.tt-container,
-body[class*="page-template-page-contakt"] .tt-countries__inner.tt-container{
-  max-width:1200px;width:100%;margin:0 auto;padding:0 16px;box-sizing:border-box;
-}
-/* Панель «Страны» — на всю ширину окна, ниже двух полос */
-body[class*="page-template-page-contakt"] .tt-countries{
-  position:absolute;top:96px;left:50%;width:100vw;transform:translateX(-50%);z-index:1200;
-}
-/* Центрируем меню, кнопку вправо */
-body[class*="page-template-page-contakt"] .tt-nav__list{justify-content:center;}
-body[class*="page-template-page-contakt"] .tt-header__cta{margin-left:auto;}
+/* Доп. настройки для шаблона page-contakt.php */
+body[class*="page-template-page-contakt"] .tt-header__bar{border-bottom:1px solid #e1e7f0;}

@@ -5,16 +5,6 @@
 get_header();
 ?>
 
-<style>
-  /* Скрываем СТАРЫЙ хедер только на этой странице */
-  .main_body > header { display:none !important; }
-</style>
-
-<?php
-// Новый хедер (мега-панель "Страны", кнопка "Подобрать тур", иконки)
-get_template_part('header-new');
-?>
-
 <article class="full-width">
   <div class="container">
     <?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?>
