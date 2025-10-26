@@ -703,3 +703,46 @@ add_shortcode( 'tour_included', 'alt3_tour_included_shortcode' );
 
 // Блок карточки с отелями в рубриках
 require_once get_template_directory() . '/template-parts/tez-hotel-card.php';
+
+
+
+add_action('wp_enqueue_scripts', function () {
+  // Страница "Где мы" (шаблон 'page-contakt.php' или slug 'gde-my')
+  $is_tpl  = is_page_template('page-contakt.php');
+  $is_slug = is_page() && get_queried_object() && get_post_field('post_name', get_queried_object_id()) === 'gde-my';
+
+  if ($is_tpl || $is_slug) {
+    $css_file = get_stylesheet_directory() . '/css/header-new.css';
+    $js_file  = get_stylesheet_directory() . '/js/header-new.js';
+    $v_css = file_exists($css_file) ? filemtime($css_file) : '1.0';
+    $v_js  = file_exists($js_file)  ? filemtime($js_file)  : '1.0';
+
+    wp_enqueue_style('tt-header-v2', get_stylesheet_directory_uri().'/css/header-new.css', [], $v_css);
+    wp_enqueue_script('tt-header-v2', get_stylesheet_directory_uri().'/js/header-new.js', [], $v_js, true);
+  }
+});
+
+// Точки для пункта «Страны»
+add_filter('nav_menu_css_class', function($classes, $item){
+  if (isset($item->title) && mb_strtolower(trim($item->title)) === 'страны') {
+    $classes[] = 'tt-menu-countries';
+  }
+  return $classes;
+}, 10, 2);
+
+// Маячок в <head>, чтобы видеть — сработало ли условие
+add_action('wp_head', function(){
+  if (is_page_template('page-contakt.php') || (is_page() && get_post_field('post_name', get_queried_object_id()) === 'gde-my')) {
+    echo "<!-- enqueue: header-new.css/js connected for gde-my -->\n";
+  }
+});
+
+
+
+
+add_filter('nav_menu_css_class', function($classes, $item){
+  if (isset($item->title) && mb_strtolower(trim($item->title)) === 'страны') {
+    $classes[] = 'tt-menu-countries';
+  }
+  return $classes;
+}, 10, 2);
