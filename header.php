@@ -85,45 +85,9 @@
 </head>
 
 <body<?php echo ($_SERVER['REQUEST_URI']=="/" ? " class='home'" : ""); ?>>
+<?php get_template_part('header-new'); ?>
+
 <div class="main_body">
-  <header>
-    <div class="main">
-      <div class="logo"><a href="/"></a></div>
-
-      <div class="adress">
-        Санкт-Петербург,<br><span>Московский пр. 216, офис 9</span>
-        <div class="phones mobf_t"><a href="tel:8126436564"><span>(812)</span> 64-365-64</a></div>
-      </div>
-
-      <div class="d_f">
-        <div class="head-contackt">
-          <div class="phones desc_t"><a href="tel:8126436564"><span>(812)</span> 64-365-64</a></div>
-        </div>
-
-        <div class="soc_top desc_t">
-          <div class="tel_soc"><a href="https://t.me/+79817010302"><img src="/wp-content/uploads/telegram_icon_130816.png" alt=""></a></div>
-          <div><a href="https://wa.me/79817010302?text=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%94%D0%B5%D0%BD%D1%8C!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%B4%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D1%82%D1%83%D1%80"><img src="/wp-content/uploads/whatsapp_logo_icon_189219.png" alt=""></a></div>
-        </div>
-
-        <div class="ordercall_button">
-          <p>Подберем выгодный тур<br> онлайн без переплат</p>
-          <div class="soc_top mobf_t">
-            <div class="tel_soc"><a href="https://t.me/+79817010302"><img src="/wp-content/uploads/telegram_icon_130816.png" alt=""></a></div>
-            <div><a href="https://wa.me/79817010302?text=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%94%D0%B5%D0%BD%D1%8C!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%B4%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D1%82%D1%83%D1%80"><img src="/wp-content/uploads/whatsapp_logo_icon_189219.png" alt=""></a></div>
-          </div>
-          <a href="#" id="go">Заказать звонок</a>
-		 
-			
-			
-        </div>
-      </div>
-
-      <nav>
-        <?php wp_nav_menu(); ?>
-        <button class="nav-tgl menu-toggle" type="button" aria-label="toggle menu"><span aria-hidden="true"></span></button>
-      </nav>
-    </div>
-  </header>
 
   <div id="modal_form">
     <span id="modal_close">X</span>
