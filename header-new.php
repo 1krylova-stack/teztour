@@ -52,7 +52,7 @@ $countries = [
           <?php the_custom_logo(); ?>
         <?php else: ?>
           <a href="<?php echo esc_url(home_url('/')); ?>">
-            <img src="<?php echo esc_url('https://tez-tourspb.ru/wp-content/uploads/536547.png'); ?>" alt="<?php bloginfo('name'); ?>">
+            <img src="<?php echo esc_url('https://tez-tourspb.ru/wp-content/uploads/logo-h_11-1-1.png'); ?>" alt="<?php bloginfo('name'); ?>">
           </a>
         <?php endif; ?>
       </div>
@@ -70,9 +70,6 @@ $countries = [
       </nav>
 
       <div class="tt-header__cta">
-        <div class="tt-cta__phone">
-          <a class="tt-topbar__tel" href="tel:<?php echo esc_attr($phone_clean); ?>"><?php echo esc_html($phone_display); ?></a>
-        </div>
         <button class="tt-cta__btn" type="button" data-tt-open="ttModal">Подобрать тур</button>
       </div>
 
