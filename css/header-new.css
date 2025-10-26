@@ -1,5 +1,5 @@
 /* ===== БАЗА ХЕДЕРА ===== */
-header.tt-header{position:relative;z-index:100;display:block;width:100%;}
+header.tt-header{position:relative;z-index:100;display:block;width:100%;background:transparent;}
 .tt-container{width:100%;margin:0;padding:0 clamp(16px,3vw,48px);box-sizing:border-box;}
 
 /* ===== ВЕРХНЯЯ ПОЛОСА ===== */

@@ -85,8 +85,9 @@
 </head>
 
 <body<?php echo ($_SERVER['REQUEST_URI']=="/" ? " class='home'" : ""); ?>>
+<?php get_template_part('header-new'); ?>
+
 <div class="main_body">
-  <?php get_template_part('header-new'); ?>
 
   <div id="modal_form">
     <span id="modal_close">X</span>
