@@ -5,24 +5,30 @@
 if (!defined('ABSPATH')) { exit; }
 
 $mp_items = [
-  ['title'=>'Турция','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 34 362 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/turkish.jpg'],
-  ['title'=>'Египет','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 37 585 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/egipet.jpg'],
-  ['title'=>'Тайланд','subtitle'=>'из Санкт-Петербурга','nights'=>'10 ночей','price'=>'от 59 600 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/tailand-2.jpg'],
-  ['title'=>'ОАЭ','subtitle'=>'из Санкт-Петербурга','nights'=>'7 ночей','price'=>'от 52 497 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/dubai.jpg'],
-  ['title'=>'Тунис','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 34 362 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/Тунис-1-1.jpg'],
-  ['title'=>'Шри-Ланка','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 37 585 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/Шри-Ланка-1.jpg'],
-  ['title'=>'Мальдивы','subtitle'=>'из Санкт-Петербурга','nights'=>'10 ночей','price'=>'от 59 600 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/Мальдивы-1-1.jpg'],
-  ['title'=>'Китай','subtitle'=>'из Санкт-Петербурга','nights'=>'7 ночей','price'=>'от 52 497 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/Китай-1-1.jpg'],
+  ['title'=>'Турция','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 51 300 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/turkish.jpg'],
+  ['title'=>'Египет','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 49 500 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/egipet.jpg'],
+  ['title'=>'Тайланд','subtitle'=>'из Санкт-Петербурга','nights'=>'10 ночей','price'=>'от 79 600 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/tailand-2.jpg'],
+  ['title'=>'ОАЭ','subtitle'=>'из Санкт-Петербурга','nights'=>'7 ночей','price'=>'от 82 400 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/dubai.jpg'],
+  ['title'=>'Тунис','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 52 500 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/Тунис-1-1.jpg'],
+  ['title'=>'Шри-Ланка','subtitle'=>'из Санкт-Петербурга','nights'=>'6 ночей','price'=>'от 67 800 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/Шри-Ланка-1.jpg'],
+  ['title'=>'Мальдивы','subtitle'=>'из Санкт-Петербурга','nights'=>'10 ночей','price'=>'от 89 200 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/Мальдивы-1-1.jpg'],
+  ['title'=>'Китай','subtitle'=>'из Санкт-Петербурга','nights'=>'7 ночей','price'=>'от 47 400 ₽','image'=>'https://tez-tourspb.ru/wp-content/uploads/Китай-1-1.jpg'],
 ];
 ?>
 
 <section class="mp-minprices" aria-label="Минимальные цены">
   <div class="mp-container">
-    <h2 class="mp-title">Горячие предложения и минимальные цены на 2025 год</h2>
+    <h2 class="mp-title">Горячие предложения и минимальные цены</h2>
 
     <div class="mp-grid">
       <?php foreach ($mp_items as $i => $it): ?>
-        <article class="mp-card" data-card-index="<?php echo esc_attr($i); ?>">
+        <?php
+          // вытащили числовую цену из строки вида "от 51 300 ₽"
+          $price_num = (int) preg_replace('~\D+~', '', $it['price']);
+        ?>
+        <article class="mp-card"
+                 data-card-index="<?php echo esc_attr($i); ?>"
+                 data-base-price="<?php echo esc_attr($price_num); ?>">
           <div class="mp-card-media">
             <div class="mp-card-bg" <?php if(!empty($it['image'])): ?>style="background-image:url('<?php echo esc_url($it['image']); ?>')" <?php endif; ?>></div>
             <div class="mp-card-overlay"></div>
@@ -69,43 +75,42 @@ $mp_items = [
   </div>
 
   <!-- Попап Contact Form 7 -->
-  <!-- Попап Contact Form 7 -->
-<div class="mp-modal" id="mpOrderModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Заказать тур">
-  <div class="mp-modal-backdrop" data-mp-close></div>
-  <div class="mp-modal-dialog" role="document">
-    <button class="mp-modal-close" type="button" aria-label="Закрыть" data-mp-close>&times;</button>
-    <div class="mp-order">
+  <div class="mp-modal" id="mpOrderModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Заказать тур">
+    <div class="mp-modal-backdrop" data-mp-close></div>
+    <div class="mp-modal-dialog" role="document">
+      <button class="mp-modal-close" type="button" aria-label="Закрыть" data-mp-close>&times;</button>
+      <div class="mp-order">
 
-      <!-- левая часть (форма) -->
-      <div class="mp-order-form">
-        <div class="mp-modal-header">
-          <h3>Проверить наличие тура и актуальную стоиость</h3><br>
-			<h4>Мы проверим актуальные цены на выбранную дату и предложим аналоги, <br>если тур уже раскупили.</h4><br>
-          <div class="mp-modal-sub" id="mpSelectedDateInfo" aria-live="polite" hidden></div>
+        <!-- левая часть (форма) -->
+        <div class="mp-order-form">
+          <div class="mp-modal-header">
+            <div class="mp-modal-title">Проверить наличие тура и актуальную стоиость</div>
+            <div class="mp-modal-desc">Мы проверим актуальные цены на выбранную дату и предложим аналоги, <br>если тур уже раскупили.</div>
+            <div class="mp-modal-sub" id="mpSelectedDateInfo" aria-live="polite" hidden></div>
+          </div>
+          <?php echo do_shortcode('[contact-form-7 id="c157561" title="Проверить наличие тура"]'); ?>
         </div>
-        <?php echo do_shortcode('[contact-form-7 id="c157561" title="Проверить наличие тура"]'); ?>
+
+        <!-- правая часть (консультант) -->
+        <aside class="mp-order-aside">
+          <figure class="mp-order-img">
+            <img src="https://tours.turotdel.com/wp-content/webp-express/webp-images/uploads/2024/09/hjbqrmhiq1o-2-300x300.jpg.webp" alt="Девушка из поддержки">
+          </figure>
+          <div class="mp-order-bubble">
+            Мы проверим актуальные цены на выбранную дату и предложим аналоги, если тур уже раскупили.
+          </div>
+          <div class="mp-order-note">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span>Отправим подборку ТОП-5 аналогичных туров под ваш бюджет</span>
+          </div>
+        </aside>
+
       </div>
-
-      <!-- правая часть (консультант) -->
-      <aside class="mp-order-aside">
-        <figure class="mp-order-img">
-          <img src="https://tours.turotdel.com/wp-content/webp-express/webp-images/uploads/2024/09/hjbqrmhiq1o-2-300x300.jpg.webp" alt="Девушка из поддержки">
-        </figure>
-        <div class="mp-order-bubble">
-          Мы проверим актуальные цены на выбранную дату и предложим аналоги, если тур уже раскупили.
-        </div>
-        <div class="mp-order-note">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-          </svg>
-          <span>Отправим подборку ТОП‑5 аналогичных туров под ваш бюджет</span>
-        </div>
-      </aside>
-
     </div>
   </div>
-</div>
 
 </section>
 
@@ -202,13 +207,14 @@ $mp_items = [
 .mp-hover-note{font-size:12px;color:#6b7280;margin-top:8px}
 
 /* ===== Попап (без изменений функционально) ===== */
-.mp-modal{position:fixed;inset:0;display:none}
+.mp-modal{position:fixed;inset:0;display:none;z-index:9999}
 .mp-modal[aria-hidden="false"]{display:block}
 .mp-modal-backdrop{position:absolute;inset:0;background:rgba(17,24,39,.5)}
 .mp-modal-dialog{position:relative;max-width:720px;margin:40px auto;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.2);padding:20px}
 @media (max-width:768px){.mp-modal-dialog{margin:10px;max-height:85vh;overflow:auto}}
 .mp-modal-close{position:absolute;right:12px;top:12px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:10px;font-size:22px;line-height:1;height:36px;width:36px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
-.mp-modal-header h3{margin:0 0 6px;font-size:20px}
+.mp-modal-title{margin:0 0 6px;font-size:20px;color:#000}
+.mp-modal-desc{font-size:14px;color:#000;margin:0 0 12px}
 .mp-modal-sub{font-size:13px;color:#374151;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:10px;padding:8px 10px}
 
 /* Попап формы проверки тура */
@@ -241,24 +247,21 @@ $mp_items = [
   const START_OFFSET = 3;   // первая дата: сегодня +3
   const locale = 'ru-RU';
 
-  // короткие месяцы для ховера
   const shortMonths = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
 
-  // Вспомогательные
   function addDays(date, days){ const d = new Date(date); d.setDate(d.getDate()+days); return d; }
-  function fmtMain(d){ // «25 августа» — на карточке
+  function fmtMain(d){
     return d.toLocaleDateString(locale, { day:'numeric', month:'long' });
   }
-  function fmtHoverShort(d){ // «25 авг» — в ховере
+  function fmtHoverShort(d){
     return `${d.getDate()} ${shortMonths[d.getMonth()]}`;
   }
-  function nightsShort(str){ // «6 ночей» -> «6 нч»
+  function nightsShort(str){
     if(!str) return '';
     const n = parseInt(String(str).replace(/\D+/g,''),10);
     return isFinite(n) ? `${n} нч` : str;
   }
 
-  // Иконка календаря в дате карточки
   const calendarSVG = `
     <svg class="mp-ico" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
       <rect x="3" y="4" width="18" height="18" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -276,15 +279,38 @@ $mp_items = [
       mainDateEl.innerHTML = calendarSVG + `<span>${fmtMain(firstDate)}</span>`;
     }
 
+    // базовая цена с карточки
+    const basePrice = parseInt(card.dataset.basePrice || '0', 10) || 0;
+
     // Ховер-список
     const ul = card.querySelector('.mp-hover-list');
     if (ul) {
       const nights = nightsShort(ul.getAttribute('data-nights') || '');
       ul.innerHTML = '';
-      for (let i=0; i<DAYS_IN_LIST; i++){
+
+      // === ЦЕНА ДЛЯ ХОВЕРА ===
+      // формируем массив процентов надбавки: один 0% (та же цена), остальные 1–10%
+      const count = DAYS_IN_LIST;
+      const percents = [0]; // одна строка = базовая цена
+      for (let i = 1; i < count; i++) {
+        const p = Math.floor(1 + Math.random() * 10); // 1..10 %
+        percents.push(p);
+      }
+      // перемешиваем, чтобы базовая цена была в случайной строке
+      percents.sort(() => Math.random() - 0.5);
+
+      for (let i = 0; i < count; i++){
         const d = addDays(new Date(), START_OFFSET + i);
         const iso = d.toISOString().slice(0,10);
-        const price = `от ${(Math.floor(33000 + Math.random()*9000)).toLocaleString('ru-RU')}`;
+
+        let priceText = 'уточняйте цену';
+        if (basePrice) {
+          const p = percents[i];                // надбавка в %
+          const priceNum = Math.round(basePrice * (1 + p / 100));
+          // при p = 0 получаем ровно базовую цену, при p = 1–10 — от +1% до +10%
+          priceText = `от ${priceNum.toLocaleString('ru-RU')}`;
+        }
+
         const li = document.createElement('li');
         li.setAttribute('role','menuitem');
         li.setAttribute('tabindex','0');
@@ -293,7 +319,7 @@ $mp_items = [
           <span class="mp-h-col-date">${fmtHoverShort(d)}</span>
           <span class="mp-h-col-nights">${nights}</span>
           <span class="mp-h-col-cta" role="button" aria-label="Выбрать дату">
-            ${price} <span class="mp-rub">руб</span>
+            ${priceText} <span class="mp-rub">руб</span>
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M9 18l6-6-6-6"/>
             </svg>
@@ -304,7 +330,7 @@ $mp_items = [
     }
   });
 
-  // ===== Мобильное поведение: первый тап раскрывает ховер =====
+  // ===== Мобильное поведение =====
   const isTouch = matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window;
   if (isTouch) {
     document.querySelectorAll('.mp-card').forEach(function(card){
@@ -324,7 +350,7 @@ $mp_items = [
     });
   }
 
-  // ===== Попап и передача выбранной даты =====
+  // ===== Попап =====
   const modal = document.getElementById('mpOrderModal');
   const dateInfo = document.getElementById('mpSelectedDateInfo');
 
@@ -341,12 +367,11 @@ $mp_items = [
     modal.setAttribute('aria-hidden','false');
     document.documentElement.style.overflow='hidden';
 
-    // подставляем дату в скрытое поле формы, если его нет — создаём
     try{
       const root = modal.querySelector('.wpcf7 form');
       if (root && iso) {
         const names = ['date','Дата','Дата вылета','flight_date','selected_date','mp_date'];
-        let input = null; names.some(n => (input = root.querySelector(`[name=\"${n}\"]`)));
+        let input = null; names.some(n => (input = root.querySelector(`[name="${n}"]`)));
         if (!input) {
           input = document.createElement('input');
           input.type = 'hidden';
@@ -355,7 +380,7 @@ $mp_items = [
         }
         input.value = iso;
         if (selectedText) {
-          let labelInput = root.querySelector('[name=\"selected_date_label\"]');
+          let labelInput = root.querySelector('[name="selected_date_label"]');
           if (!labelInput) {
             labelInput = document.createElement('input');
             labelInput.type = 'hidden';
@@ -367,12 +392,22 @@ $mp_items = [
       }
     }catch(e){}
   }
-  function closeModal(){ modal.setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; }
 
-  modal.addEventListener('click', e => { if (e.target.matches('[data-mp-close], .mp-modal-backdrop')) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key==='Escape' && modal.getAttribute('aria-hidden')==='false') closeModal(); });
+  function closeModal(){
+    modal.setAttribute('aria-hidden','true');
+    document.documentElement.style.overflow='';
+  }
 
-  // Клик/клавиши по строке ховера
+  window.mpOpenModal  = openModal;
+  window.mpCloseModal = closeModal;
+
+  modal.addEventListener('click', e => {
+    if (e.target.matches('[data-mp-close], .mp-modal-backdrop')) closeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
+  });
+
   document.querySelectorAll('.mp-hover-list').forEach(list=>{
     list.addEventListener('click', e=>{
       const li = e.target.closest('li'); if (!li) return;
@@ -383,7 +418,10 @@ $mp_items = [
       openModal(label, iso);
     });
     list.addEventListener('keydown', e=>{
-      if ((e.key==='Enter' || e.key===' ') && e.target.closest('li')) { e.preventDefault(); e.target.click(); }
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('li')) {
+        e.preventDefault();
+        e.target.click();
+      }
     });
   });
 })();
