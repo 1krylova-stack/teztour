@@ -61,15 +61,15 @@
 
         <div class="quiz-final" data-consultant="Оставьте номер WhatsApp, и мы пришлём подборку">
           <span class="quiz-final__title">Спасибо, вся информация принята!</span>
-          <p class="quiz-final__text">Оставьте свой номер <span> WhatsApp</span>, и наш менеджер отправит туда варианты туров:</p>
+          <p class="quiz-final__text">Оставьте свой номер и наш менеджер отправит варианты туров:</p>
           <div class="quiz-final__form">
             <div class="quiz-final__socials">
-              <a href="https://t.me/+79817010302" target="_blank" class="quiz-final__soc" rel="nofollow">
+           
                 <img src="https://tours.turotdel.com/wp-content/uploads/2023/05/tel-icon.svg" alt="иконка">
-              </a>
-              <a href="https://wa.me/79817010302?text=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%B4%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D1%82%D1%83%D1%80" target="_blank" class="quiz-final__soc" rel="nofollow">
-                <img src="https://tours.turotdel.com/wp-content/uploads/2023/05/whatsapp.svg" alt="иконка">
-              </a>
+              
+              
+                <img src="https://tours.turotdel.com/wp-content/uploads/2023/05/whatsapp.svg" target="_blank" class="quiz-final__soc" alt="иконка">
+              
             </div>
             <div class="quiz-final__cf7">
               <?php echo do_shortcode('[contact-form-7 title="Получить подборку"]'); ?>
