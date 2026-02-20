@@ -20,13 +20,11 @@ if (empty($quiz_template)) {
       <p class="offer-title">Получите пять вариантов туров</p>
       <p class="subline">— с проверенными отелями по реальным ценам</p>
       <p class="note">
-        Уточните несколько параметров <br>и уже через 15 минут подборка будет у вас на
-        <img src="https://tez-tourspb.ru/wp-content/uploads/whatsapp_logo_icon_189219.png" alt="WhatsApp" class="wa-icon"> WhatsApp
-      </p>
+        Уточните несколько параметров <br>и уже через 15 минут подборка будет у вас
       <div class="t_app">
         <a href="#" class="open-quiz-btn">Получить подборку туров</a>
       </div>
-      <p class="microtext">Только актуальные варианты, никакой рекламы</p>
+      <p class="microtext">Только актуальные варианты</p>
     </div>
   </div>
 </section>
@@ -236,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
 
-        if (bubbleEl) bubbleEl.textContent = (current < Q_COUNT) ? bubbles[current] : 'Отлично! Оставьте номер WhatsApp — пришлём подборку.';
+        if (bubbleEl) bubbleEl.textContent = (current < Q_COUNT) ? bubbles[current] : 'Спасибо! Оставьте номер — пришлём подборку туров.';
         highlightSelected();
       }
 
@@ -384,7 +382,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const form = cf7Wrap ? cf7Wrap.querySelector('form') : null;
         if(form && event.target === form){
           closeQuiz();
-          setTimeout(()=>alert('Спасибо! Мы свяжемся с вами в WhatsApp.'), 50);
+          setTimeout(()=>alert('Спасибо! Мы свяжемся с вами.'), 50);
         }
       }, false);
 
