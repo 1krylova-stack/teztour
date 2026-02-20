@@ -41,16 +41,21 @@
 <div class="flex-slider">
   <ul class="slides">
     <li>
-      <div class="slide-image" data-bg="/wp-content/uploads/Онлайн.png" data-flex-start="center center ">
+      <div class="slide-image" data-bg="/wp-content/uploads/banner-3.jpg" data-flex-start="center center ">
         <div class="box_sh">
           <div class="w_app">
-            <a href="https://wa.me/79817010302?text=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%B4%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D1%82%D1%83%D1%80">
-              Написать в WhatsApp
-            </a>
-          </div>
+  <a class="tt-btn-outline" href="https://t.me/+79817010302" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9.04 15.47l-.38 5.3c.55 0 .79-.24 1.08-.52l2.6-2.5 5.39 3.94c.99.55 1.7.26 1.96-.91l3.55-16.65c.32-1.51-.55-2.1-1.52-1.74L1.5 9.13c-1.46.57-1.44 1.38-.25 1.75l5.55 1.73L19.67 5.4c.64-.4 1.22-.18.74.22"/>
+    </svg>
+    Написать в Telegram
+  </a>
+</div>
           <div class="t_app">
-            <a href="#" id="open-quiz">Подобрать тур</a>
-          </div>
+  <a class="tt-btn-primary" href="#" id="open-quiz">
+    Подобрать тур
+  </a>
+</div>
         </div>
       </div>
     </li>
@@ -60,137 +65,264 @@
 <!-- БЛОК ПРЕИМУЩЕСТВ "TEZ" -->
 <section class="tez-advantages" aria-label="Наши преимущества">
   <div class="tez-adv-grid">
-    <!-- Левая колонка: текст -->
+    <!-- Левая колонка: заголовок + иконка Земли + текст -->
     <div class="tez-adv-text">
-      <p>
-        Путешествия – отличный способ провести время с пользой для себя, путь к саморазвитию и продуктивному отдыху.
-        Даже сейчас с непростыми ограничениями на въезд во многие страны, можно найти множество вариантов – турагентство
-        TEZ Тур предлагает разнообразные туры в самые интересные страны мира прямиком из Санкт-Петербурга.
-      </p>
+		<p class="tez-adv-title">Путешествия <br>— это просто и удобно с TEZ TOUR</p>
+      <div class="tez-adv-body">
+        <div class="tez-adv-earth">
+          <img
+            src="https://tez-tourspb.ru/wp-content/uploads/iconear.jpg"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          >
+        </div>
+        <p>
+          Путешествия – отличный способ провести время с пользой для себя, путь к саморазвитию и продуктивному отдыху.
+          Даже сейчас с непростыми ограничениями на въезд во многие страны, можно найти множество вариантов – турагентство
+          TEZ Тур предлагает туры прямиком из Санкт-Петербурга и Москвы.
+        </p>
+      </div>
     </div>
 
-    <!-- Правая колонка: две карточки (иконка слева, текст справа) -->
+    <!-- Правая колонка: две серые карточки -->
     <div class="tez-adv-right">
-      <article class="tez-adv-item">
-        <img class="tez-icon-img"
-             src="https://tez-tourspb.ru/wp-content/uploads/tour_2.png"
-             alt="Помогаем с выбором" width="100" height="100" loading="lazy">
+      <article class="tez-adv-card">
+        <span class="tez-adv-check" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </span>
+        <div class="tez-adv-icon">
+          <img
+            src="https://tez-tourspb.ru/wp-content/uploads/icontolk.jpg"
+            alt="Расскажем о всех нюансах"
+            loading="lazy"
+            decoding="async"
+          >
+        </div>
         <div class="tez-adv-copy">
-          <p class="tez-adv-caption">
-            <span class="tez-adv-strong">Расскажем о нюансах</span> и особенностях каждого отеля или экскурсии
-          </p>
+          <div class="tez-adv-title-sm">Расскажем о всех нюансах</div>
+          <p class="tez-adv-desc">Подробно покажем особенности каждого отеля</p>
         </div>
       </article>
 
-      <article class="tez-adv-item">
-        <img class="tez-icon-img"
-             src="https://tez-tourspb.ru/wp-content/uploads/tour_1.png"
-             alt="Безопасные туры" width="100" height="100" loading="lazy">
+      <article class="tez-adv-card">
+        <span class="tez-adv-check" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </span>
+        <div class="tez-adv-icon">
+          <img
+            src="https://tez-tourspb.ru/wp-content/uploads/iconworld.jpg"
+            alt="Проверенные отели"
+            loading="lazy"
+            decoding="async"
+          >
+        </div>
         <div class="tez-adv-copy">
-          <p class="tez-adv-caption">
-            Подбираем <span class="tez-adv-strong">проверенные отели</span> где были сами или отдыхали туристы
-          </p>
+          <div class="tez-adv-title-sm">Проверенные отели</div>
+          <p class="tez-adv-desc">Подбираем тур, где были сами или отдыхали клиенты</p>
         </div>
       </article>
     </div>
   </div>
 </section>
 
+
 <style>
-  :root{
-    --tez-blue:#2e6cff;
-    --tez-text:#1f2937;
-    --tez-muted:#6b7a90;
-    --tez-card:#ffffff;
-    --tez-border:#eef2f7;
+:root{
+  --tez-blue:#2864c7;
+  --tez-text:#111111;
+  --tez-card-gray:#f5f5f5;
 
-    /* регулируемые параметры */
-    --tez-icon-size:50px;   /* размер иконок */
-    --tez-icon-gap:6px;    /* расстояние между иконкой и текстом */
-  }
+  --tez-icon-size-desktop:60px;
+  --tez-icon-size-mobile:48px;
+}
 
-  /* Секция */
-  .tez-advantages{
-    padding:24px 0;
-    clear:both;
-    width:100%;
-    display:block;
-  }
+/* Секция – фон прозрачный */
+.tez-advantages{
+  padding:24px 0;
+  clear:both;
+  width:100%;
+  display:block;
+  background:transparent;
+}
 
-  /* 2 колонки: слева текст, справа — две карточки */
+/* 2 колонки: слева текст, справа — две карточки */
+.tez-adv-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+  gap:24px;
+  align-items:flex-start;
+  box-sizing:border-box;
+}
+
+/* Левая колонка: без рамки и фона */
+.tez-adv-text{
+  padding:0;
+  margin:0;
+  color:var(--tez-text);
+  box-sizing:border-box;
+  background:transparent;
+  border:none;
+  box-shadow:none;
+  border-radius:0;
+}
+
+/* Заголовок слева — чёрный и жирный */
+.tez-adv-title{
+  margin:0 0 14px;
+  font:700 28px/1.25 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;
+  color:var(--tez-text);
+}
+
+/* Тело текста слева */
+.tez-adv-body{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--tez-text);
+}
+
+/* Иконка Земли: обтекание текстом на всех разрешениях */
+.tez-adv-earth{
+  float:left;
+  width:64px;
+  height:64px;
+  margin:2px 16px 6px 0;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:transparent;
+}
+
+/* Сама иконка — больше */
+.tez-adv-earth img{
+  width:58px;
+  height:58px;
+  display:block;
+  object-fit:contain;
+}
+
+.tez-adv-body p{
+  margin:0;
+}
+
+/* Правая колонка: две карточки в один ряд */
+.tez-adv-right{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+/* Серые плашки как в "Что входит в тур" */
+.tez-adv-card{
+  position:relative;
+  background:var(--tez-card-gray);
+  border-radius:14px;
+  padding:18px 18px 16px;
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  min-height:80px;
+  box-shadow:0 1px 0 rgba(0,0,0,.02);
+  box-sizing:border-box;
+}
+
+/* Иконки внутри карточек */
+.tez-adv-icon{
+  flex:0 0 auto;
+  width:var(--tez-icon-size-desktop);
+  min-width:var(--tez-icon-size-desktop);
+  height:var(--tez-icon-size-desktop);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.tez-adv-icon img{
+  max-width:100%;
+  max-height:100%;
+  display:block;
+}
+
+/* Текст карточек */
+.tez-adv-copy{
+  flex:1 1 auto;
+}
+
+.tez-adv-title-sm{
+  font-weight:700;
+  font-size:16px;
+  line-height:1.3;
+  margin:0 0 4px;
+  color:var(--tez-text);
+}
+
+.tez-adv-desc{
+  margin:0;
+  font-size:15px;
+  line-height:1.4;
+  color:var(--tez-text);
+}
+
+/* Синяя круглая галочка */
+.tez-adv-check{
+  position:absolute;
+  top:-12px;
+  left:-12px;
+  width:36px;
+  height:36px;
+  border-radius:999px;
+  background:var(--tez-blue);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 12px rgba(40,100,199,.35);
+}
+
+/* Адаптив */
+@media (max-width:1100px){
   .tez-adv-grid{
-    display:grid;
-    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-    gap:16px;
-    align-items:stretch;
-    box-sizing:border-box;
-  }
-
-  /* Левая колонка */
-  .tez-adv-text{
-    background:var(--tez-card);
-    border:1px solid var(--tez-border);
-    border-radius:14px;
-    padding:22px 20px;
-    color:var(--tez-text);
-    line-height:1.55;
-    font-size:16px;
-  }
-  .tez-adv-text p{ margin:0; }
-
-  /* Правая колонка: две карточки в ряд */
-  .tez-adv-right{
-    display:grid;
-    grid-template-columns:repeat(2, minmax(0,1fr));
-    gap:16px;
-  }
-
-  /* Карточка преимущества: ВЕРТИКАЛЬ — иконка сверху слева, текст ниже */
-  .tez-adv-item{
-    background:var(--tez-card);
-    border:1px solid var(--tez-border);
-    border-radius:14px;
-    padding:14px 16px;
-    box-sizing:border-box;
-
-    /* надёжная схема: grid с межстрочным отступом */
-    display:grid !important;
     grid-template-columns:1fr;
-    grid-template-rows:auto auto;
-    align-items:start;
-    row-gap:var(--tez-icon-gap);
+  }
+  .tez-adv-right{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
 
-    float:none !important; /* если тема даёт float для <article> */
+@media (max-width:768px){
+  .tez-adv-title{
+    font-size:24px;
   }
+  .tez-adv-icon{
+    width:var(--tez-icon-size-mobile);
+    min-width:var(--tez-icon-size-mobile);
+    height:var(--tez-icon-size-mobile);
+  }
+  .tez-adv-earth{
+    width:68px;
+    height:68px;
+    margin:2px 14px 6px 0;
+  }
+}
 
-  .tez-icon-img{
-    width:var(--tez-icon-size);
-    height:var(--tez-icon-size);
-    object-fit:contain;
-    opacity:.6;              /* приглушаем рядом с поиском */
-    filter:grayscale(20%);
-    display:block;
-    justify-self:start;      /* по левому краю */
+@media (max-width:640px){
+  .tez-adv-right{
+    grid-template-columns:1fr;
   }
-
-  .tez-adv-copy{ justify-self:start; }
-  .tez-adv-caption{
-    font-size:16px;          /* как в левом блоке */
-    line-height:1.55;
-    color:var(--tez-text);
-    margin:0;
+  .tez-adv-check{
+    width:28px;
+    height:28px;
+    top:-8px;
+    left:-8px;
+    box-shadow:0 3px 8px rgba(40,100,199,.30);
   }
-  .tez-adv-strong{ font-weight:700; }
-
-  /* Адаптив */
-  @media (max-width:1100px){
-    .tez-adv-grid{ grid-template-columns:1fr; }
-    .tez-adv-right{ grid-template-columns:repeat(2, minmax(0,1fr)); }
-  }
-  @media (max-width:640px){
-    .tez-adv-right{ grid-template-columns:1fr; }
-    :root{ --tez-icon-gap:20px; } /* немного компактнее на мобиле */
-  }
+}
 </style>
 
 
