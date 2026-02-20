@@ -440,6 +440,58 @@ add_action('admin_head', function () {
 });
 
 /* =========================
+ * Category banner field (fallback if no ACF field)
+ * ========================= */
+add_action('category_add_form_fields', function () {
+  ?>
+  <div class="form-field term-rubric-banner-image-wrap">
+    <label for="rubric_banner_image_url">Баннер рубрики (1200x480)</label>
+    <input type="url" name="rubric_banner_image_url" id="rubric_banner_image_url" value="" class="regular-text" placeholder="https://.../banner.jpg" />
+    <p>Заполните URL изображения. Если ACF-поле <code>rubric_banner_image</code> заполнено, используется оно.</p>
+  </div>
+  <?php
+});
+
+add_action('category_edit_form_fields', function ($term) {
+  $value = get_term_meta($term->term_id, 'rubric_banner_image_url', true);
+  ?>
+  <tr class="form-field term-rubric-banner-image-wrap">
+    <th scope="row"><label for="rubric_banner_image_url">Баннер рубрики (1200x480)</label></th>
+    <td>
+      <input type="url" name="rubric_banner_image_url" id="rubric_banner_image_url" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="https://.../banner.jpg" />
+      <p class="description">Заполните URL изображения. Если ACF-поле <code>rubric_banner_image</code> заполнено, используется оно.</p>
+    </td>
+  </tr>
+  <?php
+});
+
+add_action('edited_category', function ($term_id) {
+  if (!isset($_POST['rubric_banner_image_url'])) {
+    return;
+  }
+
+  $value = esc_url_raw(wp_unslash($_POST['rubric_banner_image_url']));
+
+  if ($value) {
+    update_term_meta($term_id, 'rubric_banner_image_url', $value);
+  } else {
+    delete_term_meta($term_id, 'rubric_banner_image_url');
+  }
+});
+
+add_action('created_category', function ($term_id) {
+  if (!isset($_POST['rubric_banner_image_url'])) {
+    return;
+  }
+
+  $value = esc_url_raw(wp_unslash($_POST['rubric_banner_image_url']));
+
+  if ($value) {
+    update_term_meta($term_id, 'rubric_banner_image_url', $value);
+  }
+});
+
+/* =========================
  * Contact Form 7 — allow HTML in acceptance
  * ========================= */
 add_filter('wpcf7_form_elements', function($content) {

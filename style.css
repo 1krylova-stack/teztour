@@ -3586,3 +3586,45 @@ body.home .bn___top::before{
 .tt-btn-outline:hover svg{
   fill:var(--tt-blue);
 }
+
+.rubric-hero-banner{
+	position:relative;
+	width:100%;
+	max-width:1200px;
+	min-height:480px;
+	margin:0 0 24px;
+	overflow:hidden;
+	border-radius:12px;
+}
+
+.rubric-hero-banner__image{
+	position:absolute;
+	inset:0;
+	background-position:center center;
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+
+.rubric-hero-banner .box_sh{
+	bottom:40px;
+	left:40px;
+}
+
+@media (max-width: 1024px){
+	.rubric-hero-banner{
+		min-height:380px;
+	}
+}
+
+@media (max-width: 768px){
+	.rubric-hero-banner{
+		min-height:260px;
+		border-radius:10px;
+	}
+
+	.rubric-hero-banner .box_sh{
+		left:20px;
+		right:20px;
+		bottom:20px;
+	}
+}
