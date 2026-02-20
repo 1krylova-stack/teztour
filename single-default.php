@@ -47,6 +47,7 @@
 						?>
 				</div>
 
+		
 			<?php endwhile; ?>
 		</div>
 	</article>
