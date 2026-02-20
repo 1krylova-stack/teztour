@@ -2167,9 +2167,33 @@ button.nav-tgl.menu-toggle>span {
 .custom-checkbox:checked + .wpcf7-list-item-label:after {
      transform: translateY(-50%) rotate(45deg) scale(1);
 }
-.flex-slider {width:100%;position:relative;margin-bottom: 0px;margin-top: 0px;}
-.flex-slider .slides {list-style:none;overflow:hidden;margin:0;padding:0}
-.flex-slider .slides > li {float:left;margin-right:-100%;width:100%;overflow:hidden;min-height:500px;}
+.flex-slider{
+  width:100%;
+  position:relative;
+  margin:0;
+  border-radius:16px;           /* скругление краёв */
+  overflow:hidden;              /* обрезаем картинку по радиусу */
+  box-shadow:0 18px 40px rgba(0,0,0,.15); /* лёгкая объёмная тень */
+  margin-bottom: 40px
+}
+
+/* слайды */
+.flex-slider .slides{
+  list-style:none;
+  overflow:hidden;
+  margin:0;
+  padding:0;
+}
+
+.flex-slider .slides > li{
+  float:left;
+  margin-right:-100%;
+  width:100%;
+  overflow:hidden;
+  min-height:480px; /* чуть ниже, чтобы не казалось бесконечным полотном */
+  position:relative;
+  height: auto;
+}
 .flex-slider .flex-direction-nav {list-style:none;margin:0;padding:0}
 .flex-slider .flex-direction-nav .flex-prev, .flex-slider .flex-direction-nav .flex-next {background-color:rgba(255,255,255,0.7);padding:10px;text-decoration:none;position:absolute;height:1em;top: 40%;;bottom:0;margin:0 auto;z-index:8;text-align:center;color:#333;max-width:20px}
 .flex-slider .flex-direction-nav .flex-prev{left:10px}
@@ -2177,17 +2201,20 @@ button.nav-tgl.menu-toggle>span {
 .flex-slider .flex-direction-nav {
     display: none !important;
 }
+.flex-slider .flex-control-nav {
+    display: none !important;
+}
 
-.slide-image{    background-size: contain;
-	
+.slide-image{
+  position:absolute;
+  inset:0;                      /* top/right/bottom/left:0; */
+  width:100%;
+  height:100%;
+  background-repeat:no-repeat;
+  background-size:cover !important;     /* вместо contain: картинка заполняет баннер */
+  background-position:center center !important;
+}
 
-    /* background-position: center; */
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background-repeat: no-repeat;}
 .block_l h2{
 	margin-bottom: 40px;
     margin-top: -80px;
@@ -2212,41 +2239,104 @@ button.nav-tgl.menu-toggle>span {
     width: 100%;
     height: 100%;
 }
-.box_sh
-{
-	    position: absolute;
-    bottom: 170px;
-    z-index: 1000;
-    /* width: 100%; */
-    /* height: 100%; */
-    left: 60px;
-	    display: flex;
+.box_sh{
+  position:absolute;
+  bottom:60px;
+  left:60px;
+  z-index:1000;
+  display:flex;
+  gap:16px;
 }
-@media(max-width: 768px) {
-	.flex-slider .slides > li {
-    min-height: 170px;
+@media(max-width:768px){
+  .flex-slider .slides > li{
+    min-height:220px;
+  }
+	
+  .slide-image{
+    background-position: left center !important; /* вместо center */
+    background-size: cover !important;
+  }
+
+  .box_sh{
+    bottom:32px;
+    left:24px;
+    right:24px;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+
+  .w_app a,
+  .t_app a{
+    width: auto; 
+	padding:10px 18px;
+    font-size:14px;
+    box-shadow:0 6px 16px rgba(0,0,0,.18);
+    border-radius: 10px;
+	}
 }
+:root{
+  --tez-blue:#2863c7;
+  --tez-blue-hover:#1f4fb0;
 }
-.w_app a {
-	background: #1DDD23;
-    color: #fff;
-    padding: 15px 45px;
-    margin-right: 36px;
-    font-size: 16px;
-	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+/* базовые стили кнопок */
+.w_app a,
+.t_app a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px 32px;
+  font-size:16px;
+  font-weight:600;
+  border-radius:10px;
+  border:none;
+  text-decoration:none;
+  color:#fff;
+  box-shadow:0 10px 25px rgba(0,0,0,.18);
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
 }
-.t_app a {
-	background: #26C5CE;
-	color: #fff;
-	padding: 15px 45px;
-    font-size: 16px;
-	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+/* Telegram — прозрачная, белая рамка */
+.w_app a{
+  background:transparent;
+  border:2px solid #fff;
+  padding:12px 30px; /* 14 - 2px border */
 }
-.t_app a:hover {
-	text-decoration: none;
+
+/* если вставишь svg иконку */
+.w_app a svg{
+  width:18px;
+  height:18px;
+  fill:#fff;
+  margin-right:10px;
 }
-.w_app a:hover {
-	text-decoration: none;
+
+/* Основная CTA */
+.t_app a{
+  background:var(--tez-blue);
+  border:none;
+}
+
+/* hover */
+.w_app a:hover,
+.t_app a:hover{
+  text-decoration:none;
+  transform:translateY(-1px);
+  box-shadow:0 14px 30px rgba(0,0,0,.2);
+}
+
+/* hover-инверсия для Telegram */
+.w_app a:hover{
+  background:#fff;
+  color:var(--tez-blue);
+}
+.w_app a:hover svg{
+  fill:var(--tez-blue);
+}
+
+/* hover для синей */
+.t_app a:hover{
+  background:var(--tez-blue-hover);
 }
 .box_sh_rigth {
 	  position: absolute;
@@ -2257,6 +2347,23 @@ button.nav-tgl.menu-toggle>span {
     right: 160px;
 	    display: flex;
 }
+@media (max-width: 640px){
+
+  /* скрываем Telegram */
+  .flex-slider .box_sh .w_app{
+    display:none;
+  }
+  .flex-slider .box_sh{
+    bottom: 24px !important;
+  }
+
+  /* компактная кнопка */
+  .flex-slider .t_app a{
+    padding:10px 16px;
+    font-size:14px;
+  }
+}
+
 .flex_fair {
 	display: flex;
 }
@@ -3408,3 +3515,74 @@ section.tour-offer-block .offer-photo .manager-sub { color: #777; }
 }
 
 /* === TEZ QUIZ FIX — END === */
+
+/* Home: убираем белую полосу под шапкой */
+body.home .bn___top::before{
+  top: 96px !important;   /* 36 + 60 = 96 */
+}
+
+/* Если нужно иначе на мобиле: */
+@media (max-width: 768px){
+  body.home .bn___top::before{
+    top: 130px !important; /* у тебя уже так, оставим */
+  }
+}
+
+.tt-btn-primary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:14px 32px;
+  font-size:16px;
+  font-weight:600;
+
+  color:#fff;
+  background:var(--tt-blue);
+  border:none;
+  border-radius:10px;
+
+  box-shadow:0 10px 25px rgba(0,0,0,.18);
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.tt-btn-primary:hover{
+  background:var(--tt-blue-hover);
+  transform:translateY(-1px);
+  box-shadow:0 14px 30px rgba(0,0,0,.22);
+  text-decoration:none;
+}
+
+.tt-btn-outline{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+
+  padding:14px 28px;
+  font-size:16px;
+  font-weight:600;
+
+  color:#fff;
+  background:transparent;
+  border:2px solid #fff;
+  border-radius:10px;
+
+  box-shadow:0 10px 25px rgba(0,0,0,.18);
+  transition:all .15s ease;
+}
+
+.tt-btn-outline svg{
+  width:18px;
+  height:18px;
+  fill:#fff;
+}
+
+.tt-btn-outline:hover{
+  background:#fff;
+  color:var(--tt-blue);
+  transform:translateY(-1px);
+}
+
+.tt-btn-outline:hover svg{
+  fill:var(--tt-blue);
+}
