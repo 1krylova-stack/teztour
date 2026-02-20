@@ -61,17 +61,97 @@ class ZU_Tez_Hotel_Card_OneFile {
       .hotel-card__sub{font-size:14px;color:var(--tez-muted);margin-top:6px}
       .hotel-card__note{margin-top:10px;font-size:13px;color:var(--tez-muted)}
 
-      .tez-btn{
-  display:inline-block;padding:15px 40px;background:#2864c7;color:#fff;
-  font-size:16px;font-weight:600;line-height:1;text-decoration:none;
-  border-radius:6px;box-shadow:0 4px 4px rgba(0,0,0,.25);
-  transition:opacity .2s ease;-webkit-tap-highlight-color:transparent
+	/* Кнопка в карточке — синий как в нижнем блоке */
+.tez-btn{
+  display:flex;width:max-content;margin:16px auto 0;align-items:center;justify-content:center;gap:8px;
+  padding:15px 45px;
+  background: linear-gradient(90deg, var(--tez-blue) 0%, #1e4fb8 100%);
+  color:#fff;
+  font-size:16px;font-weight:600;line-height:1.2;text-decoration:none;
+  border-radius:10px;
+  box-shadow:0 6px 16px rgba(30,79,184,.28);
+  transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease;
+  -webkit-tap-highlight-color:transparent;
 }
-.tez-btn:hover{opacity:.9;text-decoration:none}
-.tez-btn:focus{outline:2px solid rgba(40,99,199,.35);outline-offset:2px}
+.tez-btn:hover{
+  /* убираем opacity и даём затемнение фоном */
+  background: linear-gradient(90deg, #1f57b9 0%, #1946a6 100%);
+  text-decoration:none;
+  transform:translateY(-1px);
+}
+
+/* Кнопка отправки в попапе — те же цвета и ховер */
+.tez-modal .wpcf7-submit{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:15px 26px;font-size:16px;font-weight:600;
+  border:none;border-radius:10px;
+  background: linear-gradient(90deg, var(--tez-blue) 0%, #1e4fb8 100%);
+  color:#fff;cursor:pointer;
+  box-shadow:0 6px 16px rgba(30,79,184,.28);
+  transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease;
+}
+.tez-modal .wpcf7-submit:hover{
+  background: linear-gradient(90deg, #1f57b9 0%, #1946a6 100%);
+  transform:translateY(-1px);
+}
+
+    
+      .tez-btn:active{transform:translateY(0);box-shadow:0 2px 6px rgba(0,0,0,.2);}
+      .tez-btn:focus-visible{outline:3px solid rgba(38,197,206,.35);outline-offset:3px;}
+      @media(max-width:640px){.tez-btn{width:100%;padding:14px 24px;text-align:center;}}
 
       .hotel-thumbs:focus-visible{outline:2px solid rgba(40,99,199,.45);outline-offset:4px}
-      </style>
+tez-modal[hidden]{display:none !important}
+      .tez-modal{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;
+        opacity:0;visibility:hidden;transition:opacity .25s ease;pointer-events:none;}
+      .tez-modal.is-open{opacity:1;visibility:visible;pointer-events:auto;}
+      .tez-modal__backdrop{position:absolute;inset:0;background:rgba(15,23,42,.55);}
+      .tez-modal__dialog{position:relative;z-index:1;max-width:520px;width:100%;background:#fff;border-radius:18px;padding:32px 34px;
+        box-shadow:0 24px 48px rgba(15,23,42,.35);max-height:90vh;overflow:auto;}
+      @media(max-width:640px){.tez-modal__dialog{padding:26px 22px;border-radius:16px;}}
+      .tez-modal__close{position:absolute;top:12px;right:12px;width:34px;height:34px;border:none;border-radius:50%;
+        background:rgba(148,163,184,.22);color:#111827;font-size:20px;cursor:pointer;line-height:1;display:flex;
+        align-items:center;justify-content:center;transition:background .2s ease;}
+      .tez-modal__close:hover{background:rgba(148,163,184,.4);}
+      .tez-modal__close:focus{outline:2px solid rgba(40,99,199,.35);outline-offset:2px;}
+      .tez-modal__body{display:flex;flex-direction:column;gap:18px;}
+      .tez-modal__title{margin:0;font-size:24px;line-height:1.25;font-weight:700;color:var(--tez-dark);text-align:center;}
+      .tez-modal__subtitle{margin:0;font-size:15px;line-height:1.5;color:var(--tez-muted);text-align:center;}
+      .tez-modal__form{display:flex;flex-direction:column;gap:16px;}
+      .tez-modal .wpcf7-form{display:flex;flex-direction:column;gap:14px;}
+      .tez-modal .wpcf7-form p{margin:0;}
+      .tez-modal .wpcf7-form label{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--tez-muted);}
+      .tez-modal .wpcf7-form-control-wrap{display:block;width:100%;}
+      .tez-modal .wpcf7-text,
+      .tez-modal .wpcf7-tel,
+      .tez-modal .wpcf7-email,
+      .tez-modal .wpcf7-number,
+      .tez-modal .wpcf7-select,
+      .tez-modal input[type="text"],
+      .tez-modal input[type="email"],
+      .tez-modal input[type="tel"],
+      .tez-modal input[type="number"],
+      .tez-modal select,
+      .tez-modal textarea{width:100%;max-width:100%;border:1px solid var(--tez-border);border-radius:10px;padding:12px 14px;font-size:15px;
+        background:#f9fbff;box-sizing:border-box;transition:border-color .2s ease,box-shadow .2s ease;}
+      .tez-modal textarea{min-height:110px;resize:vertical;}
+      .tez-modal .wpcf7-form input:focus,
+      .tez-modal .wpcf7-form textarea:focus,
+      .tez-modal .wpcf7-form select:focus{border-color:var(--tez-blue);box-shadow:0 0 0 3px rgba(40,99,199,.14);outline:none;}
+     
+      .tez-modal .wpcf7-submit:active{transform:translateY(0);box-shadow:0 2px 6px rgba(0,0,0,.2);}
+      .tez-modal .wpcf7-form .wpcf7-not-valid{border-color:#f97316;box-shadow:0 0 0 3px rgba(249,115,22,.14);}
+      .tez-modal .wpcf7-response-output{margin:0;font-size:13px;line-height:1.4;border-radius:10px;padding:10px 12px;border:1px solid transparent;}
+      .tez-modal .wpcf7-response-output.wpcf7-mail-sent-ok{background:#ecfdf5;border-color:#34d399;color:#047857;}
+      .tez-modal .wpcf7-response-output.wpcf7-validation-errors,
+      .tez-modal .wpcf7-response-output.wpcf7-acceptance-missing{background:#fef3c7;border-color:#f59e0b;color:#92400e;}
+      .tez-modal .wpcf7-spinner{margin:0 auto;}
+      .tez-modal .wpcf7-list-item{margin:0;}
+      .tez-modal .wpcf7-list-item label{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--tez-muted);}
+      .tez-modal .wpcf7-list-item input[type="checkbox"]{margin-top:3px;}
+      .tez-modal .wpcf7-list-item-label a{color:inherit;text-decoration:underline;}
+      .tez-modal .wpcf7-acceptance{font-size:13px;line-height:1.5;color:var(--tez-muted);} 
+</style>
 
       <script>
       (function(w,d){
@@ -153,6 +233,74 @@ class ZU_Tez_Hotel_Card_OneFile {
         w.addEventListener('load', initAll);
       })(window, document);
       </script>
+ <script>
+      (function(w,d){
+        function ready(fn){
+          if(d.readyState==='loading'){d.addEventListener('DOMContentLoaded', fn);} else {fn();}
+        }
+        function hasFancybox(){
+          if(w.Fancybox) return true;
+          if(!w.jQuery) return false;
+          return !!(w.jQuery.fancybox || (w.jQuery.fn && w.jQuery.fn.fancybox));
+        }
+        ready(function(){
+          if(hasFancybox()) return;
+          var active=null;
+          function getModal(id){
+            if(!id) return null;
+            return d.getElementById(id);
+          }
+          function closeModal(){
+            if(!active) return;
+            active.classList.remove('is-open');
+            active.setAttribute('aria-hidden','true');
+            active.setAttribute('hidden','');
+            d.documentElement.style.overflow='';
+            active=null;
+          }
+          function focusFirst(modal){
+            if(!modal) return;
+            var focusable=modal.querySelector('[data-tez-modal-close], button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if(focusable) {
+              try { focusable.focus({preventScroll:true}); }
+              catch(e){ focusable.focus(); }
+            }
+          }
+          function openModal(id){
+            var modal=getModal(id);
+            if(!modal) return;
+            if(active && active!==modal) closeModal();
+            active=modal;
+            modal.classList.add('is-open');
+            modal.removeAttribute('hidden');
+            modal.setAttribute('aria-hidden','false');
+            d.documentElement.style.overflow='hidden';
+            focusFirst(modal);
+          }
+          d.addEventListener('click', function(e){
+            var opener=e.target.closest('[data-tez-modal-open]');
+            if(opener){
+              e.preventDefault();
+              openModal(opener.getAttribute('data-tez-modal-open'));
+              return;
+            }
+            if(active && (e.target.hasAttribute('data-tez-modal-close') || e.target.closest('[data-tez-modal-close]'))){
+              e.preventDefault();
+              closeModal();
+              return;
+            }
+            if(active && e.target.classList.contains('tez-modal__backdrop')){
+              e.preventDefault();
+              closeModal();
+            }
+          });
+          d.addEventListener('keydown', function(e){
+            if(e.key==='Escape') closeModal();
+          });
+        });
+      })(window, document);
+      </script>
+
       <?php
     }, 99);
   }
@@ -174,11 +322,15 @@ class ZU_Tez_Hotel_Card_OneFile {
     $price    = wp_strip_all_tags($cells[3]);
     $priceSub = wp_strip_all_tags($cells[4]);
     $bullets  = trim(strip_tags($cells[5], '<br>'));
+	$bullets  = preg_replace('/\x{00AD}|\x{200B}|\x{202F}|\x{00A0}/u', ' ', $bullets);
+	  $bullets  = str_replace(["\r\n","\r"], "\n", $bullets);
+$bullets  = preg_replace('~<br\s*/?>~i', "\n", $bullets);
+	$bulletsArr = array_values(array_filter(array_map('trim', preg_split('~\n+~', $bullets))));
     $link     = esc_url_raw(trim(strip_tags($cells[6])));
     $btnText  = wp_strip_all_tags($cells[7]);
 
     $imagesArr  = array_values(array_filter(array_map('trim', preg_split('~\R+~', $images))));
-    $bulletsArr = array_values(array_filter(array_map('trim', preg_split('~\R+~', $bullets))));
+    
 
     return [
       'images'   => $imagesArr,
@@ -206,59 +358,76 @@ class ZU_Tez_Hotel_Card_OneFile {
     $uid = 'tez-hotel-' . wp_rand(1000, 999999);
 
     // кнопка (fancybox v2/v3)
-    $btn_attrs = ($a['fancybox']==='v3')
-      ? ' data-fancybox data-src="#popup-'.$uid.'" href="javascript:;"'
-      : ' href="#popup-'.$uid.'" class="fancybox"';
+    $popup_id = 'popup-' . $uid;
+$btn_attrs = ($a['fancybox']==='v3')
+  ? ' data-fancybox data-src="#'.$popup_id.'" href="javascript:;"'
+  : ' href="#'.$popup_id.'"';
+$btn_attrs .= ' data-tez-modal-open="'.$popup_id.'"';
+$btn_classes = ['tez-btn'];
+if ($a['fancybox'] !== 'v3') {
+  $btn_classes[] = 'fancybox';
+}
 
-    ob_start(); ?>
-    <section class="hotel-card" id="<?php echo esc_attr($uid); ?>">
-      <div class="hotel-card__inner">
+ob_start(); ?>
+<section class="hotel-card" id="<?php echo esc_attr($uid); ?>">
+  <div class="hotel-card__inner">
 
-        <div class="hotel-card__media">
-           <div class="hotel-slider" role="group" aria-roledescription="галерея" aria-label="Галерея отеля <?php echo esc_attr($data['title']); ?>">
-            <?php foreach ($data['images'] as $i => $u): ?>
-              <div class="hotel-slide<?php echo $i === 0 ? ' is-active' : ''; ?>" aria-hidden="<?php echo $i === 0 ? 'false' : 'true'; ?>"><img src="<?php echo esc_url($u); ?>" alt="<?php echo esc_attr($data['title']); ?> — фото" loading="lazy"></div>
-            <?php endforeach; ?>
-			  <button type="button" class="hotel-slider__nav hotel-slider__nav--prev" aria-label="Предыдущее фото">‹</button>
-            <button type="button" class="hotel-slider__nav hotel-slider__nav--next" aria-label="Следующее фото">›</button>  
-          </div>
-          <div class="hotel-thumbs" aria-label="Миниатюры галереи">
-            <?php foreach ($data['images'] as $i => $u): ?>
-              <button type="button" class="hotel-thumb<?php echo $i === 0 ? ' is-active' : ''; ?>" aria-pressed="<?php echo $i === 0 ? 'true' : 'false'; ?>"><img src="<?php echo esc_url($u); ?>" alt="" loading="lazy"></button>
-            <?php endforeach; ?>
-          </div>
-        </div>
-
-        <div class="hotel-card__content">
-          <h3 class="hotel-card__title">
-            <?php echo esc_html($data['title']); ?>
-            <?php if ($data['stars']): ?><span class="hotel-card__stars"><?php echo esc_html($data['stars']); ?></span><?php endif; ?>
-          </h3>
-
-          <?php if ($data['bullets']): ?>
-          <ul class="hotel-card__bullets">
-            <?php foreach ($data['bullets'] as $b): ?>
-              <li><?php echo wp_kses_post($b); ?></li>
-            <?php endforeach; ?>
-          </ul>
-          <?php endif; ?>
-
-          <?php if ($data['price']): ?>
-          <div class="hotel-card__price">
-            Стоимость: <strong><?php echo esc_html($data['price']); ?></strong>
-            <?php if ($data['priceSub']): ?><div class="hotel-card__sub"><?php echo esc_html($data['priceSub']); ?></div><?php endif; ?>
-          </div>
-          <?php endif; ?>
-
-          <a<?php echo $btn_attrs; ?> class="tez-btn" role="button" aria-haspopup="dialog"><?php echo esc_html($data['btnText']); ?></a>
-          <div class="hotel-card__note">* Фото являются примерами. Актуальные варианты — по запросу менеджера.</div>
-        </div>
-
+    <div class="hotel-card__media">
+       <div class="hotel-slider" role="group" aria-roledescription="галерея" aria-label="Галерея отеля <?php echo esc_attr($data['title']); ?>">
+        <?php foreach ($data['images'] as $i => $u): ?>
+          <div class="hotel-slide<?php echo $i === 0 ? ' is-active' : ''; ?>" aria-hidden="<?php echo $i === 0 ? 'false' : 'true'; ?>"><img src="<?php echo esc_url($u); ?>" alt="<?php echo esc_attr($data['title']); ?> — фото" loading="lazy"></div>
+        <?php endforeach; ?>
+ <button type="button" class="hotel-slider__nav hotel-slider__nav--prev" aria-label="Предыдущее фото">‹</button>
+        <button type="button" class="hotel-slider__nav hotel-slider__nav--next" aria-label="Следующее фото">›</button>  
       </div>
-    </section>
+      <div class="hotel-thumbs" aria-label="Миниатюры галереи">
+        <?php foreach ($data['images'] as $i => $u): ?>
+          <button type="button" class="hotel-thumb<?php echo $i === 0 ? ' is-active' : ''; ?>" aria-pressed="<?php echo $i === 0 ? 'true' : 'false'; ?>"><img src="<?php echo esc_url($u); ?>" alt="" loading="lazy"></button>
+        <?php endforeach; ?>
+      </div>
+    </div>
 
-    <div id="popup-<?php echo esc_attr($uid); ?>" style="display:none;max-width:720px;">
-      <?php echo do_shortcode('[contact-form-7 id="'.esc_attr($a['form_id']).'" title="Подобрать тур"]'); ?>
+    <div class="hotel-card__content">
+      <h3 class="hotel-card__title">
+        <?php echo esc_html($data['title']); ?>
+        <?php if ($data['stars']): ?><span class="hotel-card__stars"><?php echo esc_html($data['stars']); ?></span><?php endif; ?>
+      </h3>
+
+      <?php if ($data['bullets']): ?>
+      <ul class="hotel-card__bullets">
+        <?php foreach ($data['bullets'] as $b): ?>
+          <li><?php echo wp_kses_post($b); ?></li>
+        <?php endforeach; ?>
+      </ul>
+      <?php endif; ?>
+
+      <?php if ($data['price']): ?>
+      <div class="hotel-card__price">
+        Стоимость на человека от: <strong><?php echo esc_html($data['price']); ?></strong>
+        <?php if ($data['priceSub']): ?><div class="hotel-card__sub"><?php echo esc_html($data['priceSub']); ?></div><?php endif; ?>
+      </div>
+      <?php endif; ?>
+
+      <a<?php echo $btn_attrs; ?> class="<?php echo esc_attr(implode(' ', $btn_classes)); ?>" role="button" aria-haspopup="dialog"><?php echo esc_html($data['btnText']); ?></a>
+     
+    </div>
+
+  </div>
+</section>
+
+<?php $modal_title_id = $popup_id . '-title'; $modal_desc_id = $popup_id . '-desc'; ?>
+<div id="<?php echo esc_attr($popup_id); ?>" class="tez-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="<?php echo esc_attr($modal_title_id); ?>" aria-describedby="<?php echo esc_attr($modal_desc_id); ?>">
+  <div class="tez-modal__backdrop" data-tez-modal-close></div>
+  <div class="tez-modal__dialog" role="document">
+    <button type="button" class="tez-modal__close" aria-label="Закрыть" data-tez-modal-close>&times;</button>
+    <div class="tez-modal__body">
+      <h2 class="tez-modal__title" id="<?php echo esc_attr($modal_title_id); ?>">Подбор тура</h2>
+      <p class="tez-modal__subtitle" id="<?php echo esc_attr($modal_desc_id); ?>">Заполните форму — мы свяжемся с вами и подготовим подборку подходящих вариантов.</p>
+      <div class="tez-modal__form">
+        <?php echo do_shortcode('[contact-form-7 id="'.esc_attr($a['form_id']).'" title="Подобрать тур"]'); ?>
+      </div>
+    </div>
+  </div>
     </div>
     <?php
     return ob_get_clean();
