@@ -463,7 +463,7 @@ article .container ul li:before {
 
 article .container h1, article .container h2, article .container h3, article .container h4 {
     font-weight: normal;
-	color: #00aae1;
+	color: #333;
 }
 article .container h1 {
     border-bottom: solid 1px #cecabf;
@@ -2275,8 +2275,10 @@ button.nav-tgl.menu-toggle>span {
 	}
 }
 :root{
-  --tez-blue:#2863c7;
-  --tez-blue-hover:#1f4fb0;
+  --tt-cta-blue:#2863c7;
+  --tt-cta-blue-hover:#1f4fb0;
+  --tez-blue:var(--tt-cta-blue);
+  --tez-blue-hover:var(--tt-cta-blue-hover);
 }
 
 /* базовые стили кнопок */
@@ -3085,7 +3087,7 @@ section > .main_bg  {
 
 /* === TEZ: блок преимуществ (из шаблона category-default.php) === */
 :root{
-  --tez-blue:#2e6cff;
+  --tez-blue:var(--tt-cta-blue);
   --tez-text:#1f2937;
   --tez-muted:#6b7a90;
   --tez-card:#ffffff;
@@ -3538,7 +3540,7 @@ body.home .bn___top::before{
   font-weight:600;
 
   color:#fff;
-  background:var(--tt-blue);
+  background:var(--tt-cta-blue);
   border:none;
   border-radius:10px;
 
@@ -3547,7 +3549,7 @@ body.home .bn___top::before{
 }
 
 .tt-btn-primary:hover{
-  background:var(--tt-blue-hover);
+  background:var(--tt-cta-blue-hover);
   transform:translateY(-1px);
   box-shadow:0 14px 30px rgba(0,0,0,.22);
   text-decoration:none;
@@ -3579,10 +3581,76 @@ body.home .bn___top::before{
 
 .tt-btn-outline:hover{
   background:#fff;
-  color:var(--tt-blue);
+  color:var(--tt-cta-blue);
   transform:translateY(-1px);
 }
 
 .tt-btn-outline:hover svg{
-  fill:var(--tt-blue);
+  fill:var(--tt-cta-blue);
+}
+
+.rubric-hero-banner{
+	position:relative;
+	width:100%;
+	max-width:1200px;
+	min-height:480px;
+	margin:24px 0;
+	overflow:hidden;
+	border-radius:12px;
+}
+
+.rubric-hero-banner__image{
+	position:absolute;
+	inset:0;
+	background-position:center center;
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+
+.rubric-hero-banner .box_sh{
+	bottom:40px;
+	left:40px;
+}
+
+@media (max-width: 1024px){
+	.rubric-hero-banner{
+		min-height:380px;
+	}
+}
+
+@media (max-width: 768px){
+	.rubric-hero-banner{
+		min-height:260px;
+		border-radius:10px;
+	}
+
+	.rubric-hero-banner__image{
+		background-position:left center;
+	}
+
+	.rubric-hero-banner .box_sh{
+		left:20px;
+		right:20px;
+		bottom:20px;
+	}
+}
+
+@media (max-width: 640px){
+	.rubric-hero-banner .box_sh .w_app{
+		display:none;
+	}
+
+	.rubric-hero-banner .t_app a{
+		padding:10px 16px;
+		font-size:14px;
+	}
+}
+
+
+.rubric-hotels-title{
+	margin:0 0 24px;
+}
+
+.rubric-hotels-widget{
+	margin-top:18px;
 }
