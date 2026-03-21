@@ -73,6 +73,7 @@ function tez_custom_redirect() {
     "/goryashhie-tury/venesuela-%F0%9F%87%BB%F0%9F%87%AA-provozhaem-osen-na-karibax.php" => "/goryashhie-tury",
     "/goryashhie-tury/venesuela-po-cene-turcii%F0%9F%92%A5.php" => "/goryashhie-tury",
     "/goryashhie-tury/venesuela-vysokij-sezon-nachinaetsya%F0%9F%92%A5.php" => "/goryashhie-tury",
+	"/goryashhie-tury/tury-v-turciyu-leto-2021.php" => "/tury-v-turciyu",
   ];
   $uri = $_SERVER['REQUEST_URI'] ?? '';
   foreach ($redirects as $url => $target) {
@@ -83,6 +84,10 @@ function tez_custom_redirect() {
   }
 }
 add_action( 'template_redirect', 'tez_custom_redirect' );
+
+
+
+
 
 /* =========================
  * Clean <head>
@@ -437,6 +442,58 @@ add_filter("manage_category_custom_column", 'fill_columns', 10, 3);
 
 add_action('admin_head', function () {
   echo '<style>.widefat .column-id{width:20px}.widefat .column-preview{width:55px;text-align:center}.widefat .column-status{width:45px;text-align:center}</style>';
+});
+
+/* =========================
+ * Category banner field (fallback if no ACF field)
+ * ========================= */
+add_action('category_add_form_fields', function () {
+  ?>
+  <div class="form-field term-rubric-banner-image-wrap">
+    <label for="rubric_banner_image_url">Баннер рубрики (1200x480)</label>
+    <input type="url" name="rubric_banner_image_url" id="rubric_banner_image_url" value="" class="regular-text" placeholder="https://.../banner.jpg" />
+    <p>Заполните URL изображения. Если ACF-поле <code>rubric_banner_image</code> заполнено, используется оно.</p>
+  </div>
+  <?php
+});
+
+add_action('category_edit_form_fields', function ($term) {
+  $value = get_term_meta($term->term_id, 'rubric_banner_image_url', true);
+  ?>
+  <tr class="form-field term-rubric-banner-image-wrap">
+    <th scope="row"><label for="rubric_banner_image_url">Баннер рубрики (1200x480)</label></th>
+    <td>
+      <input type="url" name="rubric_banner_image_url" id="rubric_banner_image_url" value="<?php echo esc_attr($value); ?>" class="regular-text" placeholder="https://.../banner.jpg" />
+      <p class="description">Заполните URL изображения. Если ACF-поле <code>rubric_banner_image</code> заполнено, используется оно.</p>
+    </td>
+  </tr>
+  <?php
+});
+
+add_action('edited_category', function ($term_id) {
+  if (!isset($_POST['rubric_banner_image_url'])) {
+    return;
+  }
+
+  $value = esc_url_raw(wp_unslash($_POST['rubric_banner_image_url']));
+
+  if ($value) {
+    update_term_meta($term_id, 'rubric_banner_image_url', $value);
+  } else {
+    delete_term_meta($term_id, 'rubric_banner_image_url');
+  }
+});
+
+add_action('created_category', function ($term_id) {
+  if (!isset($_POST['rubric_banner_image_url'])) {
+    return;
+  }
+
+  $value = esc_url_raw(wp_unslash($_POST['rubric_banner_image_url']));
+
+  if ($value) {
+    update_term_meta($term_id, 'rubric_banner_image_url', $value);
+  }
 });
 
 /* =========================
