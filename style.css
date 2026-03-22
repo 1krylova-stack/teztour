@@ -3654,3 +3654,166 @@ body.home .bn___top::before{
 .rubric-hotels-widget{
 	margin-top:18px;
 }
+
+.tez-faq{
+	margin:28px 0 24px;
+}
+
+.tez-faq__item{
+	margin-bottom:12px;
+	border:1px solid #d8dde8;
+	border-radius:14px;
+	background:#fff;
+	overflow:hidden;
+	box-shadow:none;
+}
+
+.tez-faq__item:last-child{
+	margin-bottom:0;
+}
+
+/* ВОПРОС */
+.tez-faq__question{
+	position:relative;
+	display:block;
+	width:100%;
+	padding:16px 56px 16px 52px;
+	border:0;
+	border-left:4px solid #2d8ae3;
+	background:#fff;
+	text-align:left;
+	cursor:pointer;
+	box-sizing:border-box;
+}
+
+.tez-faq__question span{
+	display:block;
+	margin:0;
+	padding-right:12px;
+	font-size:17px;
+	font-weight:700;
+	line-height:1.35;
+	color:#1f2530;
+}
+
+.tez-faq__question:before{
+	content:'+';
+	position:absolute;
+	left:16px;
+	top:50%;
+	width:20px;
+	height:20px;
+	margin-top:-10px;
+	font-size:28px;
+	font-weight:400;
+	line-height:20px;
+	text-align:center;
+	color:#2d8ae3;
+}
+
+.tez-faq__question:after{
+	content:'+';
+	position:absolute;
+	right:18px;
+	top:50%;
+	width:20px;
+	height:20px;
+	margin-top:-10px;
+	font-size:26px;
+	font-weight:400;
+	line-height:20px;
+	text-align:center;
+	color:#2d8ae3;
+}
+
+.tez-faq__item.is-open .tez-faq__question:after{
+	content:'–';
+	font-size:28px;
+}
+
+/* ОТВЕТ */
+.tez-faq__answer{
+	display:block;
+	padding:16px 20px;
+	border-top:1px solid #e7ecf4;
+	background:#f7faff;
+	color:#4a5565;
+	font-size:15px;
+	line-height:1.65;
+	box-sizing:border-box;
+}
+
+.tez-faq__answer-inner{
+	margin:0;
+	padding:0;
+}
+
+.tez-faq__answer-inner > *{
+	margin:0;
+}
+
+.tez-faq__answer-inner p{
+	margin:0;
+}
+
+.tez-faq__answer-inner p + p{
+	margin-top:10px;
+}
+
+/* МОБИЛКА */
+@media (max-width:768px){
+	.tez-faq{
+		margin:24px 0 20px;
+	}
+
+	.tez-faq__item{
+		margin-bottom:10px;
+		border-radius:12px;
+	}
+
+	.tez-faq__question{
+		padding:14px 44px 14px 42px;
+		border-left-width:4px;
+	}
+
+	.tez-faq__question:before{
+		left:12px;
+		width:18px;
+		height:18px;
+		margin-top:-9px;
+		font-size:22px;
+		line-height:18px;
+	}
+
+	.tez-faq__question:after{
+		right:12px;
+		width:18px;
+		height:18px;
+		margin-top:-9px;
+		font-size:22px;
+		line-height:18px;
+	}
+
+	.tez-faq__item.is-open .tez-faq__question:after{
+		font-size:24px;
+	}
+
+	.tez-faq__question span{
+		padding-right:8px;
+		font-size:15px;
+		line-height:1.35;
+	}
+
+	.tez-faq__answer{
+		padding:14px;
+		font-size:14px;
+		line-height:1.6;
+	}
+}
+.tez-faq__item .tez-faq__answer{
+	display:none;
+}
+
+.tez-faq__item.is-open .tez-faq__answer{
+	display:block;
+}
