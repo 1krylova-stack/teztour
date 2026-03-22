@@ -249,9 +249,9 @@ if( $date_main_post > $databaseDate) { ?>
                                         echo do_shortcode( '[tour_included]' );
                                 }
                                 if ( $polnaya_opisaniye_rubrik ) {
-                                        echo $polnaya_opisaniye_rubrik;
+                                        echo apply_filters( 'the_content', do_shortcode( $polnaya_opisaniye_rubrik ) );
                                 } elseif ( $default_category_description ) {
-                                        echo $default_category_description;
+                                         echo apply_filters( 'the_content', do_shortcode( $default_category_description ) );
                                 }
                                 ?>
                         </div>
