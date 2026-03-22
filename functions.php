@@ -496,6 +496,78 @@ add_action('created_category', function ($term_id) {
   }
 });
 
+function tez_get_term_faq_data($term_id) {
+  $items = [];
+
+  if (function_exists('get_field')) {
+    $acf_items = get_field('tez_faq_items', 'category_' . $term_id);
+
+    if (is_array($acf_items)) {
+      $items = $acf_items;
+    }
+  }
+
+  $normalized_items = [];
+  foreach ($items as $item) {
+    $question = isset($item['question']) ? trim((string) $item['question']) : '';
+    $answer = isset($item['answer']) ? trim((string) $item['answer']) : '';
+    if ($question === '' || $answer === '') {
+      continue;
+    }
+    $normalized_items[] = [
+      'question' => $question,
+      'answer'   => $answer,
+    ];
+  }
+
+  return [
+    'items' => $normalized_items,
+  ];
+}
+
+function tez_render_faq_markup($faq_data = []) {
+  $items = isset($faq_data['items']) && is_array($faq_data['items']) ? $faq_data['items'] : [];
+
+  if (!$items) {
+    return '';
+  }
+
+  static $faq_instance = 0;
+  $faq_instance++;
+
+  ob_start(); ?>
+  <section class="tez-faq" data-faq-id="<?php echo (int) $faq_instance; ?>">
+    <div class="tez-faq__list">
+      <?php foreach ($items as $index => $item) :
+        $is_open = $index === 0;
+        $item_id = 'tez-faq-item-' . $faq_instance . '-' . ($index + 1);
+      ?>
+        <div class="tez-faq__item<?php echo $is_open ? ' is-open' : ''; ?>">
+          <button
+            class="tez-faq__question"
+            type="button"
+            aria-expanded="<?php echo $is_open ? 'true' : 'false'; ?>"
+            aria-controls="<?php echo esc_attr($item_id); ?>"
+          >
+            <span><?php echo esc_html($item['question']); ?></span>
+          </button>
+          <div
+            class="tez-faq__answer"
+            id="<?php echo esc_attr($item_id); ?>"
+            <?php if (!$is_open) : ?>hidden<?php endif; ?>
+          >
+            <div class="tez-faq__answer-inner">
+              <?php echo wpautop(wp_kses_post($item['answer'])); ?>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </section>
+  <?php
+  return ob_get_clean();
+}
+
 /* =========================
  * Contact Form 7 — allow HTML in acceptance
  * ========================= */
@@ -756,6 +828,66 @@ function alt3_tour_included_shortcode( $atts = [] ) {
     return ob_get_clean();
 }
 add_shortcode( 'tour_included', 'alt3_tour_included_shortcode' );
+
+
+add_shortcode('tez_faq', function($atts = []) {
+    $a = shortcode_atts([
+        'term_id' => 0,
+    ], $atts, 'tez_faq');
+
+    $term_id = (int) $a['term_id'];
+
+    if ($term_id <= 0 && is_category()) {
+        $term = get_queried_object();
+        if ($term && !empty($term->term_id)) {
+            $term_id = (int) $term->term_id;
+        }
+    }
+
+    if ($term_id <= 0) {
+        return '';
+    }
+
+    return tez_render_faq_markup(tez_get_term_faq_data($term_id));
+});
+
+add_action('wp_footer', function() {
+    static $faq_script_printed = false;
+    if ($faq_script_printed) {
+        return;
+    }
+    $faq_script_printed = true;
+    ?>
+    <script>
+    document.addEventListener('click', function(event) {
+      var button = event.target.closest('.tez-faq__question');
+      if (!button) return;
+
+      var item = button.closest('.tez-faq__item');
+      var list = item ? item.parentNode : null;
+      if (!item || !list) return;
+
+      var isOpen = item.classList.contains('is-open');
+      var items = list.querySelectorAll('.tez-faq__item');
+
+      items.forEach(function(currentItem) {
+        currentItem.classList.remove('is-open');
+        var currentButton = currentItem.querySelector('.tez-faq__question');
+        var currentAnswer = currentItem.querySelector('.tez-faq__answer');
+        if (currentButton) currentButton.setAttribute('aria-expanded', 'false');
+        if (currentAnswer) currentAnswer.hidden = true;
+      });
+
+      if (!isOpen) {
+        var answer = item.querySelector('.tez-faq__answer');
+        item.classList.add('is-open');
+        button.setAttribute('aria-expanded', 'true');
+        if (answer) answer.hidden = false;
+      }
+    });
+    </script>
+    <?php
+}, 100);
 
 
 // Блок карточки с отелями в рубриках
